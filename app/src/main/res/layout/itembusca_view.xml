@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:elevation="11dp"
+        android:outlineProvider="none"
+        app:cardBackgroundColor="#403E3E3E"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:clipToPadding="false"
+                android:elevation="0dp"
+                android:outlineProvider="none"
+                android:paddingHorizontal="0dp"
+                android:paddingVertical="0dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="0dp"
+                app:cardBackgroundColor="#00FFFFFF"
+                app:cardUseCompatPadding="false"
+                app:contentPadding="0dp"
+                app:contentPaddingBottom="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/txtOriginalBusca">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:foregroundGravity="fill"
+                    android:outlineProvider="none"
+                    android:paddingHorizontal="0dp"
+                    android:paddingVertical="0dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtSinopseBusca"
+                            android:layout_width="230dp"
+                            android:layout_height="wrap_content"
+                            android:elevation="10dp"
+                            android:fontFamily="@font/inter"
+                            android:paddingVertical="0dp"
+                            android:text="@string/sinopse"
+                            android:textAlignment="textStart"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </ScrollView>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtAnoBusca"
+                android:layout_width="20dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="3dp"
+                android:elevation="4dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:maxLength="4"
+                android:outlineProvider="none"
+                android:text="2023"
+                android:textColor="#FFFFFF"
+                android:textSize="8sp"
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/txtNomeBusca" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:elevation="4dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/bola"
+                android:textColor="#FFFFFF"
+                android:textSize="8sp"
+                app:layout_constraintStart_toEndOf="@+id/txtOriginalBusca"
+                app:layout_constraintTop_toBottomOf="@+id/txtNomeBusca" />
+
+            <TextView
+                android:id="@+id/txtOriginalBusca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:elevation="4dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:outlineProvider="none"
+                android:text="Bottoms"
+                android:textColor="#FFFFFF"
+                android:textSize="8sp"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/txtNomeBusca" />
+
+            <TextView
+                android:id="@+id/txtNomeBusca"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/poppins_bold"
+                android:maxLines="2"
+                android:text="Bottoms"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:elevation="3dp"
+                android:outlineProvider="background"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgPosterBusca"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/iufnms8u5cb6xfzi51dbkovj7vm" />
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

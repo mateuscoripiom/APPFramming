@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Framming</string>
+    <string name="sinopse">Unpopular best friends PJ and Josie start a high school fight club to meet girls and lose their virginity. They soon find themselves in over their heads when the most popular students start beating each other up in the name of self-defense. Unpopular best friends PJ and Josie start a high school fight club to meet girls and lose their virginity. They soon find themselves in over their heads when the most popular students start beating each other up in the name of self-defense.</string>
+    <string name="genero">COMÉDIA</string>
+    <string name="classificacao">16 ANOS</string>
+    <string name="situacao">EM CARTAZ</string>
+    <string name="visualicao">2.589</string>
+    <string name="querover">QUERO VER</string>
+    <string name="adddiario">ADICIONAR AO DIÁRIO</string>
+    <string name="escritica">ESCREVER CRÍTICA</string>
+    <string name="snota">DAR NOTA</string>
+    <string name="ano">2023</string>
+    <string name="bola">•</string>
+    <string name="duracao">92min</string>
+    <string name="media">3.5</string>
+    <string name="horarioesessoes">HORÁRIOS E SESSÕES</string>
+    <string name="criticas">CRÍTICAS</string>
+    <string name="sessaodata">24/08 \n QUI</string>
+    <string name="alterep">Altere o poster</string>
+    <string name="pesquisaf">Pesquise um filme</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="escrevacritica">Escreva sua crítica</string>
+    <string name="escrecr">Escreva aqui sua crítica para o filme!</string>
+    <string name="salvar">SALVAR</string>
+    <string name="data">Data</string>
+    <string name="suanota">Nota</string>
+    <string name="criticauser">Crítica do usuário</string>
+    <string name="nomeuser">name_user</string>
+    <string name="sloganhome">Comece sua aventura pelo mundo cinematográfico!</string>
+    <string name="pesquisahome">Pesquise seu filme, usuário, listas ou atores</string>
+</resources>

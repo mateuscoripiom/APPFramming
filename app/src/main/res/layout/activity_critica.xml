@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1C1C1D"
+    android:fitsSystemWindows="true"
+    tools:context=".CriticaActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:outlineProvider="none"
+        app:cardBackgroundColor="#00FFFFFF"
+        app:cardElevation="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:elevation="5dp"
+                android:outlineProvider="none"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_framming_33" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="380dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardBackgroundColor="#6D6D6D"
+                app:cardCornerRadius="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btndata2"
+        style="spinnerStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:backgroundTint="#00FFFFFF"
+        android:includeFontPadding="false"
+        android:onClick="openDatePicker"
+        android:padding="0dp"
+        android:paddingHorizontal="0dp"
+        android:paddingVertical="0dp"
+        android:paddingStart="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:text="SET 11 2023"
+        android:textAlignment="textStart"
+        android:textSize="10sp"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBar2"
+        app:layout_constraintStart_toEndOf="@+id/cardView" />
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:clickable="false"
+        android:indeterminate="false"
+        android:max="5"
+        android:numStars="5"
+        android:padding="0dp"
+        android:paddingHorizontal="0dp"
+        android:paddingVertical="0dp"
+        android:paddingStart="0dp"
+        android:progressTint="#FFFFFF"
+        android:scaleX="2"
+        android:scaleY="2"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintStart_toEndOf="@+id/cardView" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clipToPadding="false"
+        android:elevation="4dp"
+        android:outlineProvider="none"
+        android:paddingHorizontal="0dp"
+        android:paddingVertical="0dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="0dp"
+        app:cardBackgroundColor="#00FFFFFF"
+        app:cardUseCompatPadding="false"
+        app:contentPadding="0dp"
+        app:contentPaddingBottom="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:foregroundGravity="fill"
+            android:outlineProvider="none"
+            android:paddingHorizontal="0dp"
+            android:paddingVertical="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txtCriticaUser"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:justificationMode="inter_word"
+                    android:paddingVertical="0dp"
+                    android:text="@string/sinopse"
+                    android:textAlignment="textStart"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
+        android:elevation="3dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgbtnvoltar4">
+
+        <ImageView
+            android:id="@+id/imgPosterCriticaUser"
+            android:layout_width="120dp"
+            android:layout_height="179dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txtName3"
+        android:layout_width="201dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeTextType="uniform"
+        android:elevation="10dp"
+        android:fontFamily="@font/poppins_bold"
+        android:maxLines="2"
+        android:text="Bottoms"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+    <TextView
+        android:id="@+id/txtAno3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:elevation="4dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:maxLength="4"
+        android:text="@string/ano"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/txtName3" />
+
+    <ImageView
+        android:id="@+id/imgFundo5"
+        android:layout_width="412dp"
+        android:layout_height="234dp"
+        android:adjustViewBounds="true"
+        android:elevation="2dp"
+        android:outlineProvider="none"
+        android:scaleType="fitStart"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/imgFundo6"
+        android:layout_width="412dp"
+        android:layout_height="234dp"
+        android:elevation="2dp"
+        android:outlineProvider="none"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/gradientp" />
+
+    <ImageButton
+        android:id="@+id/imgbtnvoltar4"
+        android:layout_width="59dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#00FFFFFF"
+        android:elevation="6dp"
+        android:outlineProvider="none"
+        android:scaleType="fitStart"
+        android:src="@drawable/icons8_voltar_100"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:clipToPadding="false"
+        android:padding="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        app:cardBackgroundColor="#00FFFFFF"
+        app:cardCornerRadius="50dp"
+        app:cardUseCompatPadding="false"
+        app:contentPadding="0dp"
+        app:contentPaddingTop="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btndata2"
+        app:layout_constraintStart_toEndOf="@+id/cardView">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/iconperfil" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="3dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/nomeuser"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/btndata2"
+        app:layout_constraintStart_toEndOf="@+id/cardView2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
