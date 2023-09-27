@@ -56,6 +56,8 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
                 itemsbusca.clear();
                 recyclerViewbusca = findViewById(R.id.recyclerViewPesquisa);
                 buscaInfoFilmeQ();
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(imgbtnbuscar.getWindowToken(), 0);
             }
         });
 
@@ -65,6 +67,8 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
                     itemsbusca.clear();
                     recyclerViewbusca = findViewById(R.id.recyclerViewPesquisa);
                     buscaInfoFilmeQ();
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(imgbtnbuscar.getWindowToken(), 0);
                 }
                 return false;
             }

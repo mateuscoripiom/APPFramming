@@ -66,12 +66,12 @@
 
         <ImageView
             android:id="@+id/imgFundo3"
-            android:layout_width="412dp"
+            android:layout_width="match_parent"
             android:layout_height="234dp"
             android:adjustViewBounds="true"
             android:elevation="2dp"
             android:outlineProvider="none"
-            android:scaleType="fitStart"
+            android:scaleType="centerCrop"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
 
         <ImageView
             android:id="@+id/imgFundo4"
-            android:layout_width="412dp"
+            android:layout_width="match_parent"
             android:layout_height="234dp"
             android:elevation="2dp"
             android:outlineProvider="none"

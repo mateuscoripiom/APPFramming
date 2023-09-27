@@ -9,7 +9,7 @@
     tools:context=".HomeActivity">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:outlineProvider="none"
         app:cardBackgroundColor="#383838"
@@ -49,17 +49,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
                 app:cardBackgroundColor="#FF6666"
                 app:cardCornerRadius="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView11">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <EditText
@@ -89,6 +91,7 @@
                         android:backgroundTint="#00FFFFFF"
                         android:elevation="0dp"
                         android:src="@drawable/icons8_pesquisar_19"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/edittxtbuscap" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
