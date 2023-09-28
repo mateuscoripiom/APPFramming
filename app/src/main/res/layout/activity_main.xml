@@ -342,7 +342,42 @@
                                 android:layout_width="10dp"
                                 android:layout_height="10dp"
                                 android:layout_weight="0"
+                                android:outlineProvider="none"
                                 app:cardBackgroundColor="#00FFFFFF" />
+
+                            <Button
+                                android:id="@+id/btndiario"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:layout_weight="1"
+                                android:backgroundTint="#00FFFFFF"
+                                android:drawablePadding="0dp"
+                                android:elevation="3dp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:padding="0dp"
+                                android:paddingLeft="0dp"
+                                android:paddingTop="0dp"
+                                android:paddingRight="0dp"
+                                android:paddingBottom="0dp"
+                                android:text="@string/adddiario"
+                                android:textSize="10sp"
+                                app:iconPadding="0dp"
+                                app:strokeColor="#FFFFFF"
+                                app:strokeWidth="2dp" />
+                        </LinearLayout>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_weight="0"
+                            android:outlineProvider="none"
+                            app:cardBackgroundColor="#00FFFFFF" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
 
                             <Button
                                 android:id="@+id/button7"
@@ -363,19 +398,13 @@
                                 app:iconPadding="0dp"
                                 app:strokeColor="#FFFFFF"
                                 app:strokeWidth="2dp" />
-                        </LinearLayout>
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="5dp"
-                            android:layout_weight="0"
-                            app:cardBackgroundColor="#00FFFFFF" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0"
+                                android:outlineProvider="none"
+                                app:cardBackgroundColor="#00FFFFFF" />
 
                             <Button
                                 android:id="@+id/button8"
@@ -400,31 +429,6 @@
                                 app:strokeColor="#00FFFFFF"
                                 app:strokeWidth="2dp" />
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="10dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0"
-                                app:cardBackgroundColor="#00FFFFFF" />
-
-                            <Button
-                                android:id="@+id/btndiario"
-                                android:layout_width="match_parent"
-                                android:layout_height="35dp"
-                                android:layout_weight="1"
-                                android:backgroundTint="#00FFFFFF"
-                                android:drawablePadding="0dp"
-                                android:elevation="3dp"
-                                android:fontFamily="@font/poppins_semibold"
-                                android:padding="0dp"
-                                android:paddingLeft="0dp"
-                                android:paddingTop="0dp"
-                                android:paddingRight="0dp"
-                                android:paddingBottom="0dp"
-                                android:text="@string/adddiario"
-                                android:textSize="10sp"
-                                app:iconPadding="0dp"
-                                app:strokeColor="#FFFFFF"
-                                app:strokeWidth="2dp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -441,50 +445,48 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
+            android:outlineProvider="none"
             app:cardBackgroundColor="#00FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/button9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="8sp"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:outlineProvider="none"
+                    android:text="@string/horarioesessoes"
+                    android:textColor="#1E1E1E"
+                    android:textSize="11sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="10dp"
+                    android:layout_height="43dp"
+                    android:layout_weight="0"
+                    android:outlineProvider="none"
+                    app:cardBackgroundColor="#00FFFFFF" />
+
+                <Button
+                    android:id="@+id/button10"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/button9"
-                        android:layout_width="match_parent"
-                        android:layout_height="43dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="#FFFFFF"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/horarioesessoes"
-                        android:textColor="#1E1E1E"
-                        android:textSize="11sp" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="10dp"
-                        android:layout_height="43dp"
-                        android:layout_weight="0"
-                        app:cardBackgroundColor="#00FFFFFF" />
-
-                    <Button
-                        android:id="@+id/button10"
-                        android:layout_width="match_parent"
-                        android:layout_height="43dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="#59FFFFFF"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/criticas"
-                        android:textColor="#FFFFFF"
-                        android:textSize="11sp" />
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_weight="1"
+                    android:backgroundTint="#59FFFFFF"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/criticas"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp" />
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
