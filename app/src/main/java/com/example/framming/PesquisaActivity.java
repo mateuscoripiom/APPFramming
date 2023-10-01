@@ -1,5 +1,6 @@
 package com.example.framming;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +50,17 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
         edittxtbuscar.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                edittxtbuscar.clearFocus();
+                itemsbusca.clear();
+                startActivity(new Intent(PesquisaActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
 
         imgbtnbuscar.setOnClickListener(new View.OnClickListener(){
             @Override

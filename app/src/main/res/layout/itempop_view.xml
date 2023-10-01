@@ -17,9 +17,9 @@
     <ImageView
         android:id="@+id/imgPosterPop"
         android:layout_width="90dp"
-        android:layout_height="match_parent"
+        android:layout_height="135dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/rm7edynhn7pbfohqvldximyhdu3" />
+        app:srcCompat="@drawable/iufnms8u5cb6xfzi51dbkovj7vm" />
 </androidx.cardview.widget.CardView>
 

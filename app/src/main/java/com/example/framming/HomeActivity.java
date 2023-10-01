@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,11 +14,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -37,11 +39,15 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     public static List<Item> items = new ArrayList<>();
 
     public static String ID = null;
+    public static String IDPopUp;
     public static RecyclerView recyclerViewPop;
     public static int usadobtn = 0;
+    public static String IDUser = "1";
 
     public static String IDPositionPop;
     public static boolean swtPosition = false;
+
+    View layout;
 
 
     @Override
@@ -51,6 +57,8 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
         edittxtbusca = findViewById(R.id.edittxtbuscap);
         imgbtnpesquisa = findViewById(R.id.imgbtnpesquisa);
+
+        layout = findViewById(R.id.constraint);
 
 
         edittxtbusca.setOnClickListener(new View.OnClickListener(){
@@ -188,7 +196,9 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-                                // do whatever
+                                IDPopUp = items.get(position).getIdpop();
+                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));
+                                //Createpopupwindows();
                             }
                         })
                 );
@@ -246,6 +256,24 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         }
         }
     }
+
+    private void Createpopupwindows() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popUpView = inflater.inflate(R.layout.activity_pop_up, null);
+
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        PopupWindow popupWindow = new PopupWindow(popUpView, width, height, focusable);
+        layout.post(new Runnable(){
+            @Override
+            public void run() {
+                popupWindow.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
+            }
+            });
+        }
+
+
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
         // obrigatório implementar, nenhuma ação executada

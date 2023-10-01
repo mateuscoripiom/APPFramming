@@ -1,5 +1,11 @@
 package com.example.framming;
 
+import static com.example.framming.HomeActivity.items;
+import static com.example.framming.HomeActivity.swtPosition;
+import static com.example.framming.PesquisaActivity.itemsbusca;
+import static com.example.framming.PosterActivity.posterArray;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -43,6 +49,15 @@ public class CriticaActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(CriticaActivity.this, HomeActivity.class));
+                finish();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
 
         ratingBarCritica.setRating(LogActivity.ratingBar.getRating());
         txtCriticaUser.setText(LogActivity.critica);

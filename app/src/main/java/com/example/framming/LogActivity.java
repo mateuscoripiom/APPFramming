@@ -2,6 +2,7 @@ package com.example.framming;
 
 import static com.example.framming.MainActivity.usado;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,6 +77,14 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
                 startActivity(new Intent(LogActivity.this, MainActivity.class));
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(LogActivity.this, MainActivity.class));
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
 
         buscaInfoFilme();
 

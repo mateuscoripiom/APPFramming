@@ -5,6 +5,7 @@ import static com.example.framming.HomeActivity.swtPosition;
 import static com.example.framming.PesquisaActivity.itemsbusca;
 import static com.example.framming.PosterActivity.posterArray;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,11 +35,13 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     public static ImageView imgFundo, imgPoster;
-    private TextView txtName, txtAno, txtDuracao, txtSinopse;
+    private TextView txtName, txtAno, txtDuracao, txtSinopse, txtNomeOriginal;
     private Button btnGenero, btnPesquisa, btndiario;
     public static EditText etxtID;
     private ImageButton imgbtnposter, imgbtnvoltar;
     public static boolean usado = false;
+    public static boolean b = false;
+    public static boolean c = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         imgbtnposter = findViewById(R.id.imgbtnposter);
         imgbtnvoltar = findViewById(R.id.imgbtnvoltar);
         btndiario = findViewById(R.id.btndiario);
+        txtNomeOriginal = findViewById(R.id.txtNomeOriginal);
 
         buscaInfoFilme();
         imgbtnposter.setOnClickListener(new View.OnClickListener(){
@@ -89,6 +93,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(new Intent(MainActivity.this, HomeActivity.class));
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                HomeActivity.ID = null;
+                HomeActivity.IDPositionPop = null;
+                PosterActivity.IDPosition = null;
+                usado = false;
+                PesquisaActivity.IDpesquisa = null;
+                HomeActivity.usadobtn = 0;
+                posterArray.clear();
+                itemsbusca.clear();
+                items.clear();
+                swtPosition = false;
+                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
     public void buscaInfoFilme() {
         // Recupera a string de busca.
@@ -145,7 +167,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             movieString = args.getString("movieString");
         }
         return new CarregaFilmeIDFramming(this, movieString);
+
     }
+
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
         try {
@@ -163,14 +187,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             String sinopse = null;
             String duracao = null;
             String ano = null;
+            String nomeoriginal = null;
             // Procura pro resultados nos itens do array
             while (i < jsonObject.length() &&
-                    (nome == null) && (imgfundo == null) && (imgposter == null) && (sinopse == null) && (duracao == null) && (ano == null)) {
+                    (nome == null) && (imgfundo == null) && (nomeoriginal == null) && (imgposter == null) && (sinopse == null) && (duracao == null) && (ano == null)) {
                 // Obtem a informação
                 Object title = jsonObject.get("title"); // pega o title no object json
                 Object backdrop = jsonObject.get("backdrop_path");
                 Object poster = jsonObject.get("poster_path");
                 Object overview = jsonObject.get("overview");
+                Object originalname =jsonObject.get("original_title");
                 Object runtime = jsonObject.get("runtime");
                 Object year = jsonObject.get("release_date");
 
@@ -183,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     imgposter = poster.toString();
                     sinopse = overview.toString();
                     duracao = runtime.toString();
+                    nomeoriginal = originalname.toString();
                     ano = year.toString();
                     // Toast.makeText(this, "NOME:" + nome, Toast.LENGTH_SHORT).show();
                 } catch (Exception err) {
@@ -214,10 +241,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 z++;
             }
             //mostra o resultado qdo possivel.
-            if ((nome != null) && (imgfundo != null) && (imgposter != null) && (sinopse != null) && (duracao != null) && (ano != null) && (ngenero != null)) {
+            if ((nome != null) && (imgfundo != null) && (nomeoriginal != null) &&(imgposter != null) && (sinopse != null) && (duracao != null) && (ano != null) && (ngenero != null)) {
                 txtName.setText(nome);
                 txtDuracao.setText(duracao + "min");
                 txtAno.setText(ano);
+                txtNomeOriginal.setText(nomeoriginal);
                 btnGenero.setText(ngenero);
                 if(sinopse == ""){
                     txtSinopse.setText(buscaInfoFilmeEN.filmesinen);

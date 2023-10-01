@@ -3,6 +3,7 @@ package com.example.framming;
 import static com.example.framming.MainActivity.etxtID;
 import static com.example.framming.MainActivity.imgPoster;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +40,7 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
     public static ArrayList<String> posterArray = new ArrayList<>();
     private ImageButton btnvoltar2;
     public static String iposters;
+    public static String IDFilme;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,18 +58,30 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
                 posterArray.clear();
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(PosterActivity.this, MainActivity.class));
+                posterArray.clear();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
     public void buscaInfoFilmePoster() {
         // Recupera a string de busca.
         String movieString = null;
         if(HomeActivity.ID != null) {
             movieString = HomeActivity.ID;
+            IDFilme = movieString;
         }
         if(HomeActivity.IDPositionPop != null){
             movieString = HomeActivity.IDPositionPop;
+            IDFilme = movieString;
         }
         if(PesquisaActivity.IDpesquisa != null){
             movieString = PesquisaActivity.IDpesquisa;
+            IDFilme = movieString;
         }
         // esconde o teclado qdo o botão é clicado
         /*InputMethodManager inputManager = (InputMethodManager)
@@ -168,6 +182,7 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
                         @Override public void onItemClick(View view, int position) {
                             MainActivity.usado = true;
                             IDPosition = posterArray.get(position);
+                            //NetworkUtils.salvaPoster(HomeActivity.IDUser, IDFilme, IDPosition);
                             startActivity(new Intent(PosterActivity.this, MainActivity.class));
                         }
 
