@@ -5,10 +5,16 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
@@ -18,6 +24,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -39,7 +46,10 @@ public class NetworkUtils {
     private static final String REGION = "region";
     private static final String TMDB_URL_Q = "https://api.themoviedb.org/3/search/movie";
     private static final String TRENDING = "https://api.themoviedb.org/3/trending/movie";
+    
     private static final String UPCOMING = "https://api.themoviedb.org/3/movie/upcoming";
+    private static final String CHARSET = "ISO-8859-1";
+    public static final int CONNECTION_TIME_OUT = 10000;
 
     private static final OkHttpClient client = new OkHttpClient();
     private static final String QUERY_P = "query";
@@ -485,50 +495,53 @@ public class NetworkUtils {
     }
 
     static String salvaPoster(String userString, String movieString, String posterCaminho) {
+        HttpURLConnection conn = null;
+        Map<String, String> params = null;
         try {
-            URL url = new URL("https://framming-api.onrender.com/posters");
-            Map<String,Object> params = new LinkedHashMap<>();
             params.put("idUser", userString);
             params.put("idMovie", movieString);
             params.put("posterPath", posterCaminho);
 
-            StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> param : params.entrySet()) {
-                if (postData.length() != 0) postData.append('&');
-                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                postData.append('=');
-                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-            }
-            String urlParameters = postData.toString();
-            URLConnection conn = url.openConnection();
+            // https://stackoverflow.com/questions/40238360/android-post-json-with-httpurlconnection
 
+            URL url = new URL("https://framming-api.onrender.com/posters/" + userString);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setConnectTimeout(CONNECTION_TIME_OUT);
+            conn.setReadTimeout(CONNECTION_TIME_OUT);
+            conn.setInstanceFollowRedirects(false);
+            conn.setRequestMethod("POST");
+// ... and get rid of this
+//        conn.setRequestProperty("Connection", "close");
+            conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded; charset=" + CHARSET);
+
+            String content = params.toString();
+            int length = content.getBytes(Charset.forName(CHARSET)).length;
+            conn.setRequestProperty("Content-Length", Integer.toString(length));
             conn.setDoOutput(true);
 
-            OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-
-            writer.write(urlParameters);
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, CHARSET));
+            writer.write(content);
             writer.flush();
-
-            String result = "";
-            String line;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            while ((line = reader.readLine()) != null) {
-                result += line;
-            }
             writer.close();
-            reader.close();
+            os.close();
 
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                InputStream in = conn.getInputStream();
+                in.close();
+            } else {
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (conn != null) {
+            conn.disconnect();
         }
         return userString;
     }
 
 
-}
+    }

@@ -182,7 +182,7 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
                         @Override public void onItemClick(View view, int position) {
                             MainActivity.usado = true;
                             IDPosition = posterArray.get(position);
-                            //NetworkUtils.salvaPoster(HomeActivity.IDUser, IDFilme, IDPosition);
+                            NetworkUtils.salvaPoster(HomeActivity.IDUser, IDFilme, IDPosition);
                             startActivity(new Intent(PosterActivity.this, MainActivity.class));
                         }
 
@@ -214,11 +214,7 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
                 y++;
             }
             //mostra o resultado qdo possivel.
-            if (/*(iposter != null) &&*/ (ifundo != null)) {
-                /*Picasso
-                        .get()
-                        .load("https://www.themoviedb.org/t/p/original" + iposter)
-                        .into(imgPoster2);*/
+            if ((ifundo != null)) {
                 Picasso
                         .get()
                         .load("https://www.themoviedb.org/t/p/original" + ifundo)

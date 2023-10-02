@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     public static String IDPopUp;
     public static RecyclerView recyclerViewPop;
     public static int usadobtn = 0;
-    public static String IDUser = "1";
+    public static String IDUser = "36efc959-0425-4e81-8730-463e4f1ab08f";
 
     public static String IDPositionPop;
     public static boolean swtPosition = false;
