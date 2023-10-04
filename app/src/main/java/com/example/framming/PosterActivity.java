@@ -33,6 +33,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PosterActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
 
     private ImageView imgPoster2, imgFundo2;
@@ -48,6 +53,8 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
 
         imgFundo2 = findViewById(R.id.imgFundo3);
         btnvoltar2 = findViewById(R.id.imgbtnvoltar2);
+
+
 
         buscaInfoFilmePoster();
 
@@ -182,7 +189,7 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
                         @Override public void onItemClick(View view, int position) {
                             MainActivity.usado = true;
                             IDPosition = posterArray.get(position);
-                            NetworkUtils.salvaPoster(HomeActivity.IDUser, IDFilme, IDPosition);
+                            saveUser(createRequest());
                             startActivity(new Intent(PosterActivity.this, MainActivity.class));
                         }
 
@@ -231,5 +238,34 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
         // obrigatório implementar, nenhuma ação executada
+    }
+
+    public UserRequest createRequest(){
+        UserRequest userRequest = new UserRequest();
+        userRequest.setIdMovie(Integer.parseInt(IDFilme));
+        userRequest.setPosterPath(IDPosition);
+
+        return userRequest;
+    }
+
+    public void saveUser(UserRequest userRequest){
+        Call<ResponseBody> result = ApiClient.getUserService().saveUser(HomeActivity.IDUser, userRequest);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(PosterActivity.this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(PosterActivity.this, "Salvamento falhou", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(PosterActivity.this, "Salvamento falhou" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -5,9 +5,9 @@ import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
-public class SalvaPoster extends AsyncTaskLoader<String> {
+public class CarregaPosterSalvo extends AsyncTaskLoader<String> {
     private String mMovieString;
-    SalvaPoster(Context context, String movieString) {
+    CarregaPosterSalvo(Context context, String movieString) {
         super(context);
         mMovieString = movieString;
     }
@@ -19,6 +19,6 @@ public class SalvaPoster extends AsyncTaskLoader<String> {
     @Nullable
     @Override
     public String loadInBackground() {
-        return NetworkUtils.salvaPoster(HomeActivity.IDUser, mMovieString, PosterActivity.IDPosition);
+        return NetworkUtils.buscaPosterSalvo(HomeActivity.IDUser, mMovieString);
     }
 }

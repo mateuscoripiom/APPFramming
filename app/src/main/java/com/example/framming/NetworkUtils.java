@@ -55,6 +55,7 @@ public class NetworkUtils {
     private static final String QUERY_P = "query";
 
     private static final String FRAMMING_URL = "https://framming-api.onrender.com/movies";
+    private static final String FRAMMING_POSTER = "https://framming-api.onrender.com/posters";
 
     static String buscaFilmeString(String queryString) {
         HttpURLConnection urlConnection = null;
@@ -494,53 +495,58 @@ public class NetworkUtils {
         return filmeQJSONString;
     }
 
-    static String salvaPoster(String userString, String movieString, String posterCaminho) {
-        HttpURLConnection conn = null;
-        Map<String, String> params = null;
+    static String buscaPosterSalvo(String userString, String movieString) {
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        String filmeQJSONString = null;
         try {
-            params.put("idUser", userString);
-            params.put("idMovie", movieString);
-            params.put("posterPath", posterCaminho);
-
-            // https://stackoverflow.com/questions/40238360/android-post-json-with-httpurlconnection
-
-            URL url = new URL("https://framming-api.onrender.com/posters/" + userString);
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setUseCaches(false);
-            conn.setAllowUserInteraction(false);
-            conn.setConnectTimeout(CONNECTION_TIME_OUT);
-            conn.setReadTimeout(CONNECTION_TIME_OUT);
-            conn.setInstanceFollowRedirects(false);
-            conn.setRequestMethod("POST");
-// ... and get rid of this
-//        conn.setRequestProperty("Connection", "close");
-            conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded; charset=" + CHARSET);
-
-            String content = params.toString();
-            int length = content.getBytes(Charset.forName(CHARSET)).length;
-            conn.setRequestProperty("Content-Length", Integer.toString(length));
-            conn.setDoOutput(true);
-
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, CHARSET));
-            writer.write(content);
-            writer.flush();
-            writer.close();
-            os.close();
-
-            int responseCode = conn.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                InputStream in = conn.getInputStream();
-                in.close();
-            } else {
+            // Construção da URI de Busca
+            Uri builtURI = Uri.parse(FRAMMING_POSTER).buildUpon()
+                    .appendPath(URLEncoder.encode(userString, "UTF-8"))
+                    .appendPath(URLEncoder.encode(movieString, "UTF-8"))
+                    .build();
+            // Converte a URI para a URL.
+            URL requestURL = new URL(builtURI.toString());
+            // Abre a conexão de rede
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+            // Busca o InputStream.
+            InputStream inputStream = urlConnection.getInputStream();
+            // Cria o buffer para o input stream
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            // Usa o StringBuilder para receber a resposta.
+            StringBuilder builder = new StringBuilder();
+            String linha;
+            // Log.d(LOG_TAG, builtURI.toString()); // mostra a uri da api no log pra ver se tá tudo certo
+            while ((linha = reader.readLine()) != null) {
+                // Adiciona a linha a string.
+                builder.append(linha);
+                builder.append("\n");
             }
-        } catch (Exception e) {
+            if (builder.length() == 0) {
+                // se o stream estiver vazio não faz nada
+                return null;
+            }
+            filmeQJSONString = builder.toString();
+        } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            // fecha a conexão e o buffer.
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        if (conn != null) {
-            conn.disconnect();
-        }
-        return userString;
+        // escreve o Json no log
+        Log.d(LOG_TAG, filmeQJSONString);
+        return filmeQJSONString;
     }
 
 

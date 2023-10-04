@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         btndiario = findViewById(R.id.btndiario);
         txtNomeOriginal = findViewById(R.id.txtNomeOriginal);
 
+
+        buscaInfoPosterSalvo();
         buscaInfoFilme();
         imgbtnposter.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
     public void buscaInfoFilme() {
         // Recupera a string de busca.
+        c = true;
         String movieString = null;
         if(HomeActivity.ID != null) {
             movieString = HomeActivity.ID;
@@ -159,6 +162,45 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         }
     }
+
+    public void buscaInfoPosterSalvo() {
+        b = true;
+        String movieString = null;
+        if(HomeActivity.ID != null) {
+            movieString = HomeActivity.ID;
+        }
+        if(HomeActivity.IDPositionPop != null){
+            movieString = HomeActivity.IDPositionPop;
+        }
+        if(HomeActivity.IDPositionPop != null){
+            movieString = HomeActivity.IDPositionPop;
+        }
+        if(PesquisaActivity.IDpesquisa != null){
+            movieString = PesquisaActivity.IDpesquisa;
+        }
+
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = null;
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+
+        if (networkInfo != null && networkInfo.isConnected()
+                && movieString.length() != 0) {
+            Bundle queryBundle = new Bundle();
+            queryBundle.putString("movieString", movieString);
+            getSupportLoaderManager().restartLoader(0, queryBundle, this);
+        }
+        else {
+            if (movieString.length() == 0) {
+                Toast.makeText(MainActivity.this, "Termo inválido", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "Verifique a conexão", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
@@ -166,12 +208,63 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (args != null) {
             movieString = args.getString("movieString");
         }
+        if(b == true){
+            return new CarregaPosterSalvo(this, movieString);
+        }
+        if(c == true){
+            return new CarregaFilmeIDFramming(this, movieString);
+        }
         return new CarregaFilmeIDFramming(this, movieString);
 
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+        if(b == true){
+            try {
+                // Converte a resposta em Json
+                JSONObject jsonObject = new JSONObject(data);
+                // Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+                // Obtem o JSONArray dos itens de livros
+                // JSONArray itemsArray = jsonObject.getJSONArray("genres");
+                // Toast.makeText(this, itemsArray.toString(), Toast.LENGTH_SHORT).show();
+                // inicializa o contador
+                int i = 0;
+                String imgpostersalvo = null;
+                // Procura pro resultados nos itens do array
+                while (i < jsonObject.length() && (imgpostersalvo == null)) {
+                    // Obtem a informação
+                    Object posterPath = jsonObject.get("linkPoster"); // pega o title no object json
+
+                    // Toast.makeText(this, "MOVIE:" + title, Toast.LENGTH_SHORT).show();
+                    //  Obter autor e titulo para o item,
+                    // erro se o campo estiver vazio
+                    try {
+                        imgpostersalvo = posterPath.toString();
+                        // Toast.makeText(this, "NOME:" + nome, Toast.LENGTH_SHORT).show();
+                    } catch (Exception err) {
+                        err.printStackTrace();
+                    }
+                    // move para a proxima linha
+                    i++;
+                }
+                //mostra o resultado qdo possivel.
+                if ((imgpostersalvo != null)) {
+                    usado = true;
+                    Picasso
+                                .get()
+                                .load("https://www.themoviedb.org/t/p/original" + imgpostersalvo)
+                                .into(imgPoster);
+                    
+                } else {
+                    Toast.makeText(MainActivity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                // Se não receber um JSOn valido, informa ao usuário
+                Toast.makeText(MainActivity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
+            }
+        }
+
         try {
             // Converte a resposta em Json
             JSONObject jsonObject = new JSONObject(data);
@@ -268,14 +361,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                             .load("https://www.themoviedb.org/t/p/original" + imgposter)
                             .into(imgPoster);
                 } else{
-                    Picasso
-                            .get()
-                            .load("https://www.themoviedb.org/t/p/original" + PosterActivity.IDPosition)
-                            .into(imgPoster);
                 }
-
-
-
             } else {
                 Toast.makeText(MainActivity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
             }
