@@ -31,9 +31,10 @@ public class MyAdapterPop extends RecyclerView.Adapter<MyViewHolderPop> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderPop holder, int position) {
         Picasso
-                .get()
-                .load("https://www.themoviedb.org/t/p/original" + items.get(position).getImage())
-                .into(holder.imgPosterPop);
+                    .get()
+                    .load("https://www.themoviedb.org/t/p/original" + items.get(position).getImage())
+                    .into(holder.imgPosterPop);
+
     }
 
     @Override

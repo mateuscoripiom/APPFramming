@@ -12,6 +12,9 @@
     <string name="ano">2023</string>
     <string name="bola">•</string>
     <string name="duracao">92min</string>
+    <string name="login">LOGIN</string>
+    <string name="cadastro">CADASTRO</string>
+    <string name="slogan">Enquadrando emoções!</string>
     <string name="media">3.5</string>
     <string name="horarioesessoes">SESSÕES</string>
     <string name="criticas">CRÍTICAS</string>

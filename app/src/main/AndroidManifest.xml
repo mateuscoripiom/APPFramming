@@ -16,9 +16,12 @@
         android:theme="@style/Theme.Framming"
         tools:targetApi="31">
         <activity
-            android:name=".PopUpActivity"
-            android:theme="@style/Theme.AppCompat.Translucent"
+            android:name=".AberturaActivity"
             android:exported="false" />
+        <activity
+            android:name=".PopUpActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".CriticaActivity"
             android:exported="false" />

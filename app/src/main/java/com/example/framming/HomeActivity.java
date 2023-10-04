@@ -47,6 +47,8 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     public static String IDPositionPop;
     public static boolean swtPosition = false;
 
+    public static String IDPositionPopTela;
+
     View layout;
 
 
@@ -128,6 +130,34 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
+    public void buscaInfoPosterSalvo() {
+        String movieString = null;
+        if(IDPositionPopTela != null) {
+            movieString = IDPositionPopTela;
+        }
+
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = null;
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+
+        if (networkInfo != null && networkInfo.isConnected()
+                && movieString.length() != 0) {
+            Bundle queryBundle = new Bundle();
+            queryBundle.putString("movieString", movieString);
+            getSupportLoaderManager().restartLoader(0, queryBundle, this);
+        }
+        else {
+            if (movieString.length() == 0) {
+                Toast.makeText(HomeActivity.this, "Termo inválido", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(HomeActivity.this, "Verifique a conexão", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     @NonNull
     @Override
@@ -175,7 +205,6 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                         //Toast.makeText(this, idfilme.toString(), Toast.LENGTH_SHORT).show();
                         Log.v("Tag", "The title" + nomefilme.toString());
                         items.add(new Item(idfilme, posterfilme));
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

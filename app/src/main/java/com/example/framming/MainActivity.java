@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static boolean usado = false;
     public static boolean b = false;
     public static boolean c = false;
+    public static int IDLoader;
+    public static String IDFilme;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         buscaInfoPosterSalvo();
         buscaInfoFilme();
+
         imgbtnposter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -116,27 +120,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
     public void buscaInfoFilme() {
         // Recupera a string de busca.
-        c = true;
-        String movieString = null;
-        if(HomeActivity.ID != null) {
-            movieString = HomeActivity.ID;
-        }
-        if(HomeActivity.IDPositionPop != null){
-            movieString = HomeActivity.IDPositionPop;
-        }
-        if(HomeActivity.IDPositionPop != null){
-            movieString = HomeActivity.IDPositionPop;
-        }
-        if(PesquisaActivity.IDpesquisa != null){
-            movieString = PesquisaActivity.IDpesquisa;
-        }
-        // esconde o teclado qdo o botão é clicado
-        /*InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (inputManager != null) {
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        } */
+        String movieString = IDFilme;
 
         // Verifica o status da conexão de rede
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -151,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 && movieString.length() != 0) {
             Bundle queryBundle = new Bundle();
             queryBundle.putString("movieString", movieString);
-            getSupportLoaderManager().restartLoader(0, queryBundle, this);
+            getSupportLoaderManager().restartLoader(1, queryBundle, this);
         }
         // atualiza a textview para informar que não há conexão ou termo de busca
         else {
@@ -164,19 +148,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void buscaInfoPosterSalvo() {
-        b = true;
         String movieString = null;
         if(HomeActivity.ID != null) {
             movieString = HomeActivity.ID;
+            IDFilme = movieString;
         }
         if(HomeActivity.IDPositionPop != null){
             movieString = HomeActivity.IDPositionPop;
+            IDFilme = movieString;
         }
         if(HomeActivity.IDPositionPop != null){
             movieString = HomeActivity.IDPositionPop;
+            IDFilme = movieString;
         }
         if(PesquisaActivity.IDpesquisa != null){
             movieString = PesquisaActivity.IDpesquisa;
+            IDFilme = movieString;
         }
 
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -208,19 +195,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (args != null) {
             movieString = args.getString("movieString");
         }
-        if(b == true){
+        if(id == 0){
+            IDLoader = 0;
             return new CarregaPosterSalvo(this, movieString);
+
         }
-        if(c == true){
+
+        else{
+            IDLoader = 1;
             return new CarregaFilmeIDFramming(this, movieString);
         }
-        return new CarregaFilmeIDFramming(this, movieString);
+
+       // return new CarregaFilmeIDFramming(this, movieString);
 
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-        if(b == true){
+        //if(IDLoader == 0) {
             try {
                 // Converte a resposta em Json
                 JSONObject jsonObject = new JSONObject(data);
@@ -249,126 +241,132 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     i++;
                 }
                 //mostra o resultado qdo possivel.
-                if ((imgpostersalvo != null)) {
+                if (imgpostersalvo != null) {
                     usado = true;
                     Picasso
                                 .get()
                                 .load("https://www.themoviedb.org/t/p/original" + imgpostersalvo)
                                 .into(imgPoster);
-                    
+
                 } else {
                     Toast.makeText(MainActivity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 // Se não receber um JSOn valido, informa ao usuário
-                Toast.makeText(MainActivity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        try {
-            // Converte a resposta em Json
-            JSONObject jsonObject = new JSONObject(data);
-            // Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
-            // Obtem o JSONArray dos itens de livros
-            // JSONArray itemsArray = jsonObject.getJSONArray("genres");
-            // Toast.makeText(this, itemsArray.toString(), Toast.LENGTH_SHORT).show();
-            // inicializa o contador
-            int i = 0;
-            String nome = null;
-            String imgfundo = null;
-            String imgposter = null;
-            String sinopse = null;
-            String duracao = null;
-            String ano = null;
-            String nomeoriginal = null;
-            // Procura pro resultados nos itens do array
-            while (i < jsonObject.length() &&
-                    (nome == null) && (imgfundo == null) && (nomeoriginal == null) && (imgposter == null) && (sinopse == null) && (duracao == null) && (ano == null)) {
-                // Obtem a informação
-                Object title = jsonObject.get("title"); // pega o title no object json
-                Object backdrop = jsonObject.get("backdrop_path");
-                Object poster = jsonObject.get("poster_path");
-                Object overview = jsonObject.get("overview");
-                Object originalname =jsonObject.get("original_title");
-                Object runtime = jsonObject.get("runtime");
-                Object year = jsonObject.get("release_date");
-
-                // Toast.makeText(this, "MOVIE:" + title, Toast.LENGTH_SHORT).show();
-                //  Obter autor e titulo para o item,
-                // erro se o campo estiver vazio
-                try {
-                    nome = title.toString();
-                    imgfundo = backdrop.toString();
-                    imgposter = poster.toString();
-                    sinopse = overview.toString();
-                    duracao = runtime.toString();
-                    nomeoriginal = originalname.toString();
-                    ano = year.toString();
-                    // Toast.makeText(this, "NOME:" + nome, Toast.LENGTH_SHORT).show();
-                } catch (Exception err) {
-                    err.printStackTrace();
-                }
-                // move para a proxima linha
-                i++;
+                //Toast.makeText(MainActivity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
             }
 
-            JSONArray itemsArray = jsonObject.getJSONArray("genres");
-            int z = 0;
-            String ngenero = null;
-            while (z < itemsArray.length() &&
-                    (ngenero == null)) {
-                // Obtem a informação
-                JSONObject genre = itemsArray.getJSONObject(z);
-                // JSONObject volumeInfo = genre.getJSONObject("name");
-                //Toast.makeText(this, genre.toString(), Toast.LENGTH_SHORT).show();
-                //  Obter autor e titulo para o item,
-                // erro se o campo estiver vazio
-                try {
-                    ngenero = genre.getString("name");
-                    //Toast.makeText(this, ngenero.toString(), Toast.LENGTH_SHORT).show();
+        //}
+        //else {
+            try {
+                // Converte a resposta em Json
+                JSONObject jsonObject = new JSONObject(data);
+                // Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+                // Obtem o JSONArray dos itens de livros
+                // JSONArray itemsArray = jsonObject.getJSONArray("genres");
+                // Toast.makeText(this, itemsArray.toString(), Toast.LENGTH_SHORT).show();
+                // inicializa o contador
+                int i = 0;
+                String nome = null;
+                String imgfundo = null;
+                String imgposter = null;
+                String sinopse = null;
+                String duracao = null;
+                String ano = null;
+                String nomeoriginal = null;
+                // Procura pro resultados nos itens do array
+                while (i < jsonObject.length() &&
+                        (nome == null) && (imgfundo == null) && (nomeoriginal == null) && (imgposter == null) && (sinopse == null) && (duracao == null) && (ano == null)) {
+                    // Obtem a informação
+                    Object title = jsonObject.get("title"); // pega o title no object json
+                    Object backdrop = jsonObject.get("backdrop_path");
+                    Object poster = jsonObject.get("poster_path");
+                    Object overview = jsonObject.get("overview");
+                    Object originalname = jsonObject.get("original_title");
+                    Object runtime = jsonObject.get("runtime");
+                    Object year = jsonObject.get("release_date");
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    // Toast.makeText(this, "MOVIE:" + title, Toast.LENGTH_SHORT).show();
+                    //  Obter autor e titulo para o item,
+                    // erro se o campo estiver vazio
+                    try {
+                        nome = title.toString();
+                        imgfundo = backdrop.toString();
+                        imgposter = poster.toString();
+                        sinopse = overview.toString();
+                        duracao = runtime.toString();
+                        nomeoriginal = originalname.toString();
+                        ano = year.toString();
+                        // Toast.makeText(this, "NOME:" + nome, Toast.LENGTH_SHORT).show();
+                    } catch (Exception err) {
+                        err.printStackTrace();
+                    }
+                    // move para a proxima linha
+                    i++;
                 }
-                // move para a proxima linha
-                z++;
+
+                JSONArray itemsArray = jsonObject.getJSONArray("genres");
+                int z = 0;
+                String ngenero = null;
+                while (z < itemsArray.length() &&
+                        (ngenero == null)) {
+                    // Obtem a informação
+                    JSONObject genre = itemsArray.getJSONObject(z);
+                    // JSONObject volumeInfo = genre.getJSONObject("name");
+                    //Toast.makeText(this, genre.toString(), Toast.LENGTH_SHORT).show();
+                    //  Obter autor e titulo para o item,
+                    // erro se o campo estiver vazio
+                    try {
+                        ngenero = genre.getString("name");
+                        //Toast.makeText(this, ngenero.toString(), Toast.LENGTH_SHORT).show();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    // move para a proxima linha
+                    z++;
+                }
+                //mostra o resultado qdo possivel.
+                if ((nome != null) && (imgfundo != null) && (nomeoriginal != null) && (imgposter != null) && (sinopse != null) && (duracao != null) && (ano != null) && (ngenero != null)) {
+                    txtName.setText(nome);
+                    txtDuracao.setText(duracao + "min");
+                    txtAno.setText(ano);
+                    txtNomeOriginal.setText(nomeoriginal);
+                    btnGenero.setText(ngenero);
+                    if (sinopse == "") {
+                        txtSinopse.setText(buscaInfoFilmeEN.filmesinen);
+                    } else {
+                        txtSinopse.setText(sinopse);
+                    }
+                    if(imgfundo == ""){
+                        imgFundo.setVisibility(View.GONE);
+                    }
+                    else {
+                        Picasso
+                                .get()
+                                .load("https://www.themoviedb.org/t/p/original" + imgfundo)
+                                .into(imgFundo);
+                    }
+                    if (usado == true) {
+                        Picasso
+                                .get()
+                                .load("https://www.themoviedb.org/t/p/original" + PosterActivity.IDPosition)
+                                .into(imgPoster);
+                    } else {
+                        Picasso
+                                .get()
+                                .load("https://www.themoviedb.org/t/p/original" + imgposter)
+                                .into(imgPoster);
+                    }
+
+
+                } else {
+                    Toast.makeText(MainActivity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+
             }
-            //mostra o resultado qdo possivel.
-            if ((nome != null) && (imgfundo != null) && (nomeoriginal != null) &&(imgposter != null) && (sinopse != null) && (duracao != null) && (ano != null) && (ngenero != null)) {
-                txtName.setText(nome);
-                txtDuracao.setText(duracao + "min");
-                txtAno.setText(ano);
-                txtNomeOriginal.setText(nomeoriginal);
-                btnGenero.setText(ngenero);
-                if(sinopse == ""){
-                    txtSinopse.setText(buscaInfoFilmeEN.filmesinen);
-                }
-                else{
-                    txtSinopse.setText(sinopse);
-                }
-                if(imgfundo == ""){
-                    imgFundo.setVisibility(View.GONE);
-                }
-                else {
-                    Picasso
-                            .get()
-                            .load("https://www.themoviedb.org/t/p/original" + imgfundo)
-                            .into(imgFundo);
-                }
-                if(usado ==  false) {
-                    Picasso
-                            .get()
-                            .load("https://www.themoviedb.org/t/p/original" + imgposter)
-                            .into(imgPoster);
-                } else{
-                }
-            } else {
-                Toast.makeText(MainActivity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
-            }
-        } catch (Exception e) {
-            // Se não receber um JSOn valido, informa ao usuário
-            Toast.makeText(MainActivity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
-        }
+        //}
     }
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
