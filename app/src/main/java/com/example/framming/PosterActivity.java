@@ -187,8 +187,9 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
             recyclerView.addOnItemTouchListener(
                     new RecyclerItemClickListener(getApplicationContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                         @Override public void onItemClick(View view, int position) {
-                            MainActivity.usado = true;
+                            MainActivity.usadoEscolha = true;
                             IDPosition = posterArray.get(position);
+                            MainActivity.linkFilmeSalvo = IDPosition;
                             saveUser(createRequest());
                             startActivity(new Intent(PosterActivity.this, MainActivity.class));
                         }

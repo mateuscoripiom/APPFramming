@@ -223,10 +223,10 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                                 startActivity(new Intent(HomeActivity.this, MainActivity.class));
                             }
 
-                            @Override
+                            @Override/*IDPopUp = items.get(position).getIdpop();
+                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
                             public void onLongItemClick(View view, int position) {
-                                IDPopUp = items.get(position).getIdpop();
-                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));
+
                                 //Createpopupwindows();
                             }
                         })
