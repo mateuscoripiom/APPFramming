@@ -35,6 +35,7 @@ import java.util.List;
 public class PesquisaActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
 
     private EditText edittxtbuscar;
+    public TextView txtnomeusupesquisa;
     private ImageButton imgbtnbuscar;
     public static String IDpesquisa = null;
     public static RecyclerView recyclerViewbusca;
@@ -46,6 +47,9 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
 
         edittxtbuscar = findViewById(R.id.edittxtbuscar);
         imgbtnbuscar = findViewById(R.id.imgbtnbuscar);
+        txtnomeusupesquisa = findViewById(R.id.textViewnomeusu);
+
+        txtnomeusupesquisa.setText("Olá, " + HomeActivity.nomeusuario + "!");
 
         edittxtbuscar.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

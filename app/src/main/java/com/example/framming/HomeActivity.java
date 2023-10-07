@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -32,10 +33,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class HomeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     private EditText edittxtbusca;
     private ImageButton imgbtnpesquisa;
+    private TextView txtnomeuser;
     public static List<Item> items = new ArrayList<>();
 
     public static String ID = null;
@@ -49,6 +57,9 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public static String IDPositionPopTela;
 
+    public static String nomeusuario;
+
+
     View layout;
 
 
@@ -59,8 +70,10 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
         edittxtbusca = findViewById(R.id.edittxtbuscap);
         imgbtnpesquisa = findViewById(R.id.imgbtnpesquisa);
+        txtnomeuser = findViewById(R.id.textView6);
 
         layout = findViewById(R.id.constraint);
+        buscaInfoUser();
 
 
         edittxtbusca.setOnClickListener(new View.OnClickListener(){
@@ -130,32 +143,39 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
-    public void buscaInfoPosterSalvo() {
-        String movieString = null;
-        if(IDPositionPopTela != null) {
-            movieString = IDPositionPopTela;
-        }
+    public void buscaInfoUser() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://framming-api.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = null;
-        if (connMgr != null) {
-            networkInfo = connMgr.getActiveNetworkInfo();
-        }
+        UserService userService = retrofit.create(UserService.class);
 
-        if (networkInfo != null && networkInfo.isConnected()
-                && movieString.length() != 0) {
-            Bundle queryBundle = new Bundle();
-            queryBundle.putString("movieString", movieString);
-            getSupportLoaderManager().restartLoader(0, queryBundle, this);
-        }
-        else {
-            if (movieString.length() == 0) {
-                Toast.makeText(HomeActivity.this, "Termo inválido", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(HomeActivity.this, "Verifique a conexão", Toast.LENGTH_SHORT).show();
+        Call<UserResponse> call = userService.getAllDataUser(IDUser);
+
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if(response.code() != 200){
+                    //Toast.makeText(MainActivity.this, "Cheque sua conexão", Toast.LENGTH_SHORT).show();
+
+                }
+                if(response.isSuccessful()) {
+                    String nomeusu = "";
+
+                    nomeusu = response.body().getNomeUsuario();
+
+                    if (nomeusu != null || nomeusu != "") {
+                        txtnomeuser.setText("Olá, " + nomeusu + "!");
+                        nomeusuario = nomeusu;
+                    }
+                }
             }
-        }
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+
+            }
+        });
     }
 
 
@@ -182,35 +202,35 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
         try {
-                // Converte a resposta em Json
-                JSONObject jsonObject = new JSONObject(data);
-                // Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
-                // Obtem o JSONArray dos itens de livros
-                JSONArray itemsArray = jsonObject.getJSONArray("results");
-                int z = 0;
-                String idfilme = null;
-                String nomefilme = null;
-                String posterfilme = null;
-                while (z < itemsArray.length()) {
-                    // Obtem a informação
-                    JSONObject id = itemsArray.getJSONObject(z);
-                    // JSONObject volumeInfo = genre.getJSONObject("id");
-                    //Toast.makeText(this, genre.toString(), Toast.LENGTH_SHORT).show();
-                    //  Obter autor e titulo para o item,
-                    // erro se o campo estiver vazio
-                    try {
-                        idfilme = id.getString("id");
-                        nomefilme = id.getString("title");
-                        posterfilme = id.getString("poster_path");
-                        //Toast.makeText(this, idfilme.toString(), Toast.LENGTH_SHORT).show();
-                        Log.v("Tag", "The title" + nomefilme.toString());
-                        items.add(new Item(idfilme, posterfilme));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    // move para a proxima linha
-                    z++;
+            // Converte a resposta em Json
+            JSONObject jsonObject = new JSONObject(data);
+            // Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+            // Obtem o JSONArray dos itens de livros
+            JSONArray itemsArray = jsonObject.getJSONArray("results");
+            int z = 0;
+            String idfilme = null;
+            String nomefilme = null;
+            String posterfilme = null;
+            while (z < itemsArray.length()) {
+                // Obtem a informação
+                JSONObject id = itemsArray.getJSONObject(z);
+                // JSONObject volumeInfo = genre.getJSONObject("id");
+                //Toast.makeText(this, genre.toString(), Toast.LENGTH_SHORT).show();
+                //  Obter autor e titulo para o item,
+                // erro se o campo estiver vazio
+                try {
+                    idfilme = id.getString("id");
+                    nomefilme = id.getString("title");
+                    posterfilme = id.getString("poster_path");
+                    //Toast.makeText(this, idfilme.toString(), Toast.LENGTH_SHORT).show();
+                    Log.v("Tag", "The title" + nomefilme.toString());
+                    items.add(new Item(idfilme, posterfilme));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+                // move para a proxima linha
+                z++;
+            }
                 LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
                 recyclerViewPop.setLayoutManager(horizontalLayoutManager);
                 recyclerViewPop.setAdapter(new MyAdapterPop(getApplicationContext(), items));

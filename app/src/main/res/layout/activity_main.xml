@@ -221,7 +221,7 @@
 
                 <Button
                     android:id="@+id/btnGenero"
-                    android:layout_width="66dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="29dp"
                     android:layout_marginTop="10dp"
                     android:backgroundTint="#1E1E1E"
@@ -232,6 +232,7 @@
                     android:paddingTop="0dp"
                     android:paddingRight="0dp"
                     android:paddingBottom="0dp"
+                    android:maxLines="2"
                     android:textAllCaps="true"
                     android:textSize="8dp"
                     app:cornerRadius="7dp"

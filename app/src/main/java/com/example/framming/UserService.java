@@ -16,4 +16,6 @@ public interface UserService {
     @GET("posters/{user_id}/{filme_id}")
     Call<PosterResponse> getAllPosters(@Path("user_id") String userID, @Path("filme_id") String filmeID);
 
+    @GET("users/{user_id}")
+    Call<UserResponse> getAllDataUser(@Path("user_id") String userID);
 }
