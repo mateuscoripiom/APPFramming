@@ -16,13 +16,37 @@
         android:theme="@style/Theme.Framming"
         tools:targetApi="31">
         <activity
+            android:name=".formadepagamentoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".creditoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".debitoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".qrcodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".copiadopixActivity"
+            android:exported="false" />
+        <activity
+            android:name=".telapixActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CadastroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".AberturaActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".PopUpActivity"
@@ -39,8 +63,7 @@
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".PosterActivity"
             android:exported="false" />

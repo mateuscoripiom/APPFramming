@@ -32,4 +32,55 @@
     <string name="nomeuser">name_user</string>
     <string name="sloganhome">Comece sua aventura pelo mundo cinematográfico!</string>
     <string name="pesquisahome">Pesquise seu filme, usuário, listas ou atores</string>
+
+    <string name="formpag">Forma de Pagamento</string>
+    <string name="escolha">Escolha sua forma de pagamento:</string>
+    <string name="cartao">Cartão de Crédito</string>
+    <string name="cartao2">Cartão de Débito</string>
+    <string name="cartao3">Pix</string>
+    <string name="ler">Ler Cartão</string>
+    <string name="numcarta">Número do Cartão</string>
+    <string name="Nomeimpre">Nome impresso no Cartão</string>
+    <string name="cpfti">CPF do titular</string>
+    <string name="vali">Validade</string>
+    <string name="cvv">CVV</string>
+    <string name="salvarcart">Salvar cartão para próximas compras</string>
+    <string name="credito">Cartão de Crédito</string>
+    <string name="pix1">Unidade consumidora</string>
+    <string name="pix2">1/58966-9 (FRAMING LTDA)</string>
+    <string name="pix3">Referência</string>
+    <string name="pix4">Setembro/2023</string>
+    <string name="pix5">Vencimento</string>
+    <string name="pix6">07/05/2023</string>
+    <string name="pix7">Valor</string>
+    <string name="pix8">R$ 51,66</string>
+    <string name="pix9">PIX Copia e Cola</string>
+    <string name="pix10">Pagar com o QR CODE</string>
+    <string name="pix11">Pix</string>
+    <string name="fim">Finalizar Pagamento</string>
+    <string name="copia">CÓDIGO COPIADO</string>
+    <string name="copia2">Abra o aplicativo do seu banco e realize o pagamento</string>
+    <string name="copia3">OK</string>
+    <string name="copia4">Copie ou Escaneie o QR CODE</string>
+    <string name="copia5">Ao copiar o código, abra o aplicativo do seu banco e realize seu pagamento</string>
+    <string name="copia6">Copiar Código</string>
+    <string name="copia7">FECHAR</string>
+    <string name="email">Email</string>
+    <string name="telefone">Celular</string>
+    <string name="senhaes">Esqueceu sua senha?</string>
+    <string name="senha">Senha</string>
+    <string name="bomba">Cadastre-se </string>
+    <string name="senha2">Não tem uma conta? Cadastre-se</string>
+    <string name="entrar">Entrar </string>
+    <string name="senhaa">Entrar</string>
+    <string name="cad1">Nome</string>
+    <string name="cad2">Usuário</string>
+    <string name="cad3">Email</string>
+    <string name="cad4">Senha</string>
+    <string name="cad5">Confirme sua senha</string>
+    <string name="cad6">Cadastrar</string>
+    <string name="cad7">Já possui uma conta? Faça o login</string>
+    <string name="tipo">Tipo do Ingresso</string>
+
 </resources>
+
