@@ -29,7 +29,7 @@ public class AberturaActivity extends AppCompatActivity {
         btnCadastro.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(AberturaActivity.this, HomeActivity.class));
+                startActivity(new Intent(AberturaActivity.this, CadastroActivity.class));
                 finish();
             }
         });

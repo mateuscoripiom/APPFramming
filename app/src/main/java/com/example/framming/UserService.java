@@ -18,4 +18,7 @@ public interface UserService {
 
     @GET("users/{user_id}")
     Call<UserResponse> getAllDataUser(@Path("user_id") String userID);
+
+    @POST("users/register")
+    Call<ResponseBody> salvarUsuario(@Body UsuarioRequest usuarioRequest);
 }

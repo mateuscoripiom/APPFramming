@@ -49,7 +49,6 @@
         android:layout_width="262dp"
         android:layout_height="50dp"
         android:background="@drawable/txtcalogin"
-        android:drawable="20dp"
         android:drawableLeft="@drawable/iconsenha"
         android:drawablePadding="10dp"
         android:ems="10"
