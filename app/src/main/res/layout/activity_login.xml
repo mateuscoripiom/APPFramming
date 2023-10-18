@@ -8,28 +8,29 @@
     tools:context=".LoginActivity">
 
 
-
     <EditText
         android:id="@+id/editTextTextPersonName"
-        android:layout_width="262dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="286dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="60dp"
         android:background="@drawable/txtcalogin"
-        android:drawableLeft="@drawable/iconemail"
+        android:drawableLeft="@drawable/icons8_nova_mensagem_30"
         android:drawablePadding="10dp"
         android:elevation="4dp"
         android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="@string/email"
         android:inputType="textPersonName"
         android:padding="10dp"
-        android:text="@string/email"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="#BDBDBD"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.585" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -46,41 +47,41 @@
 
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="262dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="60dp"
         android:background="@drawable/txtcalogin"
-        android:drawableLeft="@drawable/iconsenha"
-        android:drawablePadding="10dp"
-        android:ems="10"
+        android:drawableLeft="@drawable/icons8_senha_25"
+        android:drawablePadding="14dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="@string/senha"
         android:padding="10dp"
-        android:text="@string/senha"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="#FFBDBDBD"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.684" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/senhaes"
         android:textColor="@color/white"
         android:textSize="11dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.725"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
     <Button
         android:id="@+id/textView2"
         android:layout_width="215dp"
         android:layout_height="37dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="#00FFFFFF"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/senha2"
@@ -89,42 +90,53 @@
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="262dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:text="@string/senhaa"
-        android:outlineProvider="none"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="60dp"
         android:backgroundTint="@color/corcaixalogin"
+        android:fontFamily="@font/poppins_bold"
+        android:outlineProvider="none"
+        android:text="@string/senhaa"
         android:textColor="@color/white"
         app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="588dp"
-        android:layout_height="333dp"
+        android:layout_width="0dp"
+        android:layout_height="310dp"
         android:elevation="4dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ttfnd2vrlazjsbd9hubtsf3cqpj" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="0dp"
+        android:layout_height="310dp"
+        android:elevation="4dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/gradientbackimage" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="106dp"
         android:layout_height="86dp"
         android:layout_marginTop="248dp"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

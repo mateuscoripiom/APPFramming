@@ -3,6 +3,7 @@ package com.example.framming;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,7 +20,9 @@ public class CadastroActivity extends AppCompatActivity {
 
     EditText editTextname, editTextuser, editTextemail, editTextsenha, editTextconfirmasenha;
 
-    Button btncadastrar;
+    Button btncadastrar, btnfacalogin;
+
+    public static String nome, user, email, senha, confirmasenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +35,35 @@ public class CadastroActivity extends AppCompatActivity {
         editTextsenha = findViewById(R.id.editTextsenha);
         editTextconfirmasenha = findViewById(R.id.editTextconfirme);
         btncadastrar = findViewById(R.id.btn_cad);
+        btnfacalogin = findViewById(R.id.facalogin);
 
         btncadastrar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                salvarUsuario(createRequest());
+                nome = editTextname.getText().toString();
+                user = editTextuser.getText().toString();
+                email = editTextemail.getText().toString();
+                senha = editTextsenha.getText().toString();
+                confirmasenha = editTextconfirmasenha.getText().toString();
+
+                if(nome != null || user != null || email != null || senha != null || confirmasenha != null){
+                    if(senha == confirmasenha){
+                        salvarUsuario(createRequest());
+                    }
+                    else{
+                        Toast.makeText(CadastroActivity.this, "As senhas não coincidem", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(CadastroActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnfacalogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
             }
         });
 

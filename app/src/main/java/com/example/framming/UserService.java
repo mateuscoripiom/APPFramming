@@ -21,4 +21,7 @@ public interface UserService {
 
     @POST("users/register")
     Call<ResponseBody> salvarUsuario(@Body UsuarioRequest usuarioRequest);
+
+    @POST("users/login")
+    Call<ResponseBody> logarUsuario(@Body LoginRequest loginRequest);
 }
