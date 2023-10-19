@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(View v){
                 startActivity(new Intent(MainActivity.this, PosterActivity.class));
+                PosterActivity.IDPosition = null;
+                MainActivity.linkFilmeSalvo = null;
                 finish();
             }
         });
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 HomeActivity.ID = null;
                 HomeActivity.IDPositionPop = null;
                 PosterActivity.IDPosition = null;
+                MainActivity.linkFilmeSalvo = null;
                 usado = false;
                 usadoEscolha = false;
                 PesquisaActivity.IDpesquisa = null;
@@ -125,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 HomeActivity.usadobtn = 0;
                 posterArray.clear();
                 itemsbusca.clear();
+                MainActivity.linkFilmeSalvo = null;
                 items.clear();
                 swtPosition = false;
                 startActivity(new Intent(MainActivity.this, HomeActivity.class));

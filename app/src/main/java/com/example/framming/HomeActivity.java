@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     public static String IDPopUp;
     public static RecyclerView recyclerViewPop;
     public static int usadobtn = 0;
-    public static String IDUser = "36efc959-0425-4e81-8730-463e4f1ab08f";
+    public static String IDUser;
 
     public static String IDPositionPop;
     public static boolean swtPosition = false;

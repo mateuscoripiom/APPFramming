@@ -33,6 +33,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -255,7 +256,7 @@ public class PosterActivity extends AppCompatActivity implements LoaderManager.L
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(PosterActivity.this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(PosterActivity.this, "Salvo com sucesso!", Toast.LENGTH_LONG, R.style.exampleToast).show();
                 }
                 else{
                     Toast.makeText(PosterActivity.this, "Salvamento falhou", Toast.LENGTH_SHORT).show();

@@ -136,14 +136,16 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:elevation="3dp"
         android:outlineProvider="background"
         app:cardBackgroundColor="#858585"
         app:cardCornerRadius="15dp"
         app:cardElevation="11dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swthome">
 

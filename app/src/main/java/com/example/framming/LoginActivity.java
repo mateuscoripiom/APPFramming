@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_login);
 
         editTextemail = findViewById(R.id.editTextTextPersonName);
@@ -52,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest();
         if(editTextemail.getText().toString() != "" || editTextsenha.getText().toString() != ""){
             loginRequest.setEmail(editTextemail.getText().toString());
-            loginRequest.setSenha(editTextsenha.getText().toString());
+            loginRequest.setPassword(editTextsenha.getText().toString());
         }
         else{
             Toast.makeText(LoginActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
@@ -63,23 +65,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void logarUsuario(LoginRequest loginRequest){
-        Call<ResponseBody> result = ApiClient.getUserService().logarUsuario(loginRequest);
-        result.enqueue(new Callback<ResponseBody>() {
+        Call<LoginResult> result = ApiClient.getUserService().logarUsuario(loginRequest);
+        result.enqueue(new Callback<LoginResult>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Logado com sucesso", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LoginActivity.this, "Logado com sucesso", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(LoginActivity.this, "Logado com sucesso!", Toast.LENGTH_LONG, R.style.exampleToast).show();
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    HomeActivity.IDUser = response.body().getIdUsuario();
                 }
                 else{
-                    Toast.makeText(LoginActivity.this, "Login falhou", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(LoginActivity.this, "Verifique seus dados e tente novamente!", Toast.LENGTH_LONG, R.style.erroToast).show();
 
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Login falhou " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<LoginResult> call, Throwable t) {
+                StyleableToast.makeText(LoginActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
             }
         });
     }

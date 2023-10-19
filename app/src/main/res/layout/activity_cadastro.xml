@@ -7,6 +7,34 @@
     android:background="@color/fundologin"
     tools:context=".CadastroActivity">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView7"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="-160dp"
+            android:elevation="10dp"
+            app:cardBackgroundColor="#D8D8D8"
+            app:cardCornerRadius="100dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11">
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:elevation="0dp"
+                    android:fitsSystemWindows="true"
+                    android:foregroundGravity="center"
+                    android:scaleType="centerCrop"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    app:srcCompat="@drawable/editarcinza100" />
+
+        </androidx.cardview.widget.CardView>
+
         <Button
             android:id="@+id/facalogin"
             android:layout_width="228dp"
@@ -44,17 +72,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/gradientp" />
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="83dp"
-            android:layout_height="78dp"
-            android:layout_marginTop="-160dp"
-            android:elevation="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView11"
-            app:srcCompat="@drawable/perfil_cadastro" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -102,14 +119,14 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="60dp"
             android:elevation="5dp"
-            android:hint="@string/cad3"
+            android:hint="@string/cad1"
             android:textColorHint="#FFBDBDBD"
             app:boxStrokeColor="#FFFFFF"
             app:boxStrokeWidth="0dp"
             app:hintTextColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView9">
+            app:layout_constraintTop_toBottomOf="@+id/cardView7">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTextPersonName"

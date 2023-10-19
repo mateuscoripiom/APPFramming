@@ -32,6 +32,7 @@ public class CadastroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_cadastro);
 
         editTextname = findViewById(R.id.editTextTextPersonName);
@@ -86,7 +87,7 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(CadastroActivity.this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CadastroActivity.this, "Cadastrado com sucesso!", Toast.LENGTH_LONG, R.style.exampleToast).show();
                     startActivity(new Intent(CadastroActivity.this, HomeActivity.class));
                 }
                 else{
