@@ -8,62 +8,81 @@
     tools:context=".LoginActivity">
 
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputtexttextpersonname"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="60dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="60dp"
-        android:background="@drawable/txtcalogin"
-        android:drawableLeft="@drawable/icons8_nova_mensagem_30"
-        android:drawablePadding="10dp"
-        android:elevation="4dp"
-        android:ems="10"
-        android:fontFamily="@font/poppins_semibold"
-        android:hint="@string/email"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="#BDBDBD"
-        android:textSize="14sp"
+        android:hint="Email"
+        android:textColorHint="#FFBDBDBD"
+        app:boxStrokeColor="#FFFFFF"
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="77dp"
-        android:layout_marginEnd="77dp"
-        android:layout_marginBottom="102dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fundo_login" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="#3E3E3E"
+            android:backgroundTintMode="add"
+            android:drawablePadding="10dp"
+            android:elevation="0dp"
+            android:ems="10"
+            android:fontFamily="@font/poppins_semibold"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:paddingStart="20dp"
+            android:textColor="@color/white"
+            android:textColorHighlight="#8FA8A8A8"
+            android:textColorLink="#FFFFFF"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputtexttextpassword"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
-        android:background="@drawable/txtcalogin"
-        android:drawableLeft="@drawable/icons8_senha_25"
-        android:drawablePadding="14dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:hint="@string/senha"
-        android:padding="10dp"
-        android:textColor="@color/white"
+        android:hint="Senha"
         android:textColorHint="#FFBDBDBD"
-        android:textSize="14sp"
+        app:boxStrokeColor="#FFFFFF"
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/inputtexttextpersonname"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#FFFFFF">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="#3E3E3E"
+            android:backgroundTintMode="add"
+            android:drawableLeft="@drawable/icons8_senha_25"
+            android:drawablePadding="10dp"
+            android:elevation="0dp"
+            android:ems="10"
+            android:fontFamily="@font/poppins_semibold"
+            android:inputType="text|textPassword|textNoSuggestions"
+            android:padding="10dp"
+            android:paddingStart="20dp"
+            android:textColor="@color/white"
+            android:textColorHighlight="#8FA8A8A8"
+            android:textColorLink="#FFFFFF"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textView"
@@ -74,8 +93,8 @@
         android:text="@string/senhaes"
         android:textColor="@color/white"
         android:textSize="11dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/inputtexttextpassword"
+        app:layout_constraintTop_toBottomOf="@+id/inputtexttextpassword" />
 
     <Button
         android:id="@+id/textView2"
@@ -97,7 +116,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="60dp"
         android:backgroundTint="@color/corcaixalogin"
         android:fontFamily="@font/poppins_bold"
@@ -107,7 +126,7 @@
         app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/inputtexttextpassword" />
 
     <ImageView
         android:id="@+id/imageView"

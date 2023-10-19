@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +21,9 @@ import retrofit2.Response;
 
 public class CadastroActivity extends AppCompatActivity {
 
-    EditText editTextname, editTextuser, editTextemail, editTextsenha, editTextconfirmasenha;
+    EditText editTextname, editTextuser, editTextemail, editTextconfirmasenha;
+
+    TextInputEditText editTextsenha;
 
     Button btncadastrar, btnfacalogin;
 
@@ -46,24 +51,19 @@ public class CadastroActivity extends AppCompatActivity {
                 senha = editTextsenha.getText().toString();
                 confirmasenha = editTextconfirmasenha.getText().toString();
 
-                if(nome != null || user != null || email != null || senha != null || confirmasenha != null){
-                    if(senha == confirmasenha){
-                        salvarUsuario(createRequest());
-                    }
-                    else{
-                        Toast.makeText(CadastroActivity.this, "As senhas não coincidem", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    Toast.makeText(CadastroActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-                }
+                 if(senha.equals(confirmasenha)){
+                     salvarUsuario(createRequest());
+                 }
+                 else{
+                     Toast.makeText(CadastroActivity.this, "As senhas não coincidem", Toast.LENGTH_SHORT).show();
+                 }
             }
         });
 
         btnfacalogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(CadastroActivity.this, LoginActivity.class));
+                startActivity(new Intent(CadastroActivity.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));;
             }
         });
 
@@ -87,9 +87,11 @@ public class CadastroActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(CadastroActivity.this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(CadastroActivity.this, HomeActivity.class));
                 }
                 else{
-                    Toast.makeText(CadastroActivity.this, "Salvamento falhou", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CadastroActivity.this, "Verifique todos os campos e tente novamente", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CadastroActivity.this, "Verifique todos os campos e tente novamente", Toast.LENGTH_LONG, R.style.exampleToast).show();
 
                 }
             }

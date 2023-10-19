@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         txtcadastrar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(LoginActivity.this, CadastroActivity.class));
+                startActivity(new Intent(LoginActivity.this, CadastroActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
 
