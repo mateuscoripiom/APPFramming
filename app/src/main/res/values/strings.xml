@@ -81,6 +81,8 @@
     <string name="cad6">Cadastrar</string>
     <string name="cad7">Já possui uma conta? Faça o login</string>
     <string name="tipo">Tipo do Ingresso</string>
-
+    <string name="seuperfil">Seu perfil</string>
+    <string name="filmesfavoritados">Filmes favoritos</string>
+    <string name="suaatvrec">Sua atividade recente</string>
 </resources>
 

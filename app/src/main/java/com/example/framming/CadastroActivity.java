@@ -82,13 +82,14 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     public void salvarUsuario(UsuarioRequest usuarioRequest){
-        Call<ResponseBody> result = ApiClient.getUserService().salvarUsuario(usuarioRequest);
-        result.enqueue(new Callback<ResponseBody>() {
+        Call<CadastroReponse> result = ApiClient.getUserService().salvarUsuario(usuarioRequest);
+        result.enqueue(new Callback<CadastroReponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<CadastroReponse> call, Response<CadastroReponse> response) {
                 if(response.isSuccessful()){
                     StyleableToast.makeText(CadastroActivity.this, "Cadastrado com sucesso!", Toast.LENGTH_LONG, R.style.exampleToast).show();
                     startActivity(new Intent(CadastroActivity.this, HomeActivity.class));
+                    HomeActivity.IDUser = response.body().getIdUsuario();
                 }
                 else{
                     //Toast.makeText(CadastroActivity.this, "Verifique todos os campos e tente novamente", Toast.LENGTH_SHORT).show();
@@ -98,7 +99,7 @@ public class CadastroActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<CadastroReponse> call, Throwable t) {
                 Toast.makeText(CadastroActivity.this, "Salvamento falhou" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });

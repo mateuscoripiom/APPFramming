@@ -20,7 +20,7 @@ public interface UserService {
     Call<UserResponse> getAllDataUser(@Path("user_id") String userID);
 
     @POST("users/register")
-    Call<ResponseBody> salvarUsuario(@Body UsuarioRequest usuarioRequest);
+    Call<CadastroReponse> salvarUsuario(@Body UsuarioRequest usuarioRequest);
 
     @POST("users/login")
     Call<LoginResult> logarUsuario(@Body LoginRequest loginRequest);
