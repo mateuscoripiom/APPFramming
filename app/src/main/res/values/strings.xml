@@ -84,5 +84,12 @@
     <string name="seuperfil">Seu perfil</string>
     <string name="filmesfavoritados">Filmes favoritos</string>
     <string name="suaatvrec">Sua atividade recente</string>
+    <string name="diario">Diário</string>
+    <string name="cading">Caderno Ingressos</string>
+    <string name="listas">Listas</string>
+    <string name="querov">Quero Ver</string>
+    <string name="pontos">Pontos</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
 
