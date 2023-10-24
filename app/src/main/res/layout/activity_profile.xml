@@ -78,7 +78,6 @@
                     android:id="@+id/imageView9"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/fotodeperfil" />
             </androidx.cardview.widget.CardView>
 
@@ -390,7 +389,6 @@
                                     android:scaleType="centerCrop"
                                     android:scaleX="0.5"
                                     android:scaleY="0.5"
-                                    android:src="@tools:sample/avatars"
                                     app:srcCompat="@drawable/icons8_di_rio_100" />
 
                             </androidx.cardview.widget.CardView>
@@ -443,7 +441,6 @@
                                     android:scaleType="centerCrop"
                                     android:scaleX="0.5"
                                     android:scaleY="0.5"
-                                    android:src="@tools:sample/avatars"
                                     app:srcCompat="@drawable/icons8_bilhete_100" />
 
                             </androidx.cardview.widget.CardView>
@@ -495,7 +492,6 @@
                                     android:scaleType="centerCrop"
                                     android:scaleX="0.5"
                                     android:scaleY="0.5"
-                                    android:src="@tools:sample/avatars"
                                     app:srcCompat="@drawable/icons8_to_do_list_100" />
 
                             </androidx.cardview.widget.CardView>
@@ -547,7 +543,6 @@
                                     android:scaleType="centerCrop"
                                     android:scaleX="0.5"
                                     android:scaleY="0.5"
-                                    android:src="@tools:sample/avatars"
                                     app:srcCompat="@drawable/icons8_rel_gio_100" />
 
                             </androidx.cardview.widget.CardView>
@@ -601,7 +596,6 @@
                                     android:scaleType="centerCrop"
                                     android:scaleX="0.5"
                                     android:scaleY="0.5"
-                                    android:src="@tools:sample/avatars"
                                     app:srcCompat="@drawable/icons8_trof_u_100" />
 
                             </androidx.cardview.widget.CardView>

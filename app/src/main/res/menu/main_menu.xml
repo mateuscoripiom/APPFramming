@@ -6,12 +6,12 @@
         <item
             android:id="@+id/nav_home"
             android:title="Início"
-            android:icon="@drawable/home_icon"/>
+            />
 
         <item
             android:id="@+id/nav_perfil"
             android:title="Perfil"
-            android:icon="@drawable/perfil_icon"/>
+            />
 
         <item
             android:id="@+id/nav_diario"
@@ -21,17 +21,17 @@
         <item
             android:id="@+id/ingressos"
             android:title="Caderno Ingressos"
-            android:icon="@drawable/caderno_icon"/>
+            />
 
         <item
             android:id="@+id/querover"
             android:title="Quero Ver"
-            android:icon="@drawable/querover_icon"/>
+            />
 
         <item
             android:id="@+id/recompensas"
             android:title="Recompensas"
-            android:icon="@drawable/recompensas_icon"/>
+            />
 
     </group>
 
