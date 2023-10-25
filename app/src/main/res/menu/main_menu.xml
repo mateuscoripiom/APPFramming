@@ -6,11 +6,14 @@
         <item
             android:id="@+id/nav_home"
             android:title="Início"
+            android:icon="@drawable/icons8_casa_100"
+
             />
 
         <item
             android:id="@+id/nav_perfil"
             android:title="Perfil"
+            android:icon="@drawable/icons8_usu_rio_96"
             />
 
         <item
@@ -21,16 +24,19 @@
         <item
             android:id="@+id/ingressos"
             android:title="Caderno Ingressos"
+            android:icon="@drawable/icons8_bilhete_100"
             />
 
         <item
             android:id="@+id/querover"
             android:title="Quero Ver"
+            android:icon="@drawable/icons8_rel_gio_100"
             />
 
         <item
             android:id="@+id/recompensas"
             android:title="Recompensas"
+            android:icon="@drawable/icons8_trof_u_100"
             />
 
     </group>

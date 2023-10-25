@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
@@ -18,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -27,11 +29,13 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -74,6 +78,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    ImageView imgbtndrawer;
 
 
     @Override
@@ -83,19 +88,42 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        toolbar = findViewById(R.id.toolbar);
 
-        setSupportActionBar(toolbar);
+        navigationView.bringToFront();
         ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toogle);
         toogle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    if(item == 1){
+                        startActivity(new Intent(HomeActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    }
+                    case R.id.nav_perfil:{
+                        startActivity(new Intent(HomeActivity.this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    }
+                }
+                return false;
+            }
+        });
 
         edittxtbusca = findViewById(R.id.edittxtbuscap);
         imgbtnpesquisa = findViewById(R.id.imgbtnpesquisa);
         txtnomeuser = findViewById(R.id.textView6);
+        imgbtndrawer = findViewById(R.id.imgbtndrawer);
 
         layout = findViewById(R.id.constraint);
         buscaInfoUser();
+
+        imgbtndrawer.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                drawerLayout.openDrawer(Gravity.LEFT);
+
+            }
+        });
 
 
         edittxtbusca.setOnClickListener(new View.OnClickListener(){
@@ -349,4 +377,15 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(@NonNull Loader<String> loader) {
         // obrigatório implementar, nenhuma ação executada
     }
+
+    @Override
+    public void onBackPressed(){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
 }

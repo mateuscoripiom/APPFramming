@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1C1D"
+    android:background="#291B1B"
     android:fitsSystemWindows="true"
     app:srcCompat="@drawable/gradient"
     tools:context=".MainActivity">
@@ -20,7 +19,7 @@
             android:layout_height="0dp"
             android:elevation="1dp"
             android:outlineProvider="none"
-            app:cardBackgroundColor="#413D41"
+            app:cardBackgroundColor="@color/fundologin"
             app:cardCornerRadius="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.666"
@@ -197,9 +196,9 @@
                     android:id="@+id/imgFundo"
                     android:layout_width="match_parent"
                     android:layout_height="234dp"
+                    android:adjustViewBounds="true"
                     android:elevation="2dp"
                     android:outlineProvider="none"
-                    android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.523"
@@ -217,7 +216,7 @@
                     app:layout_constraintHorizontal_bias="0.523"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/gradient" />
+                    app:srcCompat="@drawable/gradientbackimage" />
 
                 <Button
                     android:id="@+id/btnGenero"
@@ -597,4 +596,4 @@
             app:layout_constraintGuide_begin="341dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+</ScrollView>
