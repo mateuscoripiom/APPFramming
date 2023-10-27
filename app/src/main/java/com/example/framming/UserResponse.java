@@ -8,6 +8,7 @@ public class UserResponse {
     private String senhaUsuario;
     private int qtdPontos;
     private String tipoUsuario;
+    private String iconUsuario;
 
     public String getIdUsuario() {
         return idUsuario;
@@ -63,5 +64,13 @@ public class UserResponse {
 
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getIconUsuario() {
+        return iconUsuario;
+    }
+
+    public void setIconUsuario(String iconUsuario) {
+        this.iconUsuario = iconUsuario;
     }
 }

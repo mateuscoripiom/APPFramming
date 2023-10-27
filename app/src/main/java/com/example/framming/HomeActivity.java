@@ -68,6 +68,9 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     public static String IDPositionPopTela;
 
     public static String nomeusuario;
+    public static String nickusuario;
+    public static String iconusuario;
+    public static String tipoperfil;
 
 
     View layout;
@@ -220,12 +223,21 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                 }
                 if(response.isSuccessful()) {
                     String nomeusu = "";
+                    String username = "";
+                    String linkfotoperfil = "";
+                    String tipousuario = "";
 
                     nomeusu = response.body().getNomeUsuario();
+                    username = response.body().getNickUsuario();
+                    linkfotoperfil = response.body().getIconUsuario();
+                    tipousuario = response.body().getTipoUsuario();
 
                     if (nomeusu != null || nomeusu != "") {
                         txtnomeuser.setText("Olá, " + nomeusu + "!");
                         nomeusuario = nomeusu;
+                        nickusuario = username;
+                        iconusuario = linkfotoperfil;
+                        tipoperfil = tipousuario;
                     }
                 }
             }

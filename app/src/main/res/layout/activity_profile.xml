@@ -76,7 +76,7 @@
                     app:cardCornerRadius="100dp">
 
                     <ImageView
-                        android:id="@+id/imageView9"
+                        android:id="@+id/imgIconUsuario"
                         android:layout_width="110dp"
                         android:layout_height="110dp"
                         app:srcCompat="@drawable/fotodeperfil" />
@@ -96,7 +96,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView16"
+                        android:id="@+id/txtNomeUsuario"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_bold"
@@ -109,7 +109,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/textView17"
+                        android:id="@+id/txtUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_light"
@@ -126,12 +126,14 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="5dp"
+                        android:outlineProvider="none"
                         app:cardBackgroundColor="#00FFFFFF" />
 
                     <Button
-                        android:id="@+id/button13"
+                        android:id="@+id/btntipouser"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
+                        android:backgroundTint="#006750A3"
                         android:clickable="false"
                         android:fontFamily="@font/poppins_semibold"
                         android:includeFontPadding="false"
@@ -376,7 +378,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
@@ -388,7 +390,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <androidx.cardview.widget.CardView
@@ -414,11 +416,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
+                                android:autoSizeMaxTextSize="11sp"
+                                android:autoSizeMinTextSize="7sp"
                                 android:fontFamily="@font/poppins_medium"
                                 android:text="@string/diario"
                                 android:textAlignment="center"
                                 android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -466,11 +470,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
+                                android:autoSizeMaxTextSize="11sp"
+                                android:autoSizeMinTextSize="7sp"
                                 android:fontFamily="@font/poppins_medium"
+                                android:maxLines="2"
                                 android:text="@string/cading"
                                 android:textAlignment="center"
                                 android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -517,11 +524,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
+                                android:autoSizeMaxTextSize="11sp"
+                                android:autoSizeMinTextSize="7sp"
                                 android:fontFamily="@font/poppins_medium"
                                 android:text="@string/listas"
                                 android:textAlignment="center"
                                 android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -568,11 +577,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
+                                android:autoSizeMaxTextSize="11sp"
+                                android:autoSizeMinTextSize="7sp"
                                 android:fontFamily="@font/poppins_medium"
                                 android:text="@string/querov"
                                 android:textAlignment="center"
                                 android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -599,6 +610,7 @@
                             android:orientation="vertical">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/cardPontos"
                                 android:layout_width="match_parent"
                                 android:layout_height="65dp"
                                 android:layout_weight="0"
@@ -621,6 +633,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
+                                android:autoSizeMaxTextSize="11sp"
+                                android:autoSizeMinTextSize="7sp"
                                 android:fontFamily="@font/poppins_medium"
                                 android:text="@string/pontos"
                                 android:textAlignment="center"

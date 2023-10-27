@@ -91,5 +91,9 @@
     <string name="pontos">Pontos</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="seuspontos">Seus pontos</string>
+    <string name="qtdpontos">Você possui qtd_pontos pontos</string>
+    <string name="recompensas">Recompensas ></string>
+    <string name="seusresg">Seus resgates ></string>
 </resources>
 
