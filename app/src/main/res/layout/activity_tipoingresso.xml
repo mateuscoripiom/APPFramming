@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fundologin"
+    android:fitsSystemWindows="true"
+    tools:context=".tipoingressoActivity">
+
+    <ImageButton
+        android:id="@+id/imgbtnvoltar8"
+        android:layout_width="59dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#00FFFFFF"
+        android:elevation="6dp"
+        android:outlineProvider="none"
+        android:scaleType="fitStart"
+        android:src="@drawable/icons8_voltar_100"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:elevation="4dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/tiping"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:outlineProvider="none"
+        app:cardBackgroundColor="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewnomecin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:elevation="3dp"
+                android:outlineProvider="none"
+                app:cardBackgroundColor="#00FFFFFF"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/txtName2">
+
+                <TextView
+                    android:id="@+id/txtNomeCinema"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:singleLine="false"
+                    android:text="@string/nomecin"
+                    android:textAlignment="textStart"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewnumsala"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:elevation="3dp"
+                android:outlineProvider="none"
+                app:cardBackgroundColor="#00FFFFFF"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewnomecin">
+
+                <TextView
+                    android:id="@+id/txtNumSala"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:singleLine="false"
+                    android:text="@string/numsala"
+                    android:textAlignment="textStart"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewdetalhesses"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:elevation="3dp"
+                android:outlineProvider="none"
+                app:cardBackgroundColor="#00FFFFFF"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewnumsala">
+
+                <TextView
+                    android:id="@+id/txtDetSessao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:singleLine="false"
+                    android:text="@string/detses"
+                    android:textAlignment="textStart"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtName2"
+                android:layout_width="201dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeTextType="uniform"
+                android:elevation="10dp"
+                android:fontFamily="@font/poppins_bold"
+                android:maxLines="2"
+                android:text="Barbie"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="3dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgPosterCritica"
+                    android:layout_width="120dp"
+                    android:layout_height="179dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/iufnms8u5cb6xfzi51dbkovj7vm" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:outlineProvider="none"
+        app:cardBackgroundColor="#3E3E3E"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewDetails">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/inteira"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/precoing"
+                android:textColor="#FF6666"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:outlineProvider="none"
+                app:cardBackgroundColor="@color/fundologin"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:outlineProvider="none"
+                        app:cardBackgroundColor="#00FFFFFF" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="8dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:outlineProvider="none"
+                            app:cardBackgroundColor="#00FFFFFF" />
+
+                        <ImageView
+                            android:id="@+id/imageView17"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0"
+                            android:scaleType="fitStart"
+                            app:srcCompat="@drawable/icons8_minus_96" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:outlineProvider="none"
+                            app:cardBackgroundColor="#00FFFFFF" />
+
+                        <TextView
+                            android:id="@+id/textView30"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:fontFamily="@font/poppins"
+                            android:text="0"
+                            android:textColor="#FFFFFF" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:outlineProvider="none"
+                            app:cardBackgroundColor="#00FFFFFF" />
+
+                        <ImageView
+                            android:id="@+id/imageView19"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0"
+                            android:scaleType="fitStart"
+                            app:srcCompat="@drawable/icons8_plus_96" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="8dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:outlineProvider="none"
+                            app:cardBackgroundColor="#00FFFFFF" />
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:outlineProvider="none"
+                        app:cardBackgroundColor="#00FFFFFF" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/button15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#FF6666"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/precotot"
+        android:textSize="16sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

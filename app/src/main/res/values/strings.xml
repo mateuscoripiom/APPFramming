@@ -95,5 +95,15 @@
     <string name="qtdpontos">Você possui qtd_pontos pontos</string>
     <string name="recompensas">Recompensas ></string>
     <string name="seusresg">Seus resgates ></string>
+    <string name="nomecin">Espaço Itáu de Cinema - Pompéia</string>
+    <string name="tiposes">IMAX 2D</string>
+    <string name="audses">LEG</string>
+    <string name="horses">14:00</string>
+    <string name="numsala">Sala: 06</string>
+    <string name="detses">Quinta-Feira - 26/05/23 - 17:00</string>
+    <string name="tiping">Tipo do Ingresso</string>
+    <string name="inteira">Inteira</string>
+    <string name="precoing">R$ 50,16</string>
+    <string name="precotot">PROSSEGUIR | R$ 50,16</string>
 </resources>
 

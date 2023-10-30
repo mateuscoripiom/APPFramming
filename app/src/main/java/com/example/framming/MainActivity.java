@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static ImageView imgPoster;
     public static ImageView imgBackground;
     private TextView txtName, txtAno, txtDuracao, txtSinopse, txtNomeOriginal;
-    private Button btnGenero, btnPesquisa, btndiario;
+    private Button btnGenero, btnPesquisa, btndiario, btnhorarioses;
     public static EditText etxtID;
     private ImageButton imgbtnposter, imgbtnvoltar;
     public static boolean usado = false;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_main);
 
         imgBackground = findViewById(R.id.imgFundo);
@@ -73,11 +74,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         imgbtnvoltar = findViewById(R.id.imgbtnvoltar);
         btndiario = findViewById(R.id.btndiario);
         txtNomeOriginal = findViewById(R.id.txtNomeOriginal);
+        btnhorarioses = findViewById(R.id.btnhorarioses);
+
 
 
         buscaPosterSalvo();
 
-
+        btnhorarioses.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, tipoingressoActivity.class));
+            }
+        });
 
         imgbtnposter.setOnClickListener(new View.OnClickListener(){
             @Override
