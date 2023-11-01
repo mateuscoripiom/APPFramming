@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -40,9 +41,9 @@ public class ProfileActivity extends AppCompatActivity {
                 .into(imgIconUsuario);
 
         if(HomeActivity.tipoperfil.equals("nor")){
-            btntipouser.setText("Normal");
-            btntipouser.setBackgroundColor(R.color.white);
-            btntipouser.setTextColor(R.color.black);
+            btntipouser.setText("USUÁRIO PIPOCA");
+            btntipouser.setBackgroundColor(Color.WHITE);
+            btntipouser.setTextColor(Color.BLACK);
         }
 
         cardPontos.setOnClickListener(new View.OnClickListener(){

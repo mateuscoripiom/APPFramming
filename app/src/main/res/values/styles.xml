@@ -40,4 +40,15 @@
         <item name="stLength">LONG</item> LONG or SHORT
         <item name="stRadius">5dp</item>
     </style>
+
+    <style name="alertToast">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">#fff</item>
+        <item name="stFont">@font/poppins_bold</item>
+        <item name="stTextSize">10sp</item>
+        <item name="stColorBackground">#F4BE36</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stLength">LONG</item> LONG or SHORT
+        <item name="stRadius">5dp</item>
+    </style>
 </resources>

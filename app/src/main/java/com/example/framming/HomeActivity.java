@@ -124,6 +124,9 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                     case "Perfil":{
                         startActivity(new Intent(HomeActivity.this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     }
+                    case "Recompensas":{
+                        startActivity(new Intent(HomeActivity.this, RecompensasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    }
                 }
                 return false;
             }

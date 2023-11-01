@@ -133,7 +133,6 @@
                         android:id="@+id/btntipouser"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:backgroundTint="#006750A3"
                         android:clickable="false"
                         android:fontFamily="@font/poppins_semibold"
                         android:includeFontPadding="false"

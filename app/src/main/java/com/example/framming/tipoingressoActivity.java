@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import io.github.muddz.styleabletoast.StyleableToast;
 
 public class tipoingressoActivity extends AppCompatActivity {
 
-    Integer numIng;
+    Integer numIng = 0;
     ImageView btnmenos, btnmais;
     TextView txtnumIng;
 
@@ -25,21 +29,40 @@ public class tipoingressoActivity extends AppCompatActivity {
 
         txtnumIng = findViewById(R.id.textView30);
 
+        btnmenos.setAlpha(40);
+
+
+
 
 
         btnmais.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                numIng++;
-                txtnumIng.setText(numIng);
+                if(numIng == 7){
+                    StyleableToast.makeText(tipoingressoActivity.this, "Limite de ingressos por compra atingido!", Toast.LENGTH_LONG, R.style.alertToast).show();
+                    btnmais.setAlpha(40);
+                }
+                else {
+                    numIng++;
+                    txtnumIng.setText(String.valueOf(numIng));
+                    btnmais.setAlpha(255);
+                    btnmenos.setAlpha(255);
+                }
             }
         });
 
         btnmenos.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                int i = numIng - 1;
-                txtnumIng.setText(i);
+                if(numIng > 0){
+                    numIng--;
+                    txtnumIng.setText(String.valueOf(numIng));
+                    btnmenos.setAlpha(255);
+                    btnmais.setAlpha(255);
+                }
+                if(numIng == 0){
+                    btnmenos.setAlpha(40);
+                }
             }
         });
 

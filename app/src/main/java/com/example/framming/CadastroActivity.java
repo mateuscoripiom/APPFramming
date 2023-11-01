@@ -1,14 +1,18 @@
 package com.example.framming;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,6 +30,7 @@ public class CadastroActivity extends AppCompatActivity {
     TextInputEditText editTextsenha;
 
     Button btncadastrar, btnfacalogin;
+    ImageView imgEscolherImagem;
 
     public static String nome, user, email, senha, confirmasenha;
 
@@ -42,6 +47,7 @@ public class CadastroActivity extends AppCompatActivity {
         editTextconfirmasenha = findViewById(R.id.editTextconfirme);
         btncadastrar = findViewById(R.id.btn_cad);
         btnfacalogin = findViewById(R.id.facalogin);
+        imgEscolherImagem = findViewById(R.id.imgEscolherImagem);
 
         btncadastrar.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -65,6 +71,14 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 startActivity(new Intent(CadastroActivity.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));;
+            }
+        });
+
+        imgEscolherImagem.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 3);
             }
         });
 
@@ -103,5 +117,14 @@ public class CadastroActivity extends AppCompatActivity {
                 Toast.makeText(CadastroActivity.this, "Salvamento falhou" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && data != null){
+            Uri selectedImage = data.getData();
+            imgEscolherImagem.setImageURI(selectedImage);
+        }
     }
 }
