@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -32,7 +34,8 @@ public class CadastroActivity extends AppCompatActivity {
     Button btncadastrar, btnfacalogin;
     ImageView imgEscolherImagem;
 
-    public static String nome, user, email, senha, confirmasenha;
+    public static String nome, user, email, senha, confirmasenha, base64, imgprofile;
+    //public static Uri imgprofile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +128,36 @@ public class CadastroActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK && data != null){
             Uri selectedImage = data.getData();
             imgEscolherImagem.setImageURI(selectedImage);
+            imgprofile = String.valueOf(selectedImage);
+
+
+            salvarImgP(String.valueOf(selectedImage));
+
+
+
+
         }
+    }
+
+
+    public void salvarImgP(String linkImage){
+        Call<ResponseBody> result = ApiClient.getUserServiceImage().salvarImgP("600", "576e653cdde4b0e7efe62d310d8d1370", linkImage);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    StyleableToast.makeText(CadastroActivity.this, "Salvo com sucesso!", Toast.LENGTH_LONG, R.style.exampleToast).show();
+                }
+                else{
+                    Toast.makeText(CadastroActivity.this, "Salvamento falhou", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(CadastroActivity.this, "Salvamento falhou" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -8,6 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface UserService {
     @POST("posters/{user_id}")
@@ -24,4 +25,7 @@ public interface UserService {
 
     @POST("users/login")
     Call<LoginResult> logarUsuario(@Body LoginRequest loginRequest);
+
+    @POST("upload?expiration={expiration}&key={key}&image={image}")
+    Call<ResponseBody> salvarImgP(@Query("expiration") String expirationLink, @Query("key") String keyLink, @Query("image") String imageLink);
 }
