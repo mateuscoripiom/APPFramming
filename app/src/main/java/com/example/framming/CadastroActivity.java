@@ -1,10 +1,14 @@
 package com.example.framming;
 
+import static android.opengl.ETC1.encodeImage;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +22,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.ResponseBody;
@@ -35,7 +43,7 @@ public class CadastroActivity extends AppCompatActivity {
     ImageView imgEscolherImagem;
 
     public static String nome, user, email, senha, confirmasenha, base64, imgprofile;
-    //public static Uri imgprofile;
+    public static Uri imgprofiled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +102,7 @@ public class CadastroActivity extends AppCompatActivity {
         usuarioRequest.setEmail(editTextemail.getText().toString());
         usuarioRequest.setPassword(editTextsenha.getText().toString());
         usuarioRequest.setUserType("nor");
+        usuarioRequest.setIcon(String.valueOf(imgprofiled));
 
         return usuarioRequest;
     }
@@ -128,36 +137,9 @@ public class CadastroActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK && data != null){
             Uri selectedImage = data.getData();
             imgEscolherImagem.setImageURI(selectedImage);
-            imgprofile = String.valueOf(selectedImage);
-
-
-            salvarImgP(String.valueOf(selectedImage));
-
-
-
-
+            imgprofiled = selectedImage;
         }
     }
 
 
-    public void salvarImgP(String linkImage){
-        Call<ResponseBody> result = ApiClient.getUserServiceImage().salvarImgP("600", "576e653cdde4b0e7efe62d310d8d1370", linkImage);
-        result.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()){
-                    StyleableToast.makeText(CadastroActivity.this, "Salvo com sucesso!", Toast.LENGTH_LONG, R.style.exampleToast).show();
-                }
-                else{
-                    Toast.makeText(CadastroActivity.this, "Salvamento falhou", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(CadastroActivity.this, "Salvamento falhou" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }

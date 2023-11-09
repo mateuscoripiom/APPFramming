@@ -6,6 +6,7 @@ public class UsuarioRequest {
     private String email;
     private String password;
     private String userType;
+    private String icon;
 
     public String getName() {
         return name;
@@ -45,5 +46,13 @@ public class UsuarioRequest {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

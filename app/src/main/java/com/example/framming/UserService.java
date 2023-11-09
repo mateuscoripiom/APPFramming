@@ -26,6 +26,6 @@ public interface UserService {
     @POST("users/login")
     Call<LoginResult> logarUsuario(@Body LoginRequest loginRequest);
 
-    @POST("upload?expiration={expiration}&key={key}&image={image}")
+    @POST("upload?")
     Call<ResponseBody> salvarImgP(@Query("expiration") String expirationLink, @Query("key") String keyLink, @Query("image") String imageLink);
 }

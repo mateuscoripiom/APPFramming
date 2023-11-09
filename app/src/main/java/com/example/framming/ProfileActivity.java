@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,15 +36,22 @@ public class ProfileActivity extends AppCompatActivity {
         txtNomeUsuario.setText(HomeActivity.nomeusuario);
         txtUserName.setText(HomeActivity.nickusuario);
 
-        Picasso
-                .get()
-                .load(HomeActivity.iconusuario)
-                .into(imgIconUsuario);
+        if(HomeActivity.iconusuario.equals("https://imageupload.io/ib/yzauelSzIISZpoC_1697494770.png")){
+            Picasso
+                    .get()
+                    .load(HomeActivity.iconusuario)
+                    .into(imgIconUsuario);
+        }
+        else{
+            imgIconUsuario.setImageURI(Uri.parse(HomeActivity.iconusuario));
+        }
+
+
 
         if(HomeActivity.tipoperfil.equals("nor")){
             btntipouser.setText("USUÁRIO PIPOCA");
-            btntipouser.setBackgroundColor(Color.WHITE);
-            btntipouser.setTextColor(Color.BLACK);
+            btntipouser.setBackgroundColor(Color.GRAY);
+            btntipouser.setTextColor(Color.WHITE);
         }
 
         cardPontos.setOnClickListener(new View.OnClickListener(){

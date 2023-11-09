@@ -79,6 +79,7 @@
                         android:id="@+id/imgIconUsuario"
                         android:layout_width="110dp"
                         android:layout_height="110dp"
+                        android:scaleType="centerCrop"
                         app:srcCompat="@drawable/fotodeperfil" />
                 </androidx.cardview.widget.CardView>
 
