@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static int IDLoader;
     public static String IDFilme;
     public static String linkFilmeSalvo;
+    public static String nomeFilmeTipIng, posterFilmeTipIng;
 
 
     @Override
@@ -337,6 +338,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 //mostra o resultado qdo possivel.
                 if ((nome != null) && (imgfundo != null) && (nomeoriginal != null) && (imgposter != null) && (sinopse != null) && (duracao != null) && (ano != null) && (ngenero != null)) {
                     txtName.setText(nome);
+                    nomeFilmeTipIng = nome;
                     txtDuracao.setText(duracao + "min");
                     txtAno.setText(ano);
                     txtNomeOriginal.setText(nomeoriginal);
@@ -356,12 +358,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                                 .get()
                                 .load("https://www.themoviedb.org/t/p/original" + linkFilmeSalvo)
                                 .into(imgPoster);
-
+                        posterFilmeTipIng = linkFilmeSalvo;
                     } else {
                         Picasso
                                 .get()
                                 .load("https://www.themoviedb.org/t/p/original" + imgposter)
                                 .into(imgPoster);
+                        posterFilmeTipIng = imgposter;
                     }
 
 

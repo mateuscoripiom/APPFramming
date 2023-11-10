@@ -1,7 +1,12 @@
 package com.example.framming;
 
+import static com.example.framming.LoginActivity.KEY_EMAIL;
+import static com.example.framming.LoginActivity.KEY_ID;
+import static com.example.framming.LoginActivity.SHARED_PREFS;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -43,6 +48,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -118,18 +124,23 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 String homenav = item.getTitle().toString();
                 switch (homenav){
-                    case "Início":{
+                    case "Início":
                         startActivity(new Intent(HomeActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    }
-                    case "Perfil":{
+                    break;
+                    case "Perfil":
                         startActivity(new Intent(HomeActivity.this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    }
-                    case "Recompensas":{
+                    break;
+                    case "Recompensas":
                         startActivity(new Intent(HomeActivity.this, RecompensasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    }
+                    break;
+                    case "Deslogar":
+                        deslogarBox();
+                    break;
                 }
                 return false;
             }
+
+
         });
 
 
@@ -166,6 +177,21 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         inflater.inflate(R.menu.main_menu, menu);
 
         return true;
+    }
+
+    private void deslogarBox() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String check = sharedPreferences.getString(KEY_EMAIL, null);
+        String idu = sharedPreferences.getString(KEY_ID, null);
+        if(check != null && idu != null){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.commit();
+            StyleableToast.makeText(HomeActivity.this, "Deslogado com sucesso!", Toast.LENGTH_LONG, R.style.deslogarToast).show();
+            finish();
+            startActivity(new Intent(HomeActivity.this, AberturaActivity.class));
+
+        }
     }
 
     public void buscaInfoFilmePopular() {

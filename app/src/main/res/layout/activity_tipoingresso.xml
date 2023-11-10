@@ -64,7 +64,7 @@
                 app:cardElevation="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
-                app:layout_constraintTop_toBottomOf="@+id/txtName2">
+                app:layout_constraintTop_toBottomOf="@+id/txtNomeFilmeTipIng">
 
                 <TextView
                     android:id="@+id/txtNomeCinema"
@@ -131,7 +131,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/txtName2"
+                android:id="@+id/txtNomeFilmeTipIng"
                 android:layout_width="201dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -157,7 +157,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgPosterCritica"
+                    android:id="@+id/imgPosterTipoIng"
                     android:layout_width="120dp"
                     android:layout_height="179dp"
                     android:adjustViewBounds="true"

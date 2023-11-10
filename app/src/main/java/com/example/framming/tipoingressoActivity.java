@@ -10,13 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import io.github.muddz.styleabletoast.StyleableToast;
 
 public class tipoingressoActivity extends AppCompatActivity {
 
     Integer numIng = 0;
-    ImageView btnmenos, btnmais;
-    TextView txtnumIng;
+    ImageView btnmenos, btnmais, imgPosterTipoIng;
+    TextView txtnumIng, txtNomeFilmeTipIng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,19 @@ public class tipoingressoActivity extends AppCompatActivity {
 
         btnmenos = findViewById(R.id.imageView17);
         btnmais = findViewById(R.id.imageView19);
+        imgPosterTipoIng = findViewById(R.id.imgPosterTipoIng);
+        txtNomeFilmeTipIng = findViewById(R.id.txtNomeFilmeTipIng);
+
+        txtNomeFilmeTipIng.setText(MainActivity.nomeFilmeTipIng);
+        Picasso
+                .get()
+                .load("https://www.themoviedb.org/t/p/original" + MainActivity.posterFilmeTipIng)
+                .into(imgPosterTipoIng);
+
 
         txtnumIng = findViewById(R.id.textView30);
 
         btnmenos.setAlpha(40);
-
-
-
-
 
         btnmais.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -65,7 +72,7 @@ public class tipoingressoActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
+
+
 }
