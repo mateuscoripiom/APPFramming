@@ -139,7 +139,7 @@
                 android:autoSizeTextType="uniform"
                 android:elevation="10dp"
                 android:fontFamily="@font/poppins_bold"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="Barbie"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
