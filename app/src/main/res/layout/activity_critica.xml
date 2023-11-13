@@ -252,14 +252,14 @@
         app:layout_constraintStart_toEndOf="@+id/cardView">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imgPerfilCritica"
             android:layout_width="25dp"
             android:layout_height="25dp"
             app:srcCompat="@drawable/iconperfil" />
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/txtPerfilCritica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

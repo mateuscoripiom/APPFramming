@@ -3,7 +3,10 @@ package com.example.framming;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,15 +18,20 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +48,16 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
     public static String IDpesquisa = null;
     public static RecyclerView recyclerViewbusca;
     public static List<ItemBusca> itemsbusca = new ArrayList<>();
+
+    View layout;
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+    ImageView imgbtndrawer2;
+
+    MenuInflater inflater;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +66,26 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
         edittxtbuscar = findViewById(R.id.edittxtbuscar);
         imgbtnbuscar = findViewById(R.id.imgbtnbuscar);
         txtnomeusupesquisa = findViewById(R.id.textViewnomeusu);
+        imgbtndrawer2 = findViewById(R.id.imgbtndrawer2);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toogle);
+        toogle.syncState();
+
+        layout = findViewById(R.id.constraintl);
+
+        imgbtndrawer2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                drawerLayout.openDrawer(Gravity.LEFT);
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(imgbtnbuscar.getWindowToken(), 0);
+            }
+        });
 
         txtnomeusupesquisa.setText("Olá, " + HomeActivity.nomeusuario + "!");
 

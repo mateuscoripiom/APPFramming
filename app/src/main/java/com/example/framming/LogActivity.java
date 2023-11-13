@@ -54,6 +54,9 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
     private TextInputEditText textInputEditText;
     public static RatingBar ratingBar;
 
+    TextView txtNomeUsuario, txtUserName;
+    ImageView imgIconUsuario;
+
 
 
     @Override

@@ -61,10 +61,11 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     private ImageButton imgbtnpesquisa;
     private TextView txtnomeuser;
     public static List<Item> items = new ArrayList<>();
+    public static ArrayList<ItemNac> itemsnac = new ArrayList<ItemNac>();
 
     public static String ID = null;
     public static String IDPopUp;
-    public static RecyclerView recyclerViewPop;
+    public static RecyclerView recyclerViewPop, recyclerViewNac;
     public static int usadobtn = 0;
     public static String IDUser;
 
@@ -109,6 +110,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
         layout = findViewById(R.id.constraint);
         buscaInfoUser();
+        buscarNacionais();
 
         imgbtndrawer.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -152,6 +154,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
         recyclerViewPop = findViewById(R.id.recyclerViewPop);
+        recyclerViewNac = findViewById(R.id.recyclerViewNac);
         buscaInfoFilmePopular();
         Switch swthome = findViewById(R.id.swthome);
         swthome.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -435,6 +438,53 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         else{
             super.onBackPressed();
         }
+    }
+
+    public void buscarNacionais(){
+        Call<ArrayList<ItemNac>> result = ApiClient.getUserService().getAllNational();
+        result.enqueue(new Callback<ArrayList<ItemNac>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ItemNac>> call, Response<ArrayList<ItemNac>> response) {
+                if(response.isSuccessful()){
+                    itemsnac = response.body();
+
+                    int b=0;
+
+                    for(b=0; b<itemsnac.size(); b++){
+                        MyAdapterNac myAdapterNac = new MyAdapterNac(HomeActivity.this, itemsnac);
+                        LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this, recyclerViewNac.HORIZONTAL, false);
+                        recyclerViewNac.setLayoutManager(manager);
+                        recyclerViewNac.setAdapter(myAdapterNac);
+                    }
+
+                    recyclerViewNac.addOnItemTouchListener(
+                            new RecyclerItemClickListener(getApplicationContext(), recyclerViewNac, new RecyclerItemClickListener.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, int position) {
+                                    IDPositionPop = itemsnac.get(position).getIdFilme();
+                                    startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                                }
+
+                                @Override/*IDPopUp = items.get(position).getIdpop();
+                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
+                                public void onLongItemClick(View view, int position) {
+
+                                    //Createpopupwindows();
+                                }
+                            })
+                    );
+
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ItemNac>> call, Throwable t) {
+                StyleableToast.makeText(HomeActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
     }
 
 }

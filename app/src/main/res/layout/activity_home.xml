@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    tools:context=".HomeActivity"
     tools:openDrawer="start">
 
     <com.google.android.material.navigation.NavigationView
@@ -30,6 +31,44 @@
         android:background="@color/fundologin">
 
 
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/filmesnac"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewNac"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="3dp"
+            android:outlineProvider="background"
+            app:cardBackgroundColor="#858585"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="11dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView31">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewNac"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </androidx.cardview.widget.CardView>
+
+
         <ImageView
             android:id="@+id/imgbtndrawer"
             android:layout_width="25dp"
@@ -43,6 +82,7 @@
             app:srcCompat="@drawable/icons8_card_pio_100" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:outlineProvider="none"
@@ -190,9 +230,11 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="409dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:outlineProvider="none"
             app:cardBackgroundColor="#00FFFFFF"
             app:cardElevation="11dp"
@@ -217,7 +259,7 @@
                     app:srcCompat="@drawable/logo_framming_33" />
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="380dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"

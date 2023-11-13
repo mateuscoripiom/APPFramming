@@ -1,5 +1,6 @@
 package com.example.framming;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -19,6 +20,9 @@ public interface UserService {
 
     @GET("users/{user_id}")
     Call<UserResponse> getAllDataUser(@Path("user_id") String userID);
+
+    @GET("nationalMovies")
+    Call<ArrayList<ItemNac>> getAllNational();
 
     @POST("users/register")
     Call<CadastroReponse> salvarUsuario(@Body UsuarioRequest usuarioRequest);

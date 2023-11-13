@@ -22,11 +22,11 @@ import com.squareup.picasso.Picasso;
 
 public class CriticaActivity extends AppCompatActivity {
 
-    private TextView txtCriticaUser, txtNomeFilmeCritica, txtAnoFilmeCritica;
+    private TextView txtCriticaUser, txtNomeFilmeCritica, txtAnoFilmeCritica, txtPerfilCritica;
     private RatingBar ratingBarCritica;
     private Button btnDataCritica;
     private ImageButton imgbtnvoltar4;
-    private ImageView imgPosterCriticaUser, imgFundoCriticaUser;
+    private ImageView imgPosterCriticaUser, imgFundoCriticaUser, imgPerfilCritica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,14 @@ public class CriticaActivity extends AppCompatActivity {
         txtAnoFilmeCritica = findViewById(R.id.txtAno3);
         imgFundoCriticaUser = findViewById(R.id.imgFundo5);
         imgbtnvoltar4 = findViewById(R.id.imgbtnvoltar4);
+        txtPerfilCritica = findViewById(R.id.txtPerfilCritica);
+        imgPerfilCritica = findViewById(R.id.imgPerfilCritica);
+
+        txtPerfilCritica.setText(HomeActivity.nickusuario);
+        Picasso
+                .get()
+                .load(HomeActivity.iconusuario)
+                .into(imgPerfilCritica);
 
         imgbtnvoltar4.setOnClickListener(new View.OnClickListener(){
             @Override
