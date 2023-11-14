@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+
+
+            <item
+                android:id="@+id/nav_altposter"
+                android:title="Alterar o poster"
+                android:icon="@drawable/icons8_editar_100"
+                app:showAsAction="never">
+            </item>
+            <item
+                android:id="@+id/nav_addlista"
+                android:icon="@drawable/icons8_to_do_list_100"
+                android:title="Adicionar à lista"
+                app:showAsAction="never">
+            </item>
+    </group>
+
+
+</menu>

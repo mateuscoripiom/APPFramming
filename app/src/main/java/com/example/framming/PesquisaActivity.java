@@ -1,5 +1,9 @@
 package com.example.framming;
 
+import static com.example.framming.LoginActivity.KEY_EMAIL;
+import static com.example.framming.LoginActivity.KEY_ID;
+import static com.example.framming.LoginActivity.SHARED_PREFS;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -21,6 +26,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -39,6 +45,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.muddz.styleabletoast.StyleableToast;
 
 public class PesquisaActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
 
@@ -85,6 +93,30 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(imgbtnbuscar.getWindowToken(), 0);
             }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                String homenav = item.getTitle().toString();
+                switch (homenav){
+                    case "Início":
+                        startActivity(new Intent(PesquisaActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        break;
+                    case "Perfil":
+                        startActivity(new Intent(PesquisaActivity.this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        break;
+                    case "Recompensas":
+                        startActivity(new Intent(PesquisaActivity.this, RecompensasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        break;
+                    case "Deslogar":
+                        deslogarBox();
+                        break;
+                }
+                return false;
+            }
+
+
         });
 
         txtnomeusupesquisa.setText("Olá, " + HomeActivity.nomeusuario + "!");
@@ -242,5 +274,20 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
         // obrigatório implementar, nenhuma ação executada
+    }
+
+    private void deslogarBox() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String check = sharedPreferences.getString(KEY_EMAIL, null);
+        String idu = sharedPreferences.getString(KEY_ID, null);
+        if(check != null && idu != null){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.commit();
+            StyleableToast.makeText(PesquisaActivity.this, "Deslogado com sucesso!", Toast.LENGTH_LONG, R.style.deslogarToast).show();
+            finish();
+            startActivity(new Intent(PesquisaActivity.this, AberturaActivity.class));
+
+        }
     }
 }

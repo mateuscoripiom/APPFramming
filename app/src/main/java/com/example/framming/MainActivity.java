@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
@@ -18,11 +19,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_main);
 
+
+
         imgBackground = findViewById(R.id.imgFundo);
         imgPoster = findViewById(R.id.imgPoster);
         txtName = findViewById(R.id.txtName);
@@ -91,10 +97,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         imgbtnposter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(MainActivity.this, PosterActivity.class));
+                /*startActivity(new Intent(MainActivity.this, PosterActivity.class));
                 PosterActivity.IDPosition = null;
                 MainActivity.linkFilmeSalvo = null;
-                finish();
+                finish();*/
+
+
+                PopupMenu popup = new PopupMenu(getApplicationContext(), v);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.movie_menu, popup.getMenu());
+                popup.show();
+
             }
         });
 
@@ -381,4 +394,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // obrigatório implementar, nenhuma ação executada
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.movie_menu, menu);
+        return true;
+    }
 }

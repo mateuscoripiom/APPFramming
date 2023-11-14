@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -93,13 +94,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
 
-        navigationView.bringToFront();
-        ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toogle);
-        toogle.syncState();
       //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -107,6 +102,14 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         imgbtnpesquisa = findViewById(R.id.imgbtnpesquisa);
         txtnomeuser = findViewById(R.id.textView6);
         imgbtndrawer = findViewById(R.id.imgbtndrawer);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toogle);
+        toogle.syncState();
 
         layout = findViewById(R.id.constraint);
         buscaInfoUser();
@@ -116,6 +119,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(View v){
                 drawerLayout.openDrawer(Gravity.LEFT);
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
             }
         });
