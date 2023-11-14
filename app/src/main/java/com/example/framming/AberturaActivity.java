@@ -31,7 +31,7 @@ public class AberturaActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(AberturaActivity.this, LoginActivity.class));
+                startActivity(new Intent(AberturaActivity.this, HomeActivity.class));
                 finish();
             }
         });

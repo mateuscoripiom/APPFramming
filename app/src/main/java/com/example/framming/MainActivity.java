@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,9 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static String linkFilmeSalvo;
     public static String nomeFilmeTipIng, posterFilmeTipIng;
 
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +87,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         btndiario = findViewById(R.id.btndiario);
         txtNomeOriginal = findViewById(R.id.txtNomeOriginal);
         btnhorarioses = findViewById(R.id.btnhorarioses);
+        toolbar = findViewById(R.id.toolbar2);
+
+        toolbar.inflateMenu(R.menu.movie_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.nav_altposter) {
+                    startActivity(new Intent(MainActivity.this, PosterActivity.class));
+                    PosterActivity.IDPosition = null;
+                    MainActivity.linkFilmeSalvo = null;
+                    finish();
+                } else if (item.getItemId() == R.id.nav_addlista) {
+                    // do something
+                }
+
+                return false;
+            }
+        });
 
 
 
@@ -94,13 +117,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        imgbtnposter.setOnClickListener(new View.OnClickListener(){
+        /*imgbtnposter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                /*startActivity(new Intent(MainActivity.this, PosterActivity.class));
+                *//*startActivity(new Intent(MainActivity.this, PosterActivity.class));
                 PosterActivity.IDPosition = null;
                 MainActivity.linkFilmeSalvo = null;
-                finish();*/
+                finish();*//*
 
 
                 PopupMenu popup = new PopupMenu(getApplicationContext(), v);
@@ -109,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 popup.show();
 
             }
-        });
+        });*/
 
         btndiario.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -393,11 +416,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(@NonNull Loader<String> loader) {
         // obrigatório implementar, nenhuma ação executada
     }
+    
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.movie_menu, menu);
-        return true;
-    }
+
 }
