@@ -35,6 +35,12 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     private Button btndata;
@@ -53,6 +59,7 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
     private Button btnsalvar;
     private TextInputEditText textInputEditText;
     public static RatingBar ratingBar;
+    public static String idfilmeassistido;
 
     TextView txtNomeUsuario, txtUserName;
     ImageView imgIconUsuario;
@@ -96,6 +103,7 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
             public void onClick(View v){
                 critica = textInputEditText.getText().toString();
 
+                salvarCritica(feedbackRequest());
                 startActivity(new Intent(LogActivity.this, CriticaActivity.class));
                 finish();
             }
@@ -174,12 +182,15 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
         String movieString = null;
         if(HomeActivity.ID != null) {
             movieString = HomeActivity.ID;
+            idfilmeassistido = HomeActivity.ID;
         }
         if(HomeActivity.IDPositionPop != null){
             movieString = HomeActivity.IDPositionPop;
+            idfilmeassistido = HomeActivity.IDPositionPop;
         }
         if(PesquisaActivity.IDpesquisa != null){
             movieString = PesquisaActivity.IDpesquisa;
+            idfilmeassistido = PesquisaActivity.IDpesquisa;
         }
         // esconde o teclado qdo o botão é clicado
         /*InputMethodManager inputManager = (InputMethodManager)
@@ -325,6 +336,37 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
         // obrigatório implementar, nenhuma ação executada
+    }
+
+    public FeedbackRequest feedbackRequest(){
+        FeedbackRequest feedbackRequest = new FeedbackRequest();
+        feedbackRequest.setIdMovie(idfilmeassistido);
+        feedbackRequest.setFeedbackText(textInputEditText.getText().toString());
+        feedbackRequest.setFeedbackDate(dataAssistido);
+        feedbackRequest.setFeedbackRate(ratingBar.getRating());
+        return feedbackRequest;
+    }
+
+    public void salvarCritica(FeedbackRequest feedbackRequest){
+        Call<ResponseBody> result = ApiClient.getUserService().saveFeedback(HomeActivity.IDUser, feedbackRequest);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    StyleableToast.makeText(LogActivity.this, "Sua crítica de " + nomeFilmeAssitido + " foi salva", Toast.LENGTH_LONG, R.style.exampleToast).show();
+
+                }
+                else{
+                    StyleableToast.makeText(LogActivity.this, "Não foi possível salvar sua crítica", Toast.LENGTH_LONG, R.style.erroToast).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(LogActivity.this, "Salvamento falhou" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

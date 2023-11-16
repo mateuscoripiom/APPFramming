@@ -30,6 +30,14 @@ public interface UserService {
     @POST("users/login")
     Call<LoginResult> logarUsuario(@Body LoginRequest loginRequest);
 
+    @POST("feedback/{user_id}")
+    Call<ResponseBody> saveFeedback(@Path("user_id") String userID, @Body FeedbackRequest feedbackRequest);
+    @GET("feedback/{user_id}")
+    Call<ArrayList<ItemFeedback>> getAllFeedback(@Path("user_id") String userID);
+
     @POST("upload?")
     Call<ResponseBody> salvarImgP(@Query("expiration") String expirationLink, @Query("key") String keyLink, @Query("image") String imageLink);
+
+    @GET("movies/{id}")
+    Call<FilmesResponse> getAllDataFilme(@Path("id") String filmeID);
 }

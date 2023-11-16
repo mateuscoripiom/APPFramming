@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    CardView cardPontos;
+    CardView cardPontos, cardDiario;
     TextView txtNomeUsuario, txtUserName;
     ImageView imgIconUsuario;
     Button btntipouser;
@@ -32,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
         txtUserName = findViewById(R.id.txtUserName);
         imgIconUsuario = findViewById(R.id.imgIconUsuario);
         btntipouser = findViewById(R.id.btntipouser);
+        cardDiario = findViewById(R.id.cardDiario);
 
         txtNomeUsuario.setText(HomeActivity.nomeusuario);
         txtUserName.setText(HomeActivity.nickusuario);
@@ -61,6 +62,12 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        cardDiario.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(ProfileActivity.this, DiaryActivity.class));
+            }
+        });
 
     }
 }
