@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
         cardDiario = findViewById(R.id.cardDiario);
 
         txtNomeUsuario.setText(HomeActivity.nomeusuario);
-        txtUserName.setText(HomeActivity.nickusuario);
+        txtUserName.setText("@" + HomeActivity.nickusuario);
 
         if(HomeActivity.iconusuario.equals("https://imageupload.io/ib/yzauelSzIISZpoC_1697494770.png")){
             Picasso

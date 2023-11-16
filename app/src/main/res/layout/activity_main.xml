@@ -15,15 +15,16 @@
 
         <android.widget.Toolbar
             android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:elevation="10dp"
             android:foregroundTint="#FFFFFF"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+            android:popupTheme="@style/Theme.Material3.Light.NoActionBar"
+            android:theme="@style/ToolbarColoredBackArrow"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgbtnvoltar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView

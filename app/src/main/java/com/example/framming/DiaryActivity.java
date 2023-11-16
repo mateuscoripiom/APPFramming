@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,7 +34,8 @@ public class DiaryActivity extends AppCompatActivity {
     public static int contagemdiario;
 
     RecyclerView recyclerViewDiary;
-    TextView contagemtotal;
+    TextView contagemtotal, txtnomeusudiario;
+    ImageView imgperfildiario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,15 @@ public class DiaryActivity extends AppCompatActivity {
         recyclerViewDiary = findViewById(R.id.recyclerviewcritica);
         buscarCriticas();
         contagemtotal = findViewById(R.id.contagemtotal);
+
+        txtnomeusudiario = findViewById(R.id.txtnomeusudiario);
+        imgperfildiario = findViewById(R.id.imgperfildiario);
+
+        txtnomeusudiario.setText("@" + HomeActivity.nickusuario);
+        Picasso
+                .get()
+                .load(HomeActivity.iconusuario)
+                .into(imgperfildiario);
 
 
 

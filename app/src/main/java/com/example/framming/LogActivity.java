@@ -52,6 +52,7 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
     public static String critica;
     public static Float nota;
     public static String dataAssistido;
+    public static String dataparasalvar;
     public static String nomeFilmeAssitido;
     public static String imgPosterAssistido;
     public static String anoFilmeAssistido;
@@ -141,6 +142,7 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
 
     private String makeDateString(int day, int month, int year) {
         dataAssistido = day + " " + getMonthFormat(month) + ", " + year;
+        dataparasalvar = day + "/" + month + "/" + year;
         return  day + " " + getMonthFormat(month) + ", " + year;
     }
 
@@ -342,7 +344,7 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
         FeedbackRequest feedbackRequest = new FeedbackRequest();
         feedbackRequest.setIdMovie(idfilmeassistido);
         feedbackRequest.setFeedbackText(textInputEditText.getText().toString());
-        feedbackRequest.setFeedbackDate(dataAssistido);
+        feedbackRequest.setFeedbackDate(dataparasalvar);
         feedbackRequest.setFeedbackRate(ratingBar.getRating());
         return feedbackRequest;
     }

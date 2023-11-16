@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         toolbar = findViewById(R.id.toolbar2);
 
         toolbar.inflateMenu(R.menu.movie_menu);
+
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -416,7 +417,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(@NonNull Loader<String> loader) {
         // obrigatório implementar, nenhuma ação executada
     }
-    
+
 
 
 }

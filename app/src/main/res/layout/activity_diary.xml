@@ -90,7 +90,7 @@
                     app:cardCornerRadius="100dp">
 
                     <ImageView
-                        android:id="@+id/imageView9"
+                        android:id="@+id/imgperfildiario"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -107,7 +107,7 @@
                     app:cardBackgroundColor="#00FFFFFF" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/txtnomeusudiario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -119,7 +119,6 @@
                     android:paddingStart="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
-                    android:text="yas"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -130,10 +129,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewcritica"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
