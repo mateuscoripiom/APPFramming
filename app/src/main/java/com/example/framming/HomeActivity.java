@@ -468,7 +468,8 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                             new RecyclerItemClickListener(getApplicationContext(), recyclerViewNac, new RecyclerItemClickListener.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, int position) {
-                                    IDPositionPop = itemsnac.get(position).getIdFilme();
+                                    IDPositionPop = itemsnac.get(position).getId();
+
                                     startActivity(new Intent(HomeActivity.this, MainActivity.class));
                                 }
 

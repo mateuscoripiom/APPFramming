@@ -31,7 +31,7 @@ public class MyAdapterNac extends RecyclerView.Adapter<MyViewHolderNac> {
     public void onBindViewHolder(@NonNull MyViewHolderNac holder, int position) {
         Picasso
                     .get()
-                    .load("https://www.themoviedb.org/t/p/original" + itemsnac.get(position).getPosterFilme())
+                    .load("https://www.themoviedb.org/t/p/original" + itemsnac.get(position).getPoster_path())
                     .into(holder.imgPosterNac);
 
     }

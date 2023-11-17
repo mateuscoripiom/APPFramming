@@ -1,10 +1,5 @@
 package com.example.framming;
 
-import static com.example.framming.HomeActivity.items;
-import static com.example.framming.HomeActivity.swtPosition;
-import static com.example.framming.PesquisaActivity.itemsbusca;
-import static com.example.framming.PosterActivity.posterArray;
-
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +15,6 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
@@ -36,6 +30,9 @@ public class DiaryActivity extends AppCompatActivity {
     RecyclerView recyclerViewDiary;
     TextView contagemtotal, txtnomeusudiario;
     ImageView imgperfildiario;
+    public static boolean diarioCritica = false;
+    public static float notaCritica;
+    public static String nomefilmeCritica, imgfundoCritica, imgposterCritica, dataCritica, textoCritica, anoCritica, fundoCritica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +82,7 @@ public class DiaryActivity extends AppCompatActivity {
                     for(b=0; b<itemsfeedback.size(); b++){
                         contagemdiario++;
                         contagemtotal.setText("Você já marcou " + contagemdiario + " filmes no seu diário");
-                        buscarFilmesC(itemsfeedback.get(b).getIdFilme(), itemsfeedback.get(b).getNotaCritica(), itemsfeedback.get(b).getDataCritica(), itemsfeedback.get(b).getIdCritica());
+                        buscarFilmesC(itemsfeedback.get(b).getIdFilme(), itemsfeedback.get(b).getNotaCritica(), itemsfeedback.get(b).getDataCritica(), itemsfeedback.get(b).getIdCritica(),itemsfeedback.get(b).getFeedbackCritica());
                     }
 
                 }
@@ -102,17 +99,44 @@ public class DiaryActivity extends AppCompatActivity {
         });
     }
 
-    public void buscarFilmesC(String idFilmeC, Float notaFilmC, String dataFilmeC, String idCriticaC){
+    public void buscarFilmesC(String idFilmeC, Float notaFilmC, String dataFilmeC, String idCriticaC, String feedbackCritica){
         Call<FilmesResponse> result = ApiClient.getUserService().getAllDataFilme(idFilmeC);
         result.enqueue(new Callback<FilmesResponse>() {
             @Override
             public void onResponse(Call<FilmesResponse> call, Response<FilmesResponse> response) {
                 if(response.isSuccessful()){
-                    itemsffinal.add(new ItemFeedbackF(idFilmeC, idCriticaC, notaFilmC, dataFilmeC, response.body().getPoster_path(), response.body().getTitle(), response.body().getRelease_date(), response.body().getOriginal_title()));
+                    nomefilmeCritica = response.body().getTitle();
+                    anoCritica = response.body().getRelease_date();
+                    imgfundoCritica = response.body().getBackdrop_path();
+                    imgposterCritica = response.body().getPoster_path();
+                    notaCritica = notaFilmC;
+                    dataCritica = dataFilmeC;
+                    textoCritica = feedbackCritica;
+
+
+                    itemsffinal.add(new ItemFeedbackF(idFilmeC, idCriticaC, notaFilmC, dataFilmeC, response.body().getPoster_path(), response.body().getBackdrop_path(), response.body().getTitle(), response.body().getRelease_date(), response.body().getOriginal_title()));
                     MyAdapterDiary myAdapterDiary = new MyAdapterDiary(DiaryActivity.this, itemsffinal);
                     LinearLayoutManager manager = new LinearLayoutManager(DiaryActivity.this, recyclerViewDiary.VERTICAL, false);
                     recyclerViewDiary.setLayoutManager(manager);
                     recyclerViewDiary.setAdapter(myAdapterDiary);
+
+                    recyclerViewDiary.addOnItemTouchListener(
+                            new RecyclerItemClickListener(getApplicationContext(), recyclerViewDiary, new RecyclerItemClickListener.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, int position) {
+
+                                    diarioCritica = true;
+                                    startActivity(new Intent(DiaryActivity.this, CriticaActivity.class));
+                                }
+
+                                @Override/*IDPopUp = items.get(position).getIdpop();
+                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
+                                public void onLongItemClick(View view, int position) {
+
+                                    //Createpopupwindows();
+                                }
+                            })
+                    );
                 }
                 else{
 

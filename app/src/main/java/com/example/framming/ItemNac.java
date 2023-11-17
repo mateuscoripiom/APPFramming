@@ -1,27 +1,27 @@
 package com.example.framming;
 
 public class ItemNac {
-    String idFilme;
-    String posterFilme;
+    String id;
+    String poster_path;
 
-    public ItemNac(String idFilme, String posterFilme) {
-        this.idFilme = idFilme;
-        this.posterFilme = posterFilme;
+    public ItemNac(String id, String poster_path) {
+        this.id = id;
+        this.poster_path = poster_path;
     }
 
-    public String getIdFilme() {
-        return idFilme;
+    public String getId() {
+        return id;
     }
 
-    public void setIdFilme(String idFilme) {
-        this.idFilme = idFilme;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getPosterFilme() {
-        return posterFilme;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setPosterFilme(String posterFilme) {
-        this.posterFilme = posterFilme;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 }

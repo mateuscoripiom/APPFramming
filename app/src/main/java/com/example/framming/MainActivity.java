@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static ImageView imgPoster;
     public static ImageView imgBackground;
     private TextView txtName, txtAno, txtDuracao, txtSinopse, txtNomeOriginal;
-    private Button btnGenero, btnPesquisa, btndiario, btnhorarioses;
+    private Button btnGenero, btnPesquisa, btndiario, btnhorarioses, btnDarNota;
     public static EditText etxtID;
     private ImageButton imgbtnposter, imgbtnvoltar;
     public static boolean usado = false;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static int IDLoader;
     public static String IDFilme;
     public static String linkFilmeSalvo;
-    public static String nomeFilmeTipIng, posterFilmeTipIng;
+    public static String nomeFilmeTipIng, posterFilmeTipIng, fundoFilmeTipIng;
 
     Toolbar toolbar;
 
@@ -88,8 +88,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         txtNomeOriginal = findViewById(R.id.txtNomeOriginal);
         btnhorarioses = findViewById(R.id.btnhorarioses);
         toolbar = findViewById(R.id.toolbar2);
+        btnDarNota = findViewById(R.id.btnDarNota);
 
         toolbar.inflateMenu(R.menu.movie_menu);
+
+
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -110,6 +113,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
         buscaPosterSalvo();
+
+        btnDarNota.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, NotaActivity.class));
+            }
+        });
 
         btnhorarioses.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -385,6 +395,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     } else {
                         txtSinopse.setText(sinopse);
                     }
+                    fundoFilmeTipIng = imgfundo;
                     Picasso
                             .get()
                             .load("https://www.themoviedb.org/t/p/original" + imgfundo)
@@ -417,7 +428,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(@NonNull Loader<String> loader) {
         // obrigatório implementar, nenhuma ação executada
     }
-
 
 
 }

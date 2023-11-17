@@ -5,12 +5,22 @@ public class ItemFeedback {
     String idCritica;
     Float notaCritica;
     String dataCritica;
+    String feedbackCritica;
 
-    public ItemFeedback(String idFilme, String idCritica, Float notaCritica, String dataCritica) {
+    public ItemFeedback(String idFilme, String idCritica, Float notaCritica, String dataCritica, String feedbackCritica) {
         this.idFilme = idFilme;
         this.idCritica = idCritica;
         this.notaCritica = notaCritica;
         this.dataCritica = dataCritica;
+        this.feedbackCritica = feedbackCritica;
+    }
+
+    public String getFeedbackCritica() {
+        return feedbackCritica;
+    }
+
+    public void setFeedbackCritica(String feedbackCritica) {
+        this.feedbackCritica = feedbackCritica;
     }
 
     public String getIdFilme() {

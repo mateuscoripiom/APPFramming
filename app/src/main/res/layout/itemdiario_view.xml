@@ -49,7 +49,7 @@
                 android:id="@+id/txtAnoCritica"
                 android:layout_width="wrap_content"
                 android:layout_height="12dp"
-                android:layout_marginStart="3dp"
+                android:layout_marginStart="10dp"
                 android:elevation="4dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:maxLength="4"
@@ -57,25 +57,12 @@
                 android:text="2023"
                 android:textColor="#FFFFFF"
                 android:textSize="8sp"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/txtNomeCritica" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:elevation="4dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/bola"
-                android:textColor="#FFFFFF"
-                android:textSize="8sp"
-                app:layout_constraintStart_toEndOf="@+id/txtOriginalCritica"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
                 app:layout_constraintTop_toBottomOf="@+id/txtNomeCritica" />
 
             <TextView
                 android:id="@+id/txtOriginalCritica"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:elevation="4dp"
@@ -85,12 +72,13 @@
                 android:text="Bottoms"
                 android:textColor="#FFFFFF"
                 android:textSize="8sp"
+                app:layout_constraintEnd_toStartOf="@+id/cardView14"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
-                app:layout_constraintTop_toBottomOf="@+id/txtNomeCritica" />
+                app:layout_constraintTop_toBottomOf="@+id/txtAnoCritica" />
 
             <TextView
                 android:id="@+id/txtNomeCritica"
-                android:layout_width="230dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
@@ -105,6 +93,7 @@
                 android:text="Bottoms"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/cardView14"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -129,6 +118,31 @@
                     android:layout_height="60dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:outlineProvider="none"
+                android:padding="20dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp"
+                app:cardBackgroundColor="#C32E2E2E"
+                app:cardCornerRadius="60dp"
+                app:contentPadding="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView20"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:rotationX="180"
+                    android:rotationY="180"
+                    app:srcCompat="@drawable/icons8_voltar_100" />
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

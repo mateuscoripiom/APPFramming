@@ -67,19 +67,36 @@ public class CriticaActivity extends AppCompatActivity {
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
 
-        ratingBarCritica.setRating(LogActivity.ratingBar.getRating());
-        txtCriticaUser.setText(LogActivity.critica);
-        btnDataCritica.setText("Assistido em " + LogActivity.dataAssistido);
-        Picasso
-                .get()
-                .load(LogActivity.imgPosterAssistido)
-                .into(imgPosterCriticaUser);
-        txtNomeFilmeCritica.setText(LogActivity.nomeFilmeAssitido);
-        txtAnoFilmeCritica.setText(LogActivity.anoFilmeAssistido);
-        Picasso
-                .get()
-                .load(LogActivity.imgFundoAssistido)
-                .into(imgFundoCriticaUser);
+        if(DiaryActivity.diarioCritica = true){
+            ratingBarCritica.setRating(DiaryActivity.notaCritica);
+            txtCriticaUser.setText(DiaryActivity.textoCritica);
+            btnDataCritica.setText("Assistido em " + DiaryActivity.dataCritica);
+            Picasso
+                    .get()
+                    .load(DiaryActivity.imgposterCritica)
+                    .into(imgPosterCriticaUser);
+            txtNomeFilmeCritica.setText(DiaryActivity.nomefilmeCritica);
+            txtAnoFilmeCritica.setText(DiaryActivity.anoCritica);
+            Picasso
+                    .get()
+                    .load(DiaryActivity.imgfundoCritica)
+                    .into(imgFundoCriticaUser);
+        }
+        else {
 
+            ratingBarCritica.setRating(LogActivity.ratingBar.getRating());
+            txtCriticaUser.setText(LogActivity.critica);
+            btnDataCritica.setText("Assistido em " + LogActivity.dataAssistido);
+            Picasso
+                    .get()
+                    .load(LogActivity.imgPosterAssistido)
+                    .into(imgPosterCriticaUser);
+            txtNomeFilmeCritica.setText(LogActivity.nomeFilmeAssitido);
+            txtAnoFilmeCritica.setText(LogActivity.anoFilmeAssistido);
+            Picasso
+                    .get()
+                    .load(LogActivity.imgFundoAssistido)
+                    .into(imgFundoCriticaUser);
+        }
     }
 }
