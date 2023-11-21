@@ -13,6 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.widget.Toolbar
+            android:id="@+id/toolbar3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:elevation="10dp"
+            android:foregroundTint="#FFFFFF"
+            android:minHeight="?attr/actionBarSize"
+            android:popupTheme="@style/Theme.Material3.Light.NoActionBar"
+            android:theme="@style/ToolbarColoredBackArrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textView19"
             android:layout_width="match_parent"

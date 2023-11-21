@@ -67,7 +67,7 @@ public class CriticaActivity extends AppCompatActivity {
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
 
-        if(DiaryActivity.diarioCritica = true){
+        if(DiaryActivity.diarioCritica == true){
             ratingBarCritica.setRating(DiaryActivity.notaCritica);
             txtCriticaUser.setText(DiaryActivity.textoCritica);
             btnDataCritica.setText("Assistido em " + DiaryActivity.dataCritica);

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:checkableBehavior="none">
+
+
+            <item
+                android:id="@+id/nav_editarusu"
+                android:title="Editar usuário"
+                android:icon="@drawable/icons8_editar_100"
+                app:showAsAction="never">
+            </item>
+            <item
+                android:id="@+id/nav_editarfav"
+                android:icon="@drawable/icons8_to_do_list_100"
+                android:title="Alterar favoritos"
+                app:showAsAction="never">
+            </item>
+    </group>
+</menu>

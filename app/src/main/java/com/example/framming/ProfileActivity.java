@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +22,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextView txtNomeUsuario, txtUserName;
     ImageView imgIconUsuario;
     Button btntipouser;
+
+    Toolbar toolbarprofile;
 
 
     @Override
@@ -33,9 +37,26 @@ public class ProfileActivity extends AppCompatActivity {
         imgIconUsuario = findViewById(R.id.imgIconUsuario);
         btntipouser = findViewById(R.id.btntipouser);
         cardDiario = findViewById(R.id.cardDiario);
+        toolbarprofile = findViewById(R.id.toolbar3);
 
         txtNomeUsuario.setText(HomeActivity.nomeusuario);
         txtUserName.setText("@" + HomeActivity.nickusuario);
+
+        toolbarprofile.inflateMenu(R.menu.profile_menu);
+        toolbarprofile.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.nav_editarusu) {
+                    startActivity(new Intent(ProfileActivity.this, PosterActivity.class));
+
+                    finish();
+                } else if (item.getItemId() == R.id.nav_editarfav) {
+
+                }
+
+                return false;
+            }
+        });
 
         if(HomeActivity.iconusuario.equals("https://imageupload.io/ib/yzauelSzIISZpoC_1697494770.png")){
             Picasso
