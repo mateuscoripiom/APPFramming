@@ -25,7 +25,7 @@ public class DiaryActivity extends AppCompatActivity {
 
     public static ArrayList<ItemFeedback> itemsfeedback = new ArrayList<>();
     public static ArrayList<ItemFeedbackF> itemsffinal = new ArrayList<>();
-    public static int contagemdiario;
+    public static int contagemdiario = 0;
 
     RecyclerView recyclerViewDiary;
     TextView contagemtotal, txtnomeusudiario;
@@ -61,6 +61,7 @@ public class DiaryActivity extends AppCompatActivity {
                 itemsfeedback.clear();
                 contagemdiario = 0;
                 startActivity(new Intent(DiaryActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
@@ -82,7 +83,7 @@ public class DiaryActivity extends AppCompatActivity {
                     for(b=0; b<itemsfeedback.size(); b++){
                         contagemdiario++;
                         contagemtotal.setText("Você já marcou " + contagemdiario + " filmes no seu diário");
-                        buscarFilmesC(itemsfeedback.get(b).getIdFilme(), itemsfeedback.get(b).getNotaCritica(), itemsfeedback.get(b).getDataCritica(), itemsfeedback.get(b).getIdCritica(),itemsfeedback.get(b).getFeedbackCritica());
+                        buscarFilmesC(itemsfeedback.get(b).getIdFilme(), itemsfeedback.get(b).getNotaCritica(), itemsfeedback.get(b).getDataCritica(), itemsfeedback.get(b).getIdCritica(),itemsfeedback.get(b).getTextoCritica());
                     }
 
                 }
@@ -126,7 +127,7 @@ public class DiaryActivity extends AppCompatActivity {
                                 public void onItemClick(View view, int position) {
 
                                     diarioCritica = true;
-                                    startActivity(new Intent(DiaryActivity.this, CriticaActivity.class));
+                                    startActivity(new Intent(DiaryActivity.this, CriticaActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                                 }
 
                                 @Override/*IDPopUp = items.get(position).getIdpop();

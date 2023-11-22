@@ -142,7 +142,7 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
 
     private String makeDateString(int day, int month, int year) {
         dataAssistido = day + " " + getMonthFormat(month) + ", " + year;
-        dataparasalvar = day + "/" + month + "/" + year;
+        dataparasalvar = year + "-" + month + "-" + day;
         return  day + " " + getMonthFormat(month) + ", " + year;
     }
 

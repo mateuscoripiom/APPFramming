@@ -1,26 +1,16 @@
 package com.example.framming;
 
-public class ItemFeedback {
+public class ItemFeedbackFRecente {
     String idFilme;
     String idCritica;
     Float notaCritica;
-    String dataCritica;
-    String textoCritica;
+    String posterFilme;
 
-    public ItemFeedback(String idFilme, String idCritica, Float notaCritica, String dataCritica, String textoCritica) {
+    public ItemFeedbackFRecente(String idFilme, String idCritica, Float notaCritica, String posterFilme) {
         this.idFilme = idFilme;
         this.idCritica = idCritica;
         this.notaCritica = notaCritica;
-        this.dataCritica = dataCritica;
-        this.textoCritica = textoCritica;
-    }
-
-    public String getTextoCritica() {
-        return textoCritica;
-    }
-
-    public void setTextoCritica(String textoCritica) {
-        this.textoCritica = textoCritica;
+        this.posterFilme = posterFilme;
     }
 
     public String getIdFilme() {
@@ -39,7 +29,7 @@ public class ItemFeedback {
         this.idCritica = idCritica;
     }
 
-    public float getNotaCritica() {
+    public Float getNotaCritica() {
         return notaCritica;
     }
 
@@ -47,11 +37,11 @@ public class ItemFeedback {
         this.notaCritica = notaCritica;
     }
 
-    public String getDataCritica() {
-        return dataCritica;
+    public String getPosterFilme() {
+        return posterFilme;
     }
 
-    public void setDataCritica(String dataCritica) {
-        this.dataCritica = dataCritica;
+    public void setPosterFilme(String posterFilme) {
+        this.posterFilme = posterFilme;
     }
 }

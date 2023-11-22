@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MyAdapterDiary extends RecyclerView.Adapter<MyViewHolderDiary> {
     private Context diarycontext;
@@ -32,6 +35,9 @@ public class MyAdapterDiary extends RecyclerView.Adapter<MyViewHolderDiary> {
         holder.txtAnoCritica.setText(itemsffinal.get(position).getAnoFilme());
         holder.txtOriginalCritica.setText(itemsffinal.get(position).getOriginalFilme());
         holder.ratingBarCritica.setRating(itemsffinal.get(position).getNotaCritica());
+        LocalDate localDate = LocalDate.parse(itemsffinal.get(position).getDataCritica());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy", new Locale("pt", "BR"));
+        holder.txtDataC.setText(localDate.format(dateTimeFormatter));
         Picasso
                     .get()
                     .load("https://www.themoviedb.org/t/p/original" + itemsffinal.get(position).getPosterFilme())

@@ -22,6 +22,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:outlineProvider="none"
+                android:paddingHorizontal="0dp"
+                app:cardBackgroundColor="#C32E2E2E"
+                app:cardCornerRadius="40dp"
+                app:contentPaddingBottom="2dp"
+                app:contentPaddingTop="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/txtDataCr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="TextView"
+                    android:textColor="#FEFEFE"
+                    android:textSize="10sp" />
+            </androidx.cardview.widget.CardView>
+
             <RatingBar
                 android:id="@+id/ratingBar3"
                 style="@style/Widget.AppCompat.RatingBar.Small"
@@ -81,7 +109,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:autoSizeMaxTextSize="20sp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/poppins_bold"
@@ -95,14 +123,13 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toStartOf="@+id/cardView14"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView15" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:elevation="3dp"
                 android:outlineProvider="background"
@@ -110,7 +137,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/cardView15">
 
                 <ImageView
                     android:id="@+id/imgPosterCritica"

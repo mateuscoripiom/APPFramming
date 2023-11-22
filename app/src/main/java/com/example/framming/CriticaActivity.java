@@ -20,6 +20,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class CriticaActivity extends AppCompatActivity {
 
     private TextView txtCriticaUser, txtNomeFilmeCritica, txtAnoFilmeCritica, txtPerfilCritica;
@@ -53,33 +57,55 @@ public class CriticaActivity extends AppCompatActivity {
         imgbtnvoltar4.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(CriticaActivity.this, HomeActivity.class));
-                finish();
+                DiaryActivity.itemsffinal.clear();
+                DiaryActivity.itemsfeedback.clear();
+                DiaryActivity.contagemdiario = 0;
+                if(DiaryActivity.diarioCritica == true){
+                    startActivity(new Intent(CriticaActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    finish();
+                }
+                else {
+                    startActivity(new Intent(CriticaActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    finish();
+                }
+
             }
         });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                startActivity(new Intent(CriticaActivity.this, HomeActivity.class));
-                finish();
+                DiaryActivity.itemsffinal.clear();
+                DiaryActivity.itemsfeedback.clear();
+                DiaryActivity.contagemdiario = 0;
+                if(DiaryActivity.diarioCritica == true){
+                    startActivity(new Intent(CriticaActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    finish();
+                }
+                else {
+                    startActivity(new Intent(CriticaActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    finish();
+                }
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
 
         if(DiaryActivity.diarioCritica == true){
+            LocalDate localDate = LocalDate.parse(DiaryActivity.dataCritica);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy", new Locale("pt", "BR"));
             ratingBarCritica.setRating(DiaryActivity.notaCritica);
             txtCriticaUser.setText(DiaryActivity.textoCritica);
-            btnDataCritica.setText("Assistido em " + DiaryActivity.dataCritica);
+            btnDataCritica.setText("Assistido em " + localDate.format(dateTimeFormatter));
+
             Picasso
                     .get()
-                    .load(DiaryActivity.imgposterCritica)
+                    .load("https://www.themoviedb.org/t/p/original" + DiaryActivity.imgposterCritica)
                     .into(imgPosterCriticaUser);
             txtNomeFilmeCritica.setText(DiaryActivity.nomefilmeCritica);
             txtAnoFilmeCritica.setText(DiaryActivity.anoCritica);
             Picasso
                     .get()
-                    .load(DiaryActivity.imgfundoCritica)
+                    .load("https://www.themoviedb.org/t/p/original" + DiaryActivity.imgfundoCritica)
                     .into(imgFundoCriticaUser);
         }
         else {
@@ -99,4 +125,5 @@ public class CriticaActivity extends AppCompatActivity {
                     .into(imgFundoCriticaUser);
         }
     }
+
 }

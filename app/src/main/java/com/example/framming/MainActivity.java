@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.nav_altposter) {
-                    startActivity(new Intent(MainActivity.this, PosterActivity.class));
+                    startActivity(new Intent(MainActivity.this, PosterActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     PosterActivity.IDPosition = null;
                     MainActivity.linkFilmeSalvo = null;
                     finish();
@@ -117,14 +117,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         btnDarNota.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(MainActivity.this, NotaActivity.class));
+                startActivity(new Intent(MainActivity.this, NotaActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
 
         btnhorarioses.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(MainActivity.this, tipoingressoActivity.class));
+                startActivity(new Intent(MainActivity.this, tipoingressoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
 
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         btndiario.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(MainActivity.this, LogActivity.class));
+                startActivity(new Intent(MainActivity.this, LogActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
             }
         });
@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 HomeActivity.IDPositionPop = null;
                 PosterActivity.IDPosition = null;
                 MainActivity.linkFilmeSalvo = null;
+                linkFilmeSalvo.equals(null);
                 usado = false;
                 usadoEscolha = false;
                 PesquisaActivity.IDpesquisa = null;
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 itemsbusca.clear();
                 items.clear();
                 swtPosition = false;
-                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                startActivity(new Intent(MainActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
 
@@ -180,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 PosterActivity.IDPosition = null;
                 usado = false;
                 usadoEscolha = false;
+                linkFilmeSalvo.equals(null);
                 PesquisaActivity.IDpesquisa = null;
                 HomeActivity.usadobtn = 0;
                 posterArray.clear();
@@ -187,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 MainActivity.linkFilmeSalvo = null;
                 items.clear();
                 swtPosition = false;
-                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                startActivity(new Intent(MainActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
