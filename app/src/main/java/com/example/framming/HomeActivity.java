@@ -142,6 +142,9 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                     case "Diário":
                         startActivity(new Intent(HomeActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
+                    case "Quero Ver":
+                        startActivity(new Intent(HomeActivity.this, QueroVerActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        break;
                     case "Deslogar":
                         deslogarBox();
                     break;

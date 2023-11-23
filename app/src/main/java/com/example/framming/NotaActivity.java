@@ -69,7 +69,7 @@ public class NotaActivity extends AppCompatActivity {
     }
 
     private String makeDateString(int day, int month, int year) {
-        return  day + "/" + month + "/" + year;
+        return  year + "-" + month + "-" + day;
     }
 
     public FeedbackRequest feedbackRequest(){
@@ -88,7 +88,8 @@ public class NotaActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()){
                     StyleableToast.makeText(NotaActivity.this, "Sua nota de " + MainActivity.nomeFilmeTipIng + " foi salva", Toast.LENGTH_LONG, R.style.exampleToast).show();
-
+                    startActivity(new Intent(NotaActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    finish();
                 }
                 else{
                     StyleableToast.makeText(NotaActivity.this, "Não foi possível salvar sua crítica", Toast.LENGTH_LONG, R.style.erroToast).show();

@@ -205,7 +205,7 @@
             app:layout_constraintHorizontal_bias="0.523"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/gradientp" />
+            app:srcCompat="@drawable/gradientbackimage" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView9"
@@ -557,6 +557,7 @@
                         app:cardBackgroundColor="#00FFFFFF" />
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardQueroVer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

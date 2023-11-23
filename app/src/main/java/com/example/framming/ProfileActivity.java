@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public static ArrayList<ItemFeedback> itemsfeedbackrecente = new ArrayList<>();
     public static ArrayList<ItemFeedbackFRecente> itemsffinalrecente = new ArrayList<>();
-    CardView cardPontos, cardDiario;
+    CardView cardPontos, cardDiario, cardQueroVer;
     TextView txtNomeUsuario, txtUserName;
     ImageView imgIconUsuario;
     Button btntipouser;
@@ -52,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         cardDiario = findViewById(R.id.cardDiario);
         toolbarprofile = findViewById(R.id.toolbar3);
         recyclerViewRecente = findViewById(R.id.recyclerViewRecente);
+        cardQueroVer = findViewById(R.id.cardQueroVer);
 
         txtNomeUsuario.setText(HomeActivity.nomeusuario);
         txtUserName.setText("@" + HomeActivity.nickusuario);
@@ -95,6 +96,13 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 startActivity(new Intent(ProfileActivity.this, RecompensasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+            }
+        });
+
+        cardQueroVer.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(ProfileActivity.this, QueroVerActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
 

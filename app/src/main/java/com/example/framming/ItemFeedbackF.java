@@ -10,8 +10,9 @@ public class ItemFeedbackF {
     String anoFilme;
     String originalFilme;
     String fundoFilme;
+    String textoCritica;
 
-    public ItemFeedbackF(String idFilme, String idCritica, Float notaCritica, String dataCritica, String posterFilme, String fundoFilme, String nomeFilme, String anoFilme, String originalFilme) {
+    public ItemFeedbackF(String idFilme, String idCritica, Float notaCritica, String dataCritica, String posterFilme, String fundoFilme, String nomeFilme, String anoFilme, String originalFilme, String textoCritica) {
         this.idFilme = idFilme;
         this.idCritica = idCritica;
         this.notaCritica = notaCritica;
@@ -21,6 +22,15 @@ public class ItemFeedbackF {
         this.nomeFilme = nomeFilme;
         this.anoFilme = anoFilme;
         this.originalFilme = originalFilme;
+        this.textoCritica = textoCritica;
+    }
+
+    public String getTextoCritica() {
+        return textoCritica;
+    }
+
+    public void setTextoCritica(String textoCritica) {
+        this.textoCritica = textoCritica;
     }
 
     public String getFundoFilme() {

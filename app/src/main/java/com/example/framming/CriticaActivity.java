@@ -7,6 +7,7 @@ import static com.example.framming.PosterActivity.posterArray;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +18,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Locale;
+
+import io.github.muddz.styleabletoast.StyleableToast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CriticaActivity extends AppCompatActivity {
 
@@ -60,7 +68,8 @@ public class CriticaActivity extends AppCompatActivity {
                 DiaryActivity.itemsffinal.clear();
                 DiaryActivity.itemsfeedback.clear();
                 DiaryActivity.contagemdiario = 0;
-                if(DiaryActivity.diarioCritica == true){
+                if(DiaryActivity.usoDiario == true){
+                    DiaryActivity.usoDiario = false;
                     startActivity(new Intent(CriticaActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     finish();
                 }
@@ -68,7 +77,6 @@ public class CriticaActivity extends AppCompatActivity {
                     startActivity(new Intent(CriticaActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     finish();
                 }
-
             }
         });
 
@@ -78,7 +86,8 @@ public class CriticaActivity extends AppCompatActivity {
                 DiaryActivity.itemsffinal.clear();
                 DiaryActivity.itemsfeedback.clear();
                 DiaryActivity.contagemdiario = 0;
-                if(DiaryActivity.diarioCritica == true){
+                if(DiaryActivity.usoDiario == true){
+                    DiaryActivity.usoDiario = false;
                     startActivity(new Intent(CriticaActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     finish();
                 }
@@ -90,13 +99,12 @@ public class CriticaActivity extends AppCompatActivity {
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
 
-        if(DiaryActivity.diarioCritica == true){
+        if(DiaryActivity.usoDiario == true){
             LocalDate localDate = LocalDate.parse(DiaryActivity.dataCritica);
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy", new Locale("pt", "BR"));
             ratingBarCritica.setRating(DiaryActivity.notaCritica);
             txtCriticaUser.setText(DiaryActivity.textoCritica);
             btnDataCritica.setText("Assistido em " + localDate.format(dateTimeFormatter));
-
             Picasso
                     .get()
                     .load("https://www.themoviedb.org/t/p/original" + DiaryActivity.imgposterCritica)
@@ -109,10 +117,12 @@ public class CriticaActivity extends AppCompatActivity {
                     .into(imgFundoCriticaUser);
         }
         else {
+            LocalDate localDate2 = LocalDate.parse(LogActivity.dataAssistido);
+            DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("dd MMMM, yyyy", new Locale("pt", "BR"));
 
             ratingBarCritica.setRating(LogActivity.ratingBar.getRating());
             txtCriticaUser.setText(LogActivity.critica);
-            btnDataCritica.setText("Assistido em " + LogActivity.dataAssistido);
+            btnDataCritica.setText("Assistido em " + localDate2.format(dateTimeFormatter2));
             Picasso
                     .get()
                     .load(LogActivity.imgPosterAssistido)
@@ -124,6 +134,27 @@ public class CriticaActivity extends AppCompatActivity {
                     .load(LogActivity.imgFundoAssistido)
                     .into(imgFundoCriticaUser);
         }
+    }
+
+
+    public void buscarFilmeCritica(String idFilme){
+        Call<FilmesResponse> result = ApiClient.getUserService().getAllDataFilme(idFilme);
+        result.enqueue(new Callback<FilmesResponse>() {
+            @Override
+            public void onResponse(Call<FilmesResponse> call, Response<FilmesResponse> response) {
+                if(response.isSuccessful()){
+
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FilmesResponse> call, Throwable t) {
+                StyleableToast.makeText(CriticaActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
     }
 
 }

@@ -34,10 +34,19 @@ public interface UserService {
     Call<ResponseBody> saveFeedback(@Path("user_id") String userID, @Body FeedbackRequest feedbackRequest);
     @GET("feedback/{user_id}")
     Call<ArrayList<ItemFeedback>> getAllFeedback(@Path("user_id") String userID);
+    @GET("feedbackMovie/{user_id}/{filme_id}")
+    Call<ArrayList<FeedbackResponse>> getFeedbackMovie(@Path("user_id") String userID, @Path("filme_id") String filmeID);
 
     @POST("upload?")
     Call<ResponseBody> salvarImgP(@Query("expiration") String expirationLink, @Query("key") String keyLink, @Query("image") String imageLink);
 
     @GET("movies/{id}")
     Call<FilmesResponse> getAllDataFilme(@Path("id") String filmeID);
+    @POST("watch-later/{user_id}")
+    Call<ResponseBody> saveQueroVer(@Path("user_id") String queroVer, @Body QueroVerRequest queroVerRequest);
+
+    @GET("watch-later/{user_id}")
+    Call<ArrayList<ItemQueroVer>> getQueroVer(@Path("user_id") String userID);
+    @GET("watch-later/{user_id}/{filme_id}")
+    Call<QueroVerResponse> getMovieQV(@Path("user_id") String userID, @Path("filme_id") String filmeID);
 }

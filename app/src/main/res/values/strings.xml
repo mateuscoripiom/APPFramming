@@ -109,5 +109,7 @@
     <string name="seudiario">Seu diário</string>
     <string name="darnota">Dar nota</string>
     <string name="fav1">Adicionar primeiro favorito</string>
+    <string name="suanotamain">SUA NOTA</string>
+    <string name="querovermin">Quero ver</string>
 </resources>
 

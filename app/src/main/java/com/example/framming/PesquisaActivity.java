@@ -112,6 +112,9 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
                     case "Diário":
                         startActivity(new Intent(PesquisaActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
+                    case "Quero Ver":
+                        startActivity(new Intent(PesquisaActivity.this, QueroVerActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        break;
                     case "Deslogar":
                         deslogarBox();
                         break;
