@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 usado = false;
                 usadoEscolha = false;
                 listadoQV = false;
+                QueroVerActivity.contagemquerover = 0;
                 PesquisaActivity.IDpesquisa = null;
                 HomeActivity.usadobtn = 0;
                 posterArray.clear();
@@ -188,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 PosterActivity.IDPosition = null;
                 usado = false;
                 usadoEscolha = false;
+                QueroVerActivity.contagemquerover = 0;
                 linkFilmeSalvo = null;
                 listadoQV = false;
                 PesquisaActivity.IDpesquisa = null;

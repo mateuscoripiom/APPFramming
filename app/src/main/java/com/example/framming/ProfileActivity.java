@@ -67,6 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     finish();
                 } else if (item.getItemId() == R.id.nav_editarfav) {
+                    startActivity(new Intent(ProfileActivity.this, Favorito1Activity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
 
                 }
 
