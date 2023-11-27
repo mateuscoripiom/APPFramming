@@ -107,14 +107,14 @@ public class DiaryActivity extends AppCompatActivity {
     }
 
     public void buscarFilmesC(String idFilmeC, Float notaFilmC, String dataFilmeC, String idCriticaC, String feedbackCritica){
-        Call<FilmesResponse> result = ApiClient.getUserService().getAllDataFilme(idFilmeC);
-        result.enqueue(new Callback<FilmesResponse>() {
+        Call<ArrayList<FilmesResponse>> result = ApiClient.getUserService().getAllDataFilme(idFilmeC);
+        result.enqueue(new Callback<ArrayList<FilmesResponse>>() {
             @Override
-            public void onResponse(Call<FilmesResponse> call, Response<FilmesResponse> response) {
+            public void onResponse(Call<ArrayList<FilmesResponse>> call, Response<ArrayList<FilmesResponse>> response) {
                 if(response.isSuccessful()){
                     idCriticaD = idCriticaC;
 
-                    itemsffinal.add(new ItemFeedbackF(idFilmeC, idCriticaC, notaFilmC, dataFilmeC, response.body().getPoster_path(), response.body().getBackdrop_path(), response.body().getTitle(), response.body().getRelease_date(), response.body().getOriginal_title(), feedbackCritica));
+                    itemsffinal.add(new ItemFeedbackF(idFilmeC, idCriticaC, notaFilmC, dataFilmeC, response.body().get(0).getPoster_path(), response.body().get(0).getBackdrop_path(), response.body().get(0).getTitle(), response.body().get(0).getRelease_date(), response.body().get(0).getOriginal_title(), feedbackCritica));
                     sortListByDate(itemsffinal);
                     MyAdapterDiary myAdapterDiary = new MyAdapterDiary(DiaryActivity.this, itemsffinal);
                     LinearLayoutManager manager = new LinearLayoutManager(DiaryActivity.this, recyclerViewDiary.VERTICAL, false);
@@ -151,7 +151,7 @@ public class DiaryActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<FilmesResponse> call, Throwable t) {
+            public void onFailure(Call<ArrayList<FilmesResponse>> call, Throwable t) {
                 StyleableToast.makeText(DiaryActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
             }
         });

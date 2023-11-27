@@ -137,24 +137,5 @@ public class CriticaActivity extends AppCompatActivity {
     }
 
 
-    public void buscarFilmeCritica(String idFilme){
-        Call<FilmesResponse> result = ApiClient.getUserService().getAllDataFilme(idFilme);
-        result.enqueue(new Callback<FilmesResponse>() {
-            @Override
-            public void onResponse(Call<FilmesResponse> call, Response<FilmesResponse> response) {
-                if(response.isSuccessful()){
-
-                }
-                else{
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<FilmesResponse> call, Throwable t) {
-                StyleableToast.makeText(CriticaActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
-            }
-        });
-    }
 
 }

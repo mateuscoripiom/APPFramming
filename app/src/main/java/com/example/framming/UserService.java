@@ -41,7 +41,7 @@ public interface UserService {
     Call<ResponseBody> salvarImgP(@Query("expiration") String expirationLink, @Query("key") String keyLink, @Query("image") String imageLink);
 
     @GET("movies/{id}")
-    Call<FilmesResponse> getAllDataFilme(@Path("id") String filmeID);
+    Call<ArrayList<FilmesResponse>> getAllDataFilme(@Path("id") String filmeID);
     @POST("watch-later/{user_id}")
     Call<ResponseBody> saveQueroVer(@Path("user_id") String queroVer, @Body QueroVerRequest queroVerRequest);
 
@@ -51,4 +51,9 @@ public interface UserService {
     Call<QueroVerResponse> getMovieQV(@Path("user_id") String userID, @Path("filme_id") String filmeID);
     @POST("favoriteMovies/{user_id}")
     Call<ResponseBody> salvarFilmeFav(@Path("user_id") String userId, @Body FavoritoRequest favoritoRequest);
+
+    @GET("movies/{id}")
+    Call<ArrayList<ItemFilme>> getAllDataFilmeAPI(@Path("id") String filmeID);
+
+
 }

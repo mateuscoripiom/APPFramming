@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextView txtName, txtAno, txtDuracao, txtSinopse, txtNomeOriginal;
     private Button btnGenero, btnPesquisa, btndiario, btnhorarioses, btnDarNota, btnQueroVer;
     public static ArrayList<FeedbackResponse> itemscritica = new ArrayList<FeedbackResponse>();
+    public static ArrayList<ItemFilme> itemsfilme = new ArrayList<>();
     public static EditText etxtID;
     private ImageButton imgbtnposter, imgbtnvoltar;
     public static boolean usado = false;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     Toolbar toolbar;
     CardView cardSuaNota;
     RatingBar ratingSuaNota;
+    TextView txtnumvisu, txtmedianota;
 
 
     @Override
@@ -86,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_main);
 
-
+        txtnumvisu = findViewById(R.id.txtnumvisu);
+        txtmedianota = findViewById(R.id.txtmedianota);
         cardSuaNota = findViewById(R.id.cardSuaNota);
         ratingSuaNota = findViewById(R.id.ratingBarSuaNota);
         imgBackground = findViewById(R.id.imgFundo);
@@ -123,6 +126,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 return false;
             }
         });
+
+        if(HomeActivity.ID != null) {
+            IDFilme = HomeActivity.ID;
+        }
+        if(HomeActivity.IDPositionPop != null){
+            IDFilme = HomeActivity.IDPositionPop;
+        }
+        if(HomeActivity.IDPositionPop != null){
+            IDFilme = HomeActivity.IDPositionPop;
+        }
+        if(PesquisaActivity.IDpesquisa != null){
+            IDFilme = PesquisaActivity.IDpesquisa;
+        }
+
+        buscarFilmeAPI(IDFilme);
 
 
         buscaPosterSalvo();
@@ -548,6 +566,61 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
     }
+
+    public void buscarFilmeAPI(String filmeID){
+        Call<ArrayList<ItemFilme>> result = ApiClient.getUserService().getAllDataFilmeAPI(filmeID);
+        result.enqueue(new Callback<ArrayList<ItemFilme>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ItemFilme>> call, Response<ArrayList<ItemFilme>> response) {
+                if(response.isSuccessful()){
+                    itemsfilme = response.body();
+
+                    int b=0;
+
+                    for(b=0; b<itemsfilme.size(); b++){
+                        txtName.setText(itemsfilme.get(0).getTitle());
+                        nomeFilmeTipIng = itemsfilme.get(0).getTitle();
+                        txtDuracao.setText(itemsfilme.get(0).getRuntime() + "min");
+                        txtAno.setText(itemsfilme.get(0).getRelease_date());
+                        txtNomeOriginal.setText(itemsfilme.get(0).getOriginal_title());
+                        btnGenero.setText(itemsfilme.get(0).getGenre().get(0).getName());
+                        txtSinopse.setText(itemsfilme.get(0).getOverview());
+                        fundoFilmeTipIng = itemsfilme.get(0).getBackdrop_path();
+                        txtnumvisu.setText(itemsfilme.get(0).getQtdVisualizacaoFilme());
+                        txtmedianota.setText(itemsfilme.get(0).getNotaFilme());
+
+                        Picasso
+                                .get()
+                                .load("https://www.themoviedb.org/t/p/original" + itemsfilme.get(0).getBackdrop_path())
+                                .into(imgBackground);
+
+                        if (usadoEscolha == true) {
+                            Picasso
+                                    .get()
+                                    .load("https://www.themoviedb.org/t/p/original" + linkFilmeSalvo)
+                                    .into(imgPoster);
+                            posterFilmeTipIng = linkFilmeSalvo;
+                        } else {
+                            Picasso
+                                    .get()
+                                    .load("https://www.themoviedb.org/t/p/original" + itemsfilme.get(0).getPoster_path())
+                                    .into(imgPoster);
+                            posterFilmeTipIng = itemsfilme.get(0).getPoster_path();
+                        }
+                    }
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ItemFilme>> call, Throwable t) {
+                StyleableToast.makeText(MainActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
+
 
 
 }

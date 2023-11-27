@@ -146,12 +146,12 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void buscarFilmesC(String idFilmeC, Float notaFilmC, String idCriticaC){
-        Call<FilmesResponse> result = ApiClient.getUserService().getAllDataFilme(idFilmeC);
-        result.enqueue(new Callback<FilmesResponse>() {
+        Call<ArrayList<FilmesResponse>> result = ApiClient.getUserService().getAllDataFilme(idFilmeC);
+        result.enqueue(new Callback<ArrayList<FilmesResponse>>() {
             @Override
-            public void onResponse(Call<FilmesResponse> call, Response<FilmesResponse> response) {
+            public void onResponse(Call<ArrayList<FilmesResponse>> call, Response<ArrayList<FilmesResponse>> response) {
                 if(response.isSuccessful()){
-                    itemsffinalrecente.add(new ItemFeedbackFRecente(idFilmeC, idCriticaC, notaFilmC, response.body().getPoster_path()));
+                    itemsffinalrecente.add(new ItemFeedbackFRecente(idFilmeC, idCriticaC, notaFilmC, response.body().get(0).getPoster_path()));
                     MyAdapterRecente myAdapterRecente = new MyAdapterRecente(ProfileActivity.this, itemsffinalrecente);
                     LinearLayoutManager manager = new LinearLayoutManager(ProfileActivity.this, recyclerViewRecente.HORIZONTAL, false);
                     recyclerViewRecente.setLayoutManager(manager);
@@ -179,7 +179,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<FilmesResponse> call, Throwable t) {
+            public void onFailure(Call<ArrayList<FilmesResponse>> call, Throwable t) {
                 StyleableToast.makeText(ProfileActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
             }
         });
