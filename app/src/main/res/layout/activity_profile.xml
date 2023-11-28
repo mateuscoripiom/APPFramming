@@ -32,14 +32,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/suaatvrec"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView9" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFav" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -162,23 +162,23 @@
                         android:text="CRIADOR"
                         android:textSize="10sp"
                         app:cornerRadius="5dp" />
+
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:id="@+id/imgFundo7"
-        android:layout_width="match_parent"
-        android:layout_height="234dp"
-        android:adjustViewBounds="true"
-        android:elevation="2dp"
-        android:outlineProvider="none"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ttfnd2vrlazjsbd9hubtsf3cqpj" />
+        <ImageView
+            android:id="@+id/imgFundo7"
+            android:layout_width="match_parent"
+            android:layout_height="234dp"
+            android:adjustViewBounds="true"
+            android:elevation="2dp"
+            android:outlineProvider="none"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.523"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imgFundo9"
@@ -207,144 +207,30 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/gradientbackimage" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView9"
+        <TextView
+            android:id="@+id/textView18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:outlineProvider="none"
-            app:cardBackgroundColor="#00FFFFFF"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/filmesfavoritados"
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView8">
+            app:layout_constraintTop_toBottomOf="@+id/cardView8" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/filmesfavoritados"
-                    android:textColor="#FFFFFF" />
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:outlineProvider="none"
-                    app:cardBackgroundColor="#00FFFFFF" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:elevation="3dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="3dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/imgPoster"
-                            android:layout_width="match_parent"
-                            android:layout_height="115dp"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/iufnms8u5cb6xfzi51dbkovj7vm" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="11dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0"
-                        app:cardBackgroundColor="#00FFFFFF" />
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:elevation="3dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="3dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/imgPoster"
-                            android:layout_width="match_parent"
-                            android:layout_height="115dp"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/iufnms8u5cb6xfzi51dbkovj7vm" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="11dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0"
-                        app:cardBackgroundColor="#00FFFFFF" />
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:elevation="3dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="3dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/imgPoster"
-                            android:layout_width="match_parent"
-                            android:layout_height="115dp"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/iufnms8u5cb6xfzi51dbkovj7vm" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="11dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0"
-                        app:cardBackgroundColor="#00FFFFFF" />
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:elevation="3dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="3dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/imgPoster"
-                            android:layout_width="match_parent"
-                            android:layout_height="115dp"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/iufnms8u5cb6xfzi51dbkovj7vm" />
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
         <TextView
         android:id="@+id/textView15"

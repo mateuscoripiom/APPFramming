@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,6 +64,8 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextView txtnomeuser;
     public static List<Item> items = new ArrayList<>();
     public static ArrayList<ItemNac> itemsnac = new ArrayList<ItemNac>();
+
+    public static ArrayList<FilmesResponse> itemsfav = new ArrayList<>();
 
     public static String ID = null;
     public static String IDPopUp;
@@ -89,13 +92,15 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     ImageView imgbtndrawer;
 
     MenuInflater inflater;
+    ImageView imgFundoFav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
 
-      //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         edittxtbusca = findViewById(R.id.edittxtbuscap);
@@ -104,7 +109,9 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         imgbtndrawer = findViewById(R.id.imgbtndrawer);
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
         navigationView = findViewById(R.id.nav_view);
+        buscarFavoritos();
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -115,11 +122,11 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         buscaInfoUser();
         buscarNacionais();
 
-        imgbtndrawer.setOnClickListener(new View.OnClickListener(){
+        imgbtndrawer.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 drawerLayout.openDrawer(Gravity.LEFT);
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
             }
         });
@@ -129,16 +136,16 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 String homenav = item.getTitle().toString();
-                switch (homenav){
+                switch (homenav) {
                     case "Início":
                         startActivity(new Intent(HomeActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    break;
+                        break;
                     case "Perfil":
                         startActivity(new Intent(HomeActivity.this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    break;
+                        break;
                     case "Recompensas":
                         startActivity(new Intent(HomeActivity.this, RecompensasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    break;
+                        break;
                     case "Diário":
                         startActivity(new Intent(HomeActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
@@ -147,7 +154,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                         break;
                     case "Deslogar":
                         deslogarBox();
-                    break;
+                        break;
                 }
                 return false;
             }
@@ -156,9 +163,9 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
 
-        edittxtbusca.setOnClickListener(new View.OnClickListener(){
+        edittxtbusca.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this, PesquisaActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
@@ -170,12 +177,11 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         swthome.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     swtPosition = true;
                     items.clear();
                     buscaInfoFilmeEmBreve();
-                }
-                else{
+                } else {
                     swtPosition = false;
                     items.clear();
                     buscaInfoFilmePopular();
@@ -184,9 +190,10 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-         inflater = getMenuInflater();
+        inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
 
         return true;
@@ -196,7 +203,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String check = sharedPreferences.getString(KEY_EMAIL, null);
         String idu = sharedPreferences.getString(KEY_ID, null);
-        if(check != null && idu != null){
+        if (check != null && idu != null) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
             editor.commit();
@@ -226,6 +233,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
             Toast.makeText(HomeActivity.this, "Termo inválido", Toast.LENGTH_SHORT).show();
         }
     }
+
     public void buscaInfoFilmeEmBreve() {
         // Verifica o status da conexão de rede
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -259,11 +267,11 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                if(response.code() != 200){
+                if (response.code() != 200) {
                     //Toast.makeText(MainActivity.this, "Cheque sua conexão", Toast.LENGTH_SHORT).show();
 
                 }
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     String nomeusu = "";
                     String username = "";
                     String linkfotoperfil = "";
@@ -283,6 +291,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
 
@@ -294,18 +303,17 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-        if(usadobtn != 0) {
+        if (usadobtn != 0) {
             String queryString = "";
             if (args != null) {
                 queryString = args.getString("queryString");
             }
             return new CarregaFilme(this, queryString);
         }
-        if(swtPosition == true){
+        if (swtPosition == true) {
             items.clear();
             return new CarregaEmBreve(this);
-        }
-        else {
+        } else {
             items.clear();
             return new CarregaPopulares(this);
         }
@@ -343,27 +351,27 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                 // move para a proxima linha
                 z++;
             }
-                LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
-                recyclerViewPop.setLayoutManager(horizontalLayoutManager);
-                recyclerViewPop.setAdapter(new MyAdapterPop(getApplicationContext(), items));
+            LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
+            recyclerViewPop.setLayoutManager(horizontalLayoutManager);
+            recyclerViewPop.setAdapter(new MyAdapterPop(getApplicationContext(), items));
 
-                recyclerViewPop.addOnItemTouchListener(
-                        new RecyclerItemClickListener(getApplicationContext(), recyclerViewPop, new RecyclerItemClickListener.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                IDPositionPop = items.get(position).getIdpop();
-                                startActivity(new Intent(HomeActivity.this, MainActivity.class));
-                            }
+            recyclerViewPop.addOnItemTouchListener(
+                    new RecyclerItemClickListener(getApplicationContext(), recyclerViewPop, new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            IDPositionPop = items.get(position).getIdpop();
+                            startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                        }
 
-                            @Override/*IDPopUp = items.get(position).getIdpop();
+                        @Override/*IDPopUp = items.get(position).getIdpop();
                                 startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
-                            public void onLongItemClick(View view, int position) {
+                        public void onLongItemClick(View view, int position) {
 
-                                //Createpopupwindows();
-                            }
-                        })
-                );
-                //mostra o resultado qdo possivel.
+                            //Createpopupwindows();
+                        }
+                    })
+            );
+            //mostra o resultado qdo possivel.
             /*if (idfilme != "") {
                 ID = idfilme;
                 startActivity(new Intent(HomeActivity.this, MainActivity.class));
@@ -371,50 +379,50 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
             } else {
                 Toast.makeText(HomeActivity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
             }*/
-            } catch (Exception e) {
-                // Se não receber um JSOn valido, informa ao usuário
-                Toast.makeText(HomeActivity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
-        }
-        if(usadobtn != 0){
-        try {
-            // Converte a resposta em Json
-            JSONObject jsonObject = new JSONObject(data);
-            // Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
-            // Obtem o JSONArray dos itens de livros
-            JSONArray itemsArray = jsonObject.getJSONArray("results");
-            int z = 0;
-            String idfilme = null;
-            while (z < itemsArray.length() &&
-                    (idfilme == null)) {
-                // Obtem a informação
-                JSONObject id = itemsArray.getJSONObject(z);
-                // JSONObject volumeInfo = genre.getJSONObject("id");
-                //Toast.makeText(this, genre.toString(), Toast.LENGTH_SHORT).show();
-                //  Obter autor e titulo para o item,
-                // erro se o campo estiver vazio
-                try {
-                    idfilme = id.getString("id");
-                    //Toast.makeText(this, idfilme.toString(), Toast.LENGTH_SHORT).show();
-                    Log.v("Tag", "The title" + id.toString());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                // move para a proxima linha
-                z++;
-            }
-            //mostra o resultado qdo possivel.
-            if (idfilme != "") {
-                ID = idfilme;
-                startActivity(new Intent(HomeActivity.this, MainActivity.class));
-                finish();
-            } else {
-                Toast.makeText(HomeActivity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
-            }
         } catch (Exception e) {
             // Se não receber um JSOn valido, informa ao usuário
             Toast.makeText(HomeActivity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
         }
+        if (usadobtn != 0) {
+            try {
+                // Converte a resposta em Json
+                JSONObject jsonObject = new JSONObject(data);
+                // Toast.makeText(this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+                // Obtem o JSONArray dos itens de livros
+                JSONArray itemsArray = jsonObject.getJSONArray("results");
+                int z = 0;
+                String idfilme = null;
+                while (z < itemsArray.length() &&
+                        (idfilme == null)) {
+                    // Obtem a informação
+                    JSONObject id = itemsArray.getJSONObject(z);
+                    // JSONObject volumeInfo = genre.getJSONObject("id");
+                    //Toast.makeText(this, genre.toString(), Toast.LENGTH_SHORT).show();
+                    //  Obter autor e titulo para o item,
+                    // erro se o campo estiver vazio
+                    try {
+                        idfilme = id.getString("id");
+                        //Toast.makeText(this, idfilme.toString(), Toast.LENGTH_SHORT).show();
+                        Log.v("Tag", "The title" + id.toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    // move para a proxima linha
+                    z++;
+                }
+                //mostra o resultado qdo possivel.
+                if (idfilme != "") {
+                    ID = idfilme;
+                    startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(HomeActivity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                // Se não receber um JSOn valido, informa ao usuário
+                Toast.makeText(HomeActivity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -426,13 +434,13 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         boolean focusable = true;
         PopupWindow popupWindow = new PopupWindow(popUpView, width, height, focusable);
-        layout.post(new Runnable(){
+        layout.post(new Runnable() {
             @Override
             public void run() {
                 popupWindow.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
             }
-            });
-        }
+        });
+    }
 
 
     @Override
@@ -441,26 +449,25 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else{
+        } else {
             super.onBackPressed();
         }
     }
 
-    public void buscarNacionais(){
+    public void buscarNacionais() {
         Call<ArrayList<ItemNac>> result = ApiClient.getUserService().getAllNational();
         result.enqueue(new Callback<ArrayList<ItemNac>>() {
             @Override
             public void onResponse(Call<ArrayList<ItemNac>> call, Response<ArrayList<ItemNac>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     itemsnac = response.body();
 
-                    int b=0;
+                    int b = 0;
 
-                    for(b=0; b<itemsnac.size(); b++){
+                    for (b = 0; b < itemsnac.size(); b++) {
                         MyAdapterNac myAdapterNac = new MyAdapterNac(HomeActivity.this, itemsnac);
                         LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this, recyclerViewNac.HORIZONTAL, false);
                         recyclerViewNac.setLayoutManager(manager);
@@ -485,8 +492,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                             })
                     );
 
-                }
-                else{
+                } else {
 
                 }
             }
@@ -498,4 +504,29 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         });
     }
 
+    public void buscarFavoritos() {
+        Call<ArrayList<FilmesResponse>> result = ApiClient.getUserService().getFavoritos(HomeActivity.IDUser);
+        result.enqueue(new Callback<ArrayList<FilmesResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<FilmesResponse>> call, Response<ArrayList<FilmesResponse>> response) {
+                if (response.isSuccessful()) {
+                    itemsfav = response.body();
+
+                    imgFundoFav = findViewById(R.id.imageView14);
+                    Picasso
+                            .get()
+                            .load("https://www.themoviedb.org/t/p/original" + itemsfav.get(0).getBackdrop_path())
+                            .into(imgFundoFav);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<FilmesResponse>> call, Throwable t) {
+                StyleableToast.makeText(HomeActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+
+    }
 }

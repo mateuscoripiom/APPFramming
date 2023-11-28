@@ -5,12 +5,14 @@ public class ItemFeedbackFRecente {
     String idCritica;
     Float notaCritica;
     String posterFilme;
+    String dataCritica;
 
-    public ItemFeedbackFRecente(String idFilme, String idCritica, Float notaCritica, String posterFilme) {
+    public ItemFeedbackFRecente(String idFilme, String idCritica, Float notaCritica, String posterFilme, String dataCritica) {
         this.idFilme = idFilme;
         this.idCritica = idCritica;
         this.notaCritica = notaCritica;
         this.posterFilme = posterFilme;
+        this.dataCritica = dataCritica;
     }
 
     public String getIdFilme() {
@@ -43,5 +45,13 @@ public class ItemFeedbackFRecente {
 
     public void setPosterFilme(String posterFilme) {
         this.posterFilme = posterFilme;
+    }
+
+    public String getDataCritica() {
+        return dataCritica;
+    }
+
+    public void setDataCritica(String dataCritica) {
+        this.dataCritica = dataCritica;
     }
 }

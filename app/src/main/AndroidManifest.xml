@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Framming"
         tools:targetApi="31">
         <activity
+            android:name=".Favorito2Activity"
+            android:exported="false" />
+        <activity
             android:name=".QueroVerActivity"
             android:exported="false" />
         <activity

@@ -18,7 +18,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -37,70 +36,65 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Favorito1Activity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
+public class Favorito2Activity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
     public static List<ItemBusca> itemsbusca = new ArrayList<>();
-    RecyclerView recyclerViewFav1;
-    EditText etxtbuscarfav1;
-    ImageButton imgbtnbuscarfav1;
-    public static String IDfav1, nomefav1;
-    public static int contagemfav = 0;
-    TextView indicaFav;
-
+    RecyclerView recyclerViewFav2;
+    EditText etxtbuscarfav2;
+    ImageButton imgbtnbuscarfav2;
+    public static String IDfav2, nomefav2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorito1);
+        setContentView(R.layout.activity_favorito2);
 
-        recyclerViewFav1 = findViewById(R.id.recyclerViewFav1);
-        etxtbuscarfav1 = findViewById(R.id.edittxtbuscarfav1);
-        imgbtnbuscarfav1 = findViewById(R.id.imgbtnbuscarfav1);
-        indicaFav = findViewById(R.id.textView34);
+        recyclerViewFav2 = findViewById(R.id.recyclerViewFav2);
+        etxtbuscarfav2 = findViewById(R.id.edittxtbuscarfav2);
+        imgbtnbuscarfav2 = findViewById(R.id.imgbtnbuscarfav2);
 
-        etxtbuscarfav1.requestFocus();
+        etxtbuscarfav2.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                etxtbuscarfav1.clearFocus();
+                etxtbuscarfav2.clearFocus();
                 itemsbusca.clear();
-                startActivity(new Intent(Favorito1Activity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                startActivity(new Intent(Favorito2Activity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
 
-        imgbtnbuscarfav1.setOnClickListener(new View.OnClickListener(){
+        imgbtnbuscarfav2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 itemsbusca.clear();
-                recyclerViewFav1 = findViewById(R.id.recyclerViewFav1);
+                recyclerViewFav2 = findViewById(R.id.recyclerViewFav1);
                 buscaInfoFilmeQ();
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(imgbtnbuscarfav1.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(imgbtnbuscarfav2.getWindowToken(), 0);
             }
         });
 
-        etxtbuscarfav1.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        etxtbuscarfav2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                     itemsbusca.clear();
-                    recyclerViewFav1 = findViewById(R.id.recyclerViewFav1);
+                    recyclerViewFav2 = findViewById(R.id.recyclerViewPesquisa);
                     buscaInfoFilmeQ();
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(imgbtnbuscarfav1.getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(imgbtnbuscarfav2.getWindowToken(), 0);
                 }
                 return false;
             }
         });
-
     }
 
     public void buscaInfoFilmeQ() {
         // Recupera a string de busca.
-        String queryString = etxtbuscarfav1.getText().toString();
+        String queryString = etxtbuscarfav2.getText().toString();
         // esconde o teclado qdo o botão é clicado
         /*InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -127,9 +121,9 @@ public class Favorito1Activity extends AppCompatActivity implements LoaderManage
         // atualiza a textview para informar que não há conexão ou termo de busca
         else {
             if (queryString.length() == 0) {
-                Toast.makeText(Favorito1Activity.this, "Termo inválido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Favorito2Activity.this, "Termo inválido", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(Favorito1Activity.this, "Verifique a conexão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Favorito2Activity.this, "Verifique a conexão", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -181,17 +175,16 @@ public class Favorito1Activity extends AppCompatActivity implements LoaderManage
                 // move para a proxima linha
                 z++;
             }
-            recyclerViewFav1.setLayoutManager(new LinearLayoutManager(this));
-            recyclerViewFav1.setAdapter(new MyAdapterPesquisa(getApplicationContext(), itemsbusca));
+            recyclerViewFav2.setLayoutManager(new LinearLayoutManager(this));
+            recyclerViewFav2.setAdapter(new MyAdapterPesquisa(getApplicationContext(), itemsbusca));
 
-            recyclerViewFav1.addOnItemTouchListener(
-                    new RecyclerItemClickListener(getApplicationContext(), recyclerViewFav1, new RecyclerItemClickListener.OnItemClickListener() {
+            recyclerViewFav2.addOnItemTouchListener(
+                    new RecyclerItemClickListener(getApplicationContext(), recyclerViewFav2, new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
-                            contagemfav++;
-                            IDfav1 = itemsbusca.get(position).getIdbusca();
-                            nomefav1 = itemsbusca.get(position).getNamebusca();
-                            saveFavorito(createFavRequest(IDfav1));
+                            IDfav2 = itemsbusca.get(position).getIdbusca();
+                            nomefav2 = itemsbusca.get(position).getNamebusca();
+                            saveFavorito(createFavRequest(IDfav2));
 
                             //startActivity(new Intent(PesquisaActivity.this, MainActivity.class));
                         }
@@ -205,11 +198,11 @@ public class Favorito1Activity extends AppCompatActivity implements LoaderManage
             //mostra o resultado qdo possivel.
             if (idbusca != "") {
             } else {
-                Toast.makeText(Favorito1Activity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Favorito2Activity.this, "Sem retorno de dados", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             // Se não receber um JSOn valido, informa ao usuário
-            Toast.makeText(Favorito1Activity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Favorito2Activity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
@@ -231,40 +224,20 @@ public class Favorito1Activity extends AppCompatActivity implements LoaderManage
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()){
-                    if(contagemfav == 1){
-                        StyleableToast.makeText(Favorito1Activity.this,nomefav1 + " salvo como primeiro favorito!", Toast.LENGTH_LONG, R.style.exampleToast).show();
-                        itemsbusca.clear();
-                        indicaFav.setText("Adicionar segundo favorito");
-                    }
-                    if(contagemfav == 2){
-                        StyleableToast.makeText(Favorito1Activity.this,nomefav1 + " salvo como segundo favorito!", Toast.LENGTH_LONG, R.style.exampleToast).show();
-                        itemsbusca.clear();
-                        indicaFav.setText("Adicionar terceiro favorito");
-                    }
-                    if(contagemfav == 3){
-                        StyleableToast.makeText(Favorito1Activity.this,nomefav1 + " salvo como terceiro favorito!", Toast.LENGTH_LONG, R.style.exampleToast).show();
-                        itemsbusca.clear();
-                        indicaFav.setText("Adicionar quarto favorito");
-                    }
-                    if(contagemfav == 4){
-                        contagemfav = 0;
-                        StyleableToast.makeText(Favorito1Activity.this,nomefav1 + " salvo como quarto favorito!", Toast.LENGTH_LONG, R.style.exampleToast).show();
-                        itemsbusca.clear();
-                        StyleableToast.makeText(Favorito1Activity.this,"Todos os filmes foram favoritados!", Toast.LENGTH_LONG, R.style.exampleToast).show();
-                        startActivity(new Intent(Favorito1Activity.this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    }
-
+                    StyleableToast.makeText(Favorito2Activity.this,nomefav2 + " salvo como segundo favorito!", Toast.LENGTH_LONG, R.style.exampleToast).show();
+                    itemsbusca.clear();
+                    startActivity(new Intent(Favorito2Activity.this, Favorito2Activity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
 
                 }
                 else{
-                    Toast.makeText(Favorito1Activity.this, "Salvamento falhou", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Favorito2Activity.this, "Salvamento falhou", Toast.LENGTH_SHORT).show();
 
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(Favorito1Activity.this, "Salvamento falhou" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Favorito2Activity.this, "Salvamento falhou" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

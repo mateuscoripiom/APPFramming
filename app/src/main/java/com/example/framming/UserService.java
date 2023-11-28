@@ -51,6 +51,8 @@ public interface UserService {
     Call<QueroVerResponse> getMovieQV(@Path("user_id") String userID, @Path("filme_id") String filmeID);
     @POST("favoriteMovies/{user_id}")
     Call<ResponseBody> salvarFilmeFav(@Path("user_id") String userId, @Body FavoritoRequest favoritoRequest);
+    @GET("favoriteMovies/{user_id}")
+    Call<ArrayList<FilmesResponse>> getFavoritos(@Path("user_id") String userId);
 
     @GET("movies/{id}")
     Call<ArrayList<ItemFilme>> getAllDataFilmeAPI(@Path("id") String filmeID);

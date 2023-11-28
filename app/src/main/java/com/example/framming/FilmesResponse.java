@@ -1,11 +1,20 @@
 package com.example.framming;
 
 public class FilmesResponse {
+    private String id;
     private String poster_path;
     private String title;
     private String original_title;
     private String release_date;
     private String backdrop_path;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getBackdrop_path() {
         return backdrop_path;
