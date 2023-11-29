@@ -112,5 +112,6 @@
     <string name="suanotamain">SUA NOTA</string>
     <string name="querovermin">Quero ver</string>
     <string name="fav2">Adicionar segundo favorito</string>
+    <string name="msgfilmecritica">Parece que este filme ainda\n não possui críticas</string>
 </resources>
 

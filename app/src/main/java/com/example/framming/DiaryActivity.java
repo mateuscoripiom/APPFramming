@@ -39,6 +39,7 @@ public class DiaryActivity extends AppCompatActivity {
     public static boolean usoDiario = false;
     public static float notaCritica;
     public static String nomefilmeCritica, idCriticaD, idFilmeD, imgfundoCritica, imgposterCritica, dataCritica, textoCritica, anoCritica, fundoCritica;
+    public static String idFilmeMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,8 @@ public class DiaryActivity extends AppCompatActivity {
                 itemsffinal.clear();
                 itemsfeedback.clear();
                 contagemdiario = 0;
+                HomeActivity.itemsfinal.clear();
+                HomeActivity.items.clear();
                 startActivity(new Intent(DiaryActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
             }
@@ -133,6 +136,7 @@ public class DiaryActivity extends AppCompatActivity {
                                     notaCritica = itemsffinal.get(position).getNotaCritica();
                                     dataCritica = itemsffinal.get(position).getDataCritica();
                                     textoCritica = itemsffinal.get(position).getTextoCritica();
+                                    idFilmeMain = itemsffinal.get(position).getIdFilme();
                                     startActivity(new Intent(DiaryActivity.this, CriticaActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                                 }
 

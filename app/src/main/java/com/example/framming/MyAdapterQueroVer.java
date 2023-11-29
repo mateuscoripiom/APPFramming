@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 public class MyAdapterQueroVer extends RecyclerView.Adapter<MyViewHolderQueroVer> {
     private Context querovercontext;
-    private ArrayList<ItemQueroVer> itemsquerover;
+    private ArrayList<ItemQueroVerFinal> itemsqueroverfinal;
 
-    public MyAdapterQueroVer(Context querovercontext, ArrayList<ItemQueroVer> itemsquerover) {
+    public MyAdapterQueroVer(Context querovercontext, ArrayList<ItemQueroVerFinal> itemsqueroverfinal) {
         this.querovercontext = querovercontext;
-        this.itemsquerover = itemsquerover;
+        this.itemsqueroverfinal = itemsqueroverfinal;
     }
 
     @NonNull
@@ -30,13 +30,13 @@ public class MyAdapterQueroVer extends RecyclerView.Adapter<MyViewHolderQueroVer
     public void onBindViewHolder(@NonNull MyViewHolderQueroVer holder, int position) {
         Picasso
                     .get()
-                    .load("https://www.themoviedb.org/t/p/original" + itemsquerover.get(position).getPoster_path())
+                    .load("https://www.themoviedb.org/t/p/original" + itemsqueroverfinal.get(position).getPoster_path())
                     .into(holder.imgPosterQueroVer);
 
     }
 
     @Override
     public int getItemCount() {
-        return itemsquerover.size();
+        return itemsqueroverfinal.size();
     }
 }

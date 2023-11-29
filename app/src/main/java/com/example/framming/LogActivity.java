@@ -33,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import io.github.muddz.styleabletoast.StyleableToast;
@@ -49,6 +50,8 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
     private TextView txtName2, txtAno2, txtTagline;
     private ImageButton imgbtnvoltar3;
 
+    public static ArrayList<ItemFilme> itemsfilme = new ArrayList<>();
+
     public static String critica;
     public static Float nota;
     public static String dataAssistido;
@@ -61,9 +64,11 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
     private TextInputEditText textInputEditText;
     public static RatingBar ratingBar;
     public static String idfilmeassistido;
+    public static boolean logusado = false;
 
     TextView txtNomeUsuario, txtUserName;
     ImageView imgIconUsuario;
+
 
 
 
@@ -89,6 +94,17 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
             }
         });
 
+        if(HomeActivity.ID != null) {
+            idfilmeassistido = HomeActivity.ID;
+        }
+        if(HomeActivity.IDPositionPop != null){
+            idfilmeassistido = HomeActivity.IDPositionPop;
+        }
+        if(PesquisaActivity.IDpesquisa != null){
+            idfilmeassistido = PesquisaActivity.IDpesquisa;
+        }
+
+        buscarFilmeAPI(idfilmeassistido);
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
@@ -97,13 +113,13 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
 
-        buscaInfoFilme();
+        //buscaInfoFilme();
 
         btnsalvar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 critica = textInputEditText.getText().toString();
-
+                logusado = true;
                 salvarCritica(feedbackRequest());
                 startActivity(new Intent(LogActivity.this, CriticaActivity.class));
                 finish();
@@ -141,7 +157,7 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
     }
 
     private String makeDateString(int day, int month, int year) {
-        dataAssistido = day + " " + getMonthFormat(month) + ", " + year;
+        dataAssistido = year + "-" + month + "-" + day;
         dataparasalvar = year + "-" + month + "-" + day;
         return  day + " " + getMonthFormat(month) + ", " + year;
     }
@@ -338,6 +354,51 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
         // obrigatório implementar, nenhuma ação executada
+    }
+
+    public void buscarFilmeAPI(String filmeID){
+        Call<ArrayList<ItemFilme>> result = ApiClient.getUserService().getAllDataFilmeAPI(filmeID);
+        result.enqueue(new Callback<ArrayList<ItemFilme>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ItemFilme>> call, Response<ArrayList<ItemFilme>> response) {
+                if(response.isSuccessful()){
+                    itemsfilme = response.body();
+
+                    int b=0;
+
+                    for(b=0; b<itemsfilme.size(); b++){
+                        nomeFilmeAssitido = itemsfilme.get(0).getTitle();
+                        anoFilmeAssistido = itemsfilme.get(0).getRelease_date();
+                        txtName2.setText(itemsfilme.get(0).getTitle());
+                        txtAno2.setText(itemsfilme.get(0).getRelease_date());
+                        txtTagline.setText(itemsfilme.get(0).getTagline());
+                        imgFundoAssistido = ("https://www.themoviedb.org/t/p/original" + itemsfilme.get(0).getBackdrop_path());
+                        if(usado ==  false) {
+                            imgPosterAssistido = ("https://www.themoviedb.org/t/p/original" + itemsfilme.get(0).getPoster_path());
+                            Picasso
+                                    .get()
+                                    .load("https://www.themoviedb.org/t/p/original" + itemsfilme.get(0).getPoster_path())
+                                    .into(imgPosterCritica);
+                        } else{
+                            imgPosterAssistido = ("https://www.themoviedb.org/t/p/original" + PosterActivity.IDPosition);
+                            Picasso
+                                    .get()
+                                    .load("https://www.themoviedb.org/t/p/original" + PosterActivity.IDPosition)
+                                    .into(imgPosterCritica);
+                        }
+
+                    }
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ItemFilme>> call, Throwable t) {
+                StyleableToast.makeText(LogActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
     }
 
     public FeedbackRequest feedbackRequest(){

@@ -1,5 +1,7 @@
 package com.example.framming;
 
+import static com.example.framming.HomeActivity.items;
+import static com.example.framming.HomeActivity.itemsfinal;
 import static com.example.framming.LoginActivity.KEY_EMAIL;
 import static com.example.framming.LoginActivity.KEY_ID;
 import static com.example.framming.LoginActivity.SHARED_PREFS;
@@ -38,6 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +50,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.muddz.styleabletoast.StyleableToast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PesquisaActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
 
@@ -56,13 +62,14 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
     public static String IDpesquisa = null;
     public static RecyclerView recyclerViewbusca;
     public static List<ItemBusca> itemsbusca = new ArrayList<>();
+    public static ArrayList<FilmesResponse> itemsfav = new ArrayList<>();
 
     View layout;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    ImageView imgbtndrawer2;
+    ImageView imgbtndrawer2, imgFundoFavorito;
 
     MenuInflater inflater;
 
@@ -86,6 +93,8 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
 
         layout = findViewById(R.id.constraintl);
 
+        buscaImagemFav();
+
         imgbtndrawer2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -101,6 +110,8 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
                 String homenav = item.getTitle().toString();
                 switch (homenav){
                     case "Início":
+                        itemsfinal.clear();
+                        items.clear();
                         startActivity(new Intent(PesquisaActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
                     case "Perfil":
@@ -136,6 +147,8 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
             public void handleOnBackPressed() {
                 edittxtbuscar.clearFocus();
                 itemsbusca.clear();
+                HomeActivity.itemsfinal.clear();
+                HomeActivity.items.clear();
                 startActivity(new Intent(PesquisaActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
             }
@@ -163,6 +176,33 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
                     imm.hideSoftInputFromWindow(imgbtnbuscar.getWindowToken(), 0);
                 }
                 return false;
+            }
+        });
+
+
+    }
+
+    public void buscaImagemFav() {
+        Call<ArrayList<FilmesResponse>> result = ApiClient.getUserService().getFavoritos(HomeActivity.IDUser);
+        result.enqueue(new Callback<ArrayList<FilmesResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<FilmesResponse>> call, Response<ArrayList<FilmesResponse>> response) {
+                if (response.isSuccessful()) {
+                    itemsfav = response.body();
+
+                    imgFundoFavorito = findViewById(R.id.imageView14);
+                    Picasso
+                            .get()
+                            .load("https://www.themoviedb.org/t/p/original" + itemsfav.get(0).getBackdrop_path())
+                            .into(imgFundoFavorito);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<FilmesResponse>> call, Throwable t) {
+                StyleableToast.makeText(PesquisaActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
             }
         });
     }

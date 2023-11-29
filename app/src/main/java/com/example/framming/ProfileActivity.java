@@ -1,5 +1,11 @@
 package com.example.framming;
 
+import static com.example.framming.HomeActivity.items;
+import static com.example.framming.HomeActivity.swtPosition;
+import static com.example.framming.PesquisaActivity.itemsbusca;
+import static com.example.framming.PosterActivity.posterArray;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +28,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
@@ -44,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     Toolbar toolbarprofile;
     RecyclerView recyclerViewRecente, recyclerViewFav;
     ImageView imgPosterFav1, imgPosterFav2, imgPosterFav3, imgPosterFav4, imgFundoFav;
+    //public static int ordemArray;
 
     public static int positionf;
 
@@ -78,6 +86,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                     finish();
                 } else if (item.getItemId() == R.id.nav_editarfav) {
+                    itemsfav.clear();
+                    itemsfavfinal.clear();
+                    itemsffinalrecente.clear();
                     startActivity(new Intent(ProfileActivity.this, Favorito1Activity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     finish();
                 }
@@ -127,6 +138,38 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                DiaryActivity.itemsffinal.clear();
+                DiaryActivity.itemsfeedback.clear();
+                DiaryActivity.contagemdiario = 0;
+                HomeActivity.ID = null;
+                HomeActivity.IDPositionPop = null;
+                HomeActivity.itemsfinal.clear();
+                PosterActivity.IDPosition = null;
+                MainActivity.usado = false;
+                MainActivity.usadoEscolha = false;
+                QueroVerActivity.contagemquerover = 0;
+                MainActivity.linkFilmeSalvo = null;
+                MainActivity.listadoQV = false;
+                PesquisaActivity.IDpesquisa = null;
+                HomeActivity.usadobtn = 0;
+                posterArray.clear();
+                itemsbusca.clear();
+                MainActivity.usoMainUsu = false;
+                MainActivity.linkFilmeSalvo = null;
+                items.clear();
+                swtPosition = false;
+                MainActivity.criticasfilme.clear();
+                MainActivity.criticasfilmefinal.clear();
+                itemsfav.clear();
+                itemsffinalrecente.clear();
+                itemsfavfinal.clear();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
 
     }
 
@@ -211,8 +254,7 @@ public class ProfileActivity extends AppCompatActivity {
                     int b=0;
 
                     for(b=0; b<itemsfav.size(); b++){
-                        positionf = b;
-                        buscarPosterFav(itemsfav.get(b).getId(), itemsfav.get(b).getPoster_path(), itemsfav.get(b).getBackdrop_path());
+                        buscarPosterFav(itemsfav.get(b).getId(), itemsfav.get(b).getPoster_path(), itemsfav.get(b).getBackdrop_path(), b);
                     }
 
                 }
@@ -228,19 +270,20 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void buscarPosterFav(String filmeID, String linkPoster, String backdrop){
+    public void buscarPosterFav(String filmeID, String linkPoster, String backdrop, Integer ordemArray) {
         Call<PosterResponse> result = ApiClient.getUserService().getAllPosters(HomeActivity.IDUser, filmeID);
         result.enqueue(new Callback<PosterResponse>() {
             @Override
             public void onResponse(Call<PosterResponse> call, Response<PosterResponse> response) {
-                if(response.code() != 200){
-                    itemsfavfinal.add(new ItemFavFinal(filmeID, linkPoster, backdrop));
+                if (response.code() != 200) {
+                    itemsfavfinal.add(new ItemFavFinal(filmeID, linkPoster, backdrop, ordemArray));
 
                 }
-                if(response.isSuccessful()) {
-                    itemsfavfinal.add(new ItemFavFinal(filmeID, response.body().getLinkPoster(), backdrop));
-                    Log.v("Tag", "The title" + itemsfavfinal.get(1).getPosterFilme().toString());
+                if (response.isSuccessful()) {
+                    itemsfavfinal.add(new ItemFavFinal(filmeID, response.body().getLinkPoster(), backdrop, ordemArray));
+                    //Log.v("Tag", "The title" + itemsfavfinal.get(1).getPosterFilme().toString());
                 }
+                sortListByArray(itemsfavfinal);
                 MyAdapterFav myAdapterFav = new MyAdapterFav(ProfileActivity.this, itemsfavfinal);
                 LinearLayoutManager manager = new LinearLayoutManager(ProfileActivity.this, recyclerViewFav.HORIZONTAL, false);
                 recyclerViewFav.setLayoutManager(manager);
@@ -267,7 +310,6 @@ public class ProfileActivity extends AppCompatActivity {
                             }
                         })
                 );
-
             }
 
             @Override
@@ -279,6 +321,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void sortListByDate(ArrayList<ItemFeedbackFRecente> theArrayListEvents) {
         Collections.sort(theArrayListEvents, new EventDetailSortByDateProfile());
+    }
+    private void sortListByArray(ArrayList<ItemFavFinal> theArrayListEvents) {
+        Collections.sort(theArrayListEvents, new EventDetailSortByArray());
     }
 
 }

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:elevation="11dp"
+        android:outlineProvider="none"
+        app:cardBackgroundColor="#403E3E3E"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:outlineProvider="none">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:clipToPadding="false"
+                    android:padding="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingTop="0dp"
+                    app:cardBackgroundColor="#00FFFFFF"
+                    app:cardCornerRadius="50dp"
+                    app:cardUseCompatPadding="false"
+                    app:contentPadding="0dp"
+                    app:contentPaddingTop="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/btndata2"
+                    app:layout_constraintStart_toEndOf="@+id/cardView">
+
+                    <ImageView
+                        android:id="@+id/imgCriticaPerf"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        app:srcCompat="@drawable/iconperfil" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/txtPerfilCr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/nomeuser"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toTopOf="@+id/btndata2"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2" />
+
+            </LinearLayout>
+
+            <RatingBar
+                android:id="@+id/ratingBar5"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:clickable="false"
+                android:indeterminate="false"
+                android:max="5"
+                android:numStars="5"
+                android:padding="0dp"
+                android:paddingHorizontal="0dp"
+                android:paddingVertical="0dp"
+                android:paddingStart="0dp"
+                android:progressTint="#FFFFFF"
+                android:scaleX="1"
+                android:scaleY="1"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView"
+                app:layout_constraintStart_toEndOf="@+id/cardView" />
+
+            <TextView
+                android:id="@+id/txtTextCritica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="10dp"
+                android:fontFamily="@font/inter"
+                android:paddingVertical="0dp"
+                android:textAlignment="textStart"
+                android:textColor="#FFFFFF"
+                android:textSize="13dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

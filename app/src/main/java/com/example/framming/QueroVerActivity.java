@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
@@ -25,10 +26,12 @@ import retrofit2.Response;
 public class QueroVerActivity extends AppCompatActivity {
 
     public static ArrayList<ItemQueroVer> itemsquerover = new ArrayList<ItemQueroVer>();
+    public static ArrayList<ItemQueroVerFinal> itemsqueroverfinal = new ArrayList<>();
     RecyclerView recyclerViewQueroVer;
     ImageView imgFundoQV;
     TextView txtqueroverc;
     public static int contagemquerover = 0;
+    public static boolean usadoqv = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,10 @@ public class QueroVerActivity extends AppCompatActivity {
             @Override
             public void handleOnBackPressed() {
                 contagemquerover = 0;
+                itemsquerover.clear();
+                itemsqueroverfinal.clear();
+                HomeActivity.items.clear();
+                HomeActivity.itemsfinal.clear();
                 startActivity(new Intent(QueroVerActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
             }
@@ -70,26 +77,12 @@ public class QueroVerActivity extends AppCompatActivity {
                     for(b=0; b<itemsquerover.size(); b++){
                         contagemquerover++;
                         txtqueroverc.setText(contagemquerover + " filmes marcados para o futuro");
-                        recyclerViewQueroVer.setLayoutManager(new GridLayoutManager(QueroVerActivity.this, 3));
-                        recyclerViewQueroVer.setAdapter(new MyAdapterQueroVer(getApplicationContext(),itemsquerover));
+
+                        buscarPosterFav(itemsquerover.get(b).getId(), itemsquerover.get(b).getPoster_path(), itemsquerover.get(b).getBackdrop_path(), b);
+
                     }
 
-                    recyclerViewQueroVer.addOnItemTouchListener(
-                            new RecyclerItemClickListener(getApplicationContext(), recyclerViewQueroVer, new RecyclerItemClickListener.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(View view, int position) {
-                                    HomeActivity.IDPositionPop = itemsquerover.get(position).getId();
-                                    startActivity(new Intent(QueroVerActivity.this, MainActivity.class));
-                                }
 
-                                @Override/*IDPopUp = items.get(position).getIdpop();
-                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
-                                public void onLongItemClick(View view, int position) {
-
-                                    //Createpopupwindows();
-                                }
-                            })
-                    );
 
                 }
                 else{
@@ -102,5 +95,54 @@ public class QueroVerActivity extends AppCompatActivity {
                 StyleableToast.makeText(QueroVerActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
             }
         });
+    }
+
+    public void buscarPosterFav(String filmeID, String linkPoster, String backdrop, Integer ordemArray) {
+        Call<PosterResponse> result = ApiClient.getUserService().getAllPosters(HomeActivity.IDUser, filmeID);
+        result.enqueue(new Callback<PosterResponse>() {
+            @Override
+            public void onResponse(Call<PosterResponse> call, Response<PosterResponse> response) {
+                if (response.code() != 200) {
+                    itemsqueroverfinal.add(new ItemQueroVerFinal(filmeID, linkPoster, backdrop, ordemArray));
+
+                }
+                if (response.isSuccessful()) {
+                    itemsqueroverfinal.add(new ItemQueroVerFinal(filmeID, response.body().getLinkPoster(), backdrop, ordemArray));
+                    //Log.v("Tag", "The title" + itemsfavfinal.get(1).getPosterFilme().toString());
+                }
+                sortListByArrayQV(itemsqueroverfinal);
+                recyclerViewQueroVer.setLayoutManager(new GridLayoutManager(QueroVerActivity.this, 3));
+                recyclerViewQueroVer.setAdapter(new MyAdapterQueroVer(getApplicationContext(),itemsqueroverfinal));
+
+
+                recyclerViewQueroVer.addOnItemTouchListener(
+                        new RecyclerItemClickListener(getApplicationContext(), recyclerViewQueroVer, new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                usadoqv = true;
+                                HomeActivity.IDPositionPop = itemsqueroverfinal.get(position).getId();
+                                startActivity(new Intent(QueroVerActivity.this, MainActivity.class));
+                            }
+
+                            @Override/*IDPopUp = items.get(position).getIdpop();
+                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
+                            public void onLongItemClick(View view, int position) {
+
+                                //Createpopupwindows();
+                            }
+                        })
+                );
+            }
+
+            @Override
+            public void onFailure(Call<PosterResponse> call, Throwable t) {
+                StyleableToast.makeText(QueroVerActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+
+
+    }
+    private void sortListByArrayQV(ArrayList<ItemQueroVerFinal> theArrayListEvents) {
+        Collections.sort(theArrayListEvents, new EventDetailSortByArrayQV());
     }
 }

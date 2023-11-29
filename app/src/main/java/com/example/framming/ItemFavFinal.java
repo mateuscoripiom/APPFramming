@@ -5,11 +5,13 @@ public class ItemFavFinal {
     String posterFilme;
 
     String backdrop;
+    Integer ordemArray;
 
-    public ItemFavFinal(String idFilme, String posterFilme, String backdrop) {
+    public ItemFavFinal(String idFilme, String posterFilme, String backdrop, Integer ordemArray) {
         this.idFilme = idFilme;
         this.posterFilme = posterFilme;
         this.backdrop = backdrop;
+        this.ordemArray = ordemArray;
     }
 
     public String getIdFilme() {
@@ -34,5 +36,13 @@ public class ItemFavFinal {
 
     public void setBackdrop(String backdrop) {
         this.backdrop = backdrop;
+    }
+
+    public Integer getOrdemArray() {
+        return ordemArray;
+    }
+
+    public void setOrdemArray(Integer ordemArray) {
+        this.ordemArray = ordemArray;
     }
 }

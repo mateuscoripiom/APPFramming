@@ -15,6 +15,7 @@ public class ItemFilme {
     String notaFilme;
     String qtdVisualizacaoFilme;
     String situacaoFilme;
+    String tagline;
     ArrayList<NameGenre> genres;
 
 
@@ -104,6 +105,14 @@ public class ItemFilme {
 
     public void setQtdVisualizacaoFilme(String qtdVisualizacaoFilme) {
         this.qtdVisualizacaoFilme = qtdVisualizacaoFilme;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
     }
 
     public String getSituacaoFilme() {

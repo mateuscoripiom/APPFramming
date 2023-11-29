@@ -15,11 +15,11 @@ import java.util.List;
 
 public class MyAdapterPop extends RecyclerView.Adapter<MyViewHolderPop> {
     Context popcontext;
-    List<Item> items;
+    List<ItemFinal> itemsfinal;
 
-    public MyAdapterPop(Context popcontext, List<Item> items) {
+    public MyAdapterPop(Context popcontext, List<ItemFinal> itemsfinal) {
         this.popcontext = popcontext;
-        this.items = items;
+        this.itemsfinal = itemsfinal;
     }
 
     @NonNull
@@ -32,13 +32,13 @@ public class MyAdapterPop extends RecyclerView.Adapter<MyViewHolderPop> {
     public void onBindViewHolder(@NonNull MyViewHolderPop holder, int position) {
         Picasso
                     .get()
-                    .load("https://www.themoviedb.org/t/p/original" + items.get(position).getImage())
+                    .load("https://www.themoviedb.org/t/p/original" + itemsfinal.get(position).getImage())
                     .into(holder.imgPosterPop);
 
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return itemsfinal.size();
     }
 }

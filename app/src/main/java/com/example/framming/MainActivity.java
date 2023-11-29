@@ -1,6 +1,7 @@
 package com.example.framming;
 
 import static com.example.framming.HomeActivity.items;
+import static com.example.framming.HomeActivity.itemsfinal;
 import static com.example.framming.HomeActivity.itemsnac;
 import static com.example.framming.HomeActivity.swtPosition;
 import static com.example.framming.PesquisaActivity.itemsbusca;
@@ -15,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,11 +31,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RatingBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -64,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private Button btnGenero, btnPesquisa, btndiario, btnhorarioses, btnDarNota, btnQueroVer;
     public static ArrayList<FeedbackResponse> itemscritica = new ArrayList<FeedbackResponse>();
     public static ArrayList<ItemFilme> itemsfilme = new ArrayList<>();
+    public static ArrayList<ItemCritica> criticasfilme = new ArrayList<>();
+    public static ArrayList<ItemCriticaFinal> criticasfilmefinal = new ArrayList<>();
     public static EditText etxtID;
     private ImageButton imgbtnposter, imgbtnvoltar;
     public static boolean usado = false;
@@ -75,11 +81,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static String linkFilmeSalvo;
     public static String nomeFilmeTipIng, posterFilmeTipIng, fundoFilmeTipIng;
     public static boolean listadoQV = false;
+    public static String nomefilmeUsu, dataCriticaUsu, dataFilmeUsu, idCriticaUsu, idFilmeUsu, idUserUsu, textoCriticaUsu, posterFilmeUsu, fundoFilmeUsu, nickUsu, imgPerfilUsu;
+    public static float notaCriticaUsu;
+    public static boolean usoMainUsu = false;
 
     Toolbar toolbar;
     CardView cardSuaNota;
     RatingBar ratingSuaNota;
-    TextView txtnumvisu, txtmedianota;
+    TextView txtnumvisu, txtmedianota, txtMsgCritica;
+    RecyclerView recyclerViewMain;
 
 
     @Override
@@ -99,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         txtDuracao = findViewById(R.id.txtDuracao);
         txtSinopse = findViewById(R.id.txtSinopse);
         btnGenero = findViewById(R.id.btnGenero);
+        recyclerViewMain = findViewById(R.id.recyclerViewMain);
         imgbtnposter = findViewById(R.id.imgbtnposter);
         imgbtnvoltar = findViewById(R.id.imgbtnvoltar);
         btndiario = findViewById(R.id.btndiario);
@@ -107,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         toolbar = findViewById(R.id.toolbar2);
         btnDarNota = findViewById(R.id.btnDarNota);
         btnQueroVer = findViewById(R.id.btnQueroVer);
+        txtMsgCritica = findViewById(R.id.txtMsgCritica);
 
         toolbar.inflateMenu(R.menu.movie_menu);
 
@@ -146,6 +158,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         buscaPosterSalvo();
         buscarCriticaF(IDFilme);
         buscaQueroV(IDFilme);
+
+        Switch swtmain = findViewById(R.id.swthome2);
+        swtmain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    swtPosition = true;
+                    buscarCriticas(IDFilme);
+                    txtMsgCritica.setVisibility(View.VISIBLE);
+                } else {
+                    swtPosition = false;
+                    criticasfilme.clear();
+                    txtMsgCritica.setVisibility(View.GONE);
+                    criticasfilmefinal.clear();
+                }
+            }
+        });
 
         btnQueroVer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,7 +223,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 posterArray.clear();
                 itemsbusca.clear();
                 items.clear();
+                itemsfinal.clear();
                 swtPosition = false;
+                usoMainUsu = false;
+                criticasfilme.clear();
+                QueroVerActivity.itemsquerover.clear();
+                QueroVerActivity.itemsqueroverfinal.clear();
+                criticasfilmefinal.clear();
+                ProfileActivity.itemsfav.clear();
+                ProfileActivity.itemsfavfinal.clear();
+                ProfileActivity.itemsffinalrecente.clear();
                 startActivity(new Intent(MainActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
@@ -214,10 +252,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 HomeActivity.usadobtn = 0;
                 posterArray.clear();
                 itemsbusca.clear();
+                itemsfinal.clear();
+                QueroVerActivity.itemsquerover.clear();
+                QueroVerActivity.itemsqueroverfinal.clear();
                 MainActivity.linkFilmeSalvo = null;
                 items.clear();
                 swtPosition = false;
-                startActivity(new Intent(MainActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                HomeActivity.itemsfinal.clear();
+                usoMainUsu = false;
+                criticasfilme.clear();
+                criticasfilmefinal.clear();
+                ProfileActivity.itemsfav.clear();
+                ProfileActivity.itemsfavfinal.clear();
+                ProfileActivity.itemsffinalrecente.clear();
+                if(QueroVerActivity.usadoqv == true){
+                    startActivity(new Intent(MainActivity.this, QueroVerActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                }
+                else {
+                    startActivity(new Intent(MainActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                }
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
@@ -621,6 +674,86 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
     }
 
+    public void buscarCriticas(String filmeID){
+        Call<ArrayList<ItemCritica>> result = ApiClient.getUserService().getAllFeedbackMovie(filmeID);
+        result.enqueue(new Callback<ArrayList<ItemCritica>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ItemCritica>> call, Response<ArrayList<ItemCritica>> response) {
+                if(response.isSuccessful()){
+                    criticasfilme = response.body();
+
+                    int b=0;
+
+                    for(b=0; b<criticasfilme.size(); b++){
+                        buscarUsuarios(criticasfilme.get(b).getIdCritica(), criticasfilme.get(b).getIdFilme(), criticasfilme.get(b).getIdUsuario(), criticasfilme.get(b).getTextoCritica(), criticasfilme.get(b).notaCritica, criticasfilme.get(b).getDataCritica(), criticasfilme.get(b).getQtdCurtidaCritica());
+                    }
+
+
+                }
+                else{
+                    txtMsgCritica.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ItemCritica>> call, Throwable t) {
+                StyleableToast.makeText(MainActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
+
+    public void buscarUsuarios(String idCriticaP, String idFilmeP, String idUsuarioP, String textoCriticaP, float notaCriticaP, String dataCriticaP, String qtdCurtidaCritica){
+        Call<UserResponse> result = ApiClient.getUserService().getAllDataUser(idUsuarioP);
+        result.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if(response.isSuccessful()){
+                    criticasfilmefinal.add(new ItemCriticaFinal(idCriticaP, idFilmeP, idUsuarioP, textoCriticaP, notaCriticaP, dataCriticaP, qtdCurtidaCritica, response.body().getNickUsuario(), response.body().getIconUsuario()));
+                    txtMsgCritica.setVisibility(View.GONE);
+                    MyAdapterCriticas myAdapterCriticas = new MyAdapterCriticas(MainActivity.this, criticasfilmefinal);
+                    LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this, recyclerViewMain.VERTICAL, false);
+                    recyclerViewMain.setLayoutManager(manager);
+                    recyclerViewMain.setAdapter(myAdapterCriticas);
+
+                    recyclerViewMain.addOnItemTouchListener(
+                            new RecyclerItemClickListener(getApplicationContext(), recyclerViewMain, new RecyclerItemClickListener.OnItemClickListener(){
+                                @Override
+                                public void onItemClick(View view, int position) {
+                                    usoMainUsu = true;
+                                    dataCriticaUsu = criticasfilmefinal.get(position).getDataCritica();
+                                    idCriticaUsu = criticasfilmefinal.get(position).getIdCritica();
+                                    idFilmeUsu = criticasfilmefinal.get(position).getIdFilme();
+                                    idUserUsu = criticasfilmefinal.get(position).getIdUsuario();
+                                    textoCriticaUsu = criticasfilmefinal.get(position).getTextoCritica();
+                                    posterFilmeUsu = itemsfilme.get(0).getPoster_path();
+                                    dataFilmeUsu = itemsfilme.get(0).getRelease_date();
+                                    fundoFilmeUsu = itemsfilme.get(0).getBackdrop_path();
+                                    nomefilmeUsu = itemsfilme.get(0).getTitle();
+                                    nickUsu = criticasfilmefinal.get(position).getNickUsuario();
+                                    imgPerfilUsu = criticasfilmefinal.get(position).getIconUsuario();
+                                    notaCriticaUsu = criticasfilmefinal.get(position).getNotaCritica();
+                                    startActivity(new Intent(MainActivity.this, CriticaActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                                }
+                                @Override/*IDPopUp = items.get(position).getIdpop();
+                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
+                                public void onLongItemClick(View view, int position) {
+
+                                    //Createpopupwindows();
+                                }
+                            })
+                    );
+                }
+                else{
+                    txtMsgCritica.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                StyleableToast.makeText(MainActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
 
 
 }

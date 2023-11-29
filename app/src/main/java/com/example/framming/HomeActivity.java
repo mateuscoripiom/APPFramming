@@ -48,6 +48,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.github.muddz.styleabletoast.StyleableToast;
@@ -63,6 +64,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     private ImageButton imgbtnpesquisa;
     private TextView txtnomeuser;
     public static List<Item> items = new ArrayList<>();
+    public static List<ItemFinal> itemsfinal = new ArrayList<>();
     public static ArrayList<ItemNac> itemsnac = new ArrayList<ItemNac>();
 
     public static ArrayList<FilmesResponse> itemsfav = new ArrayList<>();
@@ -138,6 +140,8 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                 String homenav = item.getTitle().toString();
                 switch (homenav) {
                     case "Início":
+                        itemsfinal.clear();
+                        items.clear();
                         startActivity(new Intent(HomeActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
                     case "Perfil":
@@ -180,10 +184,12 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                 if (isChecked) {
                     swtPosition = true;
                     items.clear();
+                    itemsfinal.clear();
                     buscaInfoFilmeEmBreve();
                 } else {
                     swtPosition = false;
                     items.clear();
+                    itemsfinal.clear();
                     buscaInfoFilmePopular();
                 }
             }
@@ -345,32 +351,14 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                     //Toast.makeText(this, idfilme.toString(), Toast.LENGTH_SHORT).show();
                     Log.v("Tag", "The title" + nomefilme.toString());
                     items.add(new Item(idfilme, posterfilme));
+                    buscarPosterFav(idfilme, posterfilme, z);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 // move para a proxima linha
                 z++;
             }
-            LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            recyclerViewPop.setLayoutManager(horizontalLayoutManager);
-            recyclerViewPop.setAdapter(new MyAdapterPop(getApplicationContext(), items));
 
-            recyclerViewPop.addOnItemTouchListener(
-                    new RecyclerItemClickListener(getApplicationContext(), recyclerViewPop, new RecyclerItemClickListener.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            IDPositionPop = items.get(position).getIdpop();
-                            startActivity(new Intent(HomeActivity.this, MainActivity.class));
-                        }
-
-                        @Override/*IDPopUp = items.get(position).getIdpop();
-                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
-                        public void onLongItemClick(View view, int position) {
-
-                            //Createpopupwindows();
-                        }
-                    })
-            );
             //mostra o resultado qdo possivel.
             /*if (idfilme != "") {
                 ID = idfilme;
@@ -424,6 +412,53 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                 Toast.makeText(HomeActivity.this, "JSON inválido", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void buscarPosterFav(String filmeID, String linkPoster, Integer ordemArray) {
+        Call<PosterResponse> result = ApiClient.getUserService().getAllPosters(HomeActivity.IDUser, filmeID);
+        result.enqueue(new Callback<PosterResponse>() {
+            @Override
+            public void onResponse(Call<PosterResponse> call, Response<PosterResponse> response) {
+                if (response.code() != 200) {
+                    itemsfinal.add(new ItemFinal(filmeID, linkPoster, ordemArray));
+
+                }
+                if (response.isSuccessful()) {
+                    itemsfinal.add(new ItemFinal(filmeID, response.body().getLinkPoster(), ordemArray));
+                    //Log.v("Tag", "The title" + itemsfavfinal.get(1).getPosterFilme().toString());
+                }
+                sortListByArrayPop(itemsfinal);
+                LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                recyclerViewPop.setLayoutManager(horizontalLayoutManager);
+                recyclerViewPop.setAdapter(new MyAdapterPop(getApplicationContext(), itemsfinal));
+
+                recyclerViewPop.addOnItemTouchListener(
+                        new RecyclerItemClickListener(getApplicationContext(), recyclerViewPop, new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                IDPositionPop = itemsfinal.get(position).getIdpop();
+                                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                            }
+
+                            @Override/*IDPopUp = items.get(position).getIdpop();
+                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
+                            public void onLongItemClick(View view, int position) {
+
+                                //Createpopupwindows();
+                            }
+                        })
+                );
+            }
+
+            @Override
+            public void onFailure(Call<PosterResponse> call, Throwable t) {
+                StyleableToast.makeText(HomeActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
+
+    private void sortListByArrayPop(List<ItemFinal> theArrayListEvents) {
+        Collections.sort(theArrayListEvents, new EventDetailSortByArrayPop());
     }
 
     private void Createpopupwindows() {

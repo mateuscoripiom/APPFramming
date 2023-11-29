@@ -17,14 +17,15 @@
             android:adjustViewBounds="true"
             android:elevation="2dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/gradientp" />
+            app:srcCompat="@drawable/gradientbackimage" />
 
         <ImageView
             android:id="@+id/imageView14"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:srcCompat="@color/fundologin" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
