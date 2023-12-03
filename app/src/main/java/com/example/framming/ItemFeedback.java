@@ -6,6 +6,7 @@ public class ItemFeedback {
     Float notaCritica;
     String dataCritica;
     String textoCritica;
+    String idUsuario;
 
     public ItemFeedback(String idFilme, String idCritica, Float notaCritica, String dataCritica, String textoCritica) {
         this.idFilme = idFilme;

@@ -113,5 +113,7 @@
     <string name="querovermin">Quero ver</string>
     <string name="fav2">Adicionar segundo favorito</string>
     <string name="msgfilmecritica">Parece que este filme ainda\n não possui críticas</string>
+    <string name="msgfilmeperfil">Parece que você ainda\n não marcou seus favoritos</string>
+    <string name="msgfilmeperfil2">Parece que você ainda\n não criou críticas</string>
 </resources>
 

@@ -6,6 +6,7 @@ public class FeedbackResponse {
     private float notaCritica;
     private String dataCritica;
     private int qtdCurtidaCritica;
+    private String idCritica;
 
     public String getIdFilme() {
         return idFilme;
@@ -45,5 +46,13 @@ public class FeedbackResponse {
 
     public void setQtdCurtidaCritica(int qtdCurtidaCritica) {
         this.qtdCurtidaCritica = qtdCurtidaCritica;
+    }
+
+    public String getIdCritica() {
+        return idCritica;
+    }
+
+    public void setIdCritica(String idCritica) {
+        this.idCritica = idCritica;
     }
 }

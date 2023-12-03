@@ -4,6 +4,7 @@ import static com.example.framming.HomeActivity.items;
 import static com.example.framming.HomeActivity.itemsfinal;
 import static com.example.framming.HomeActivity.itemsnac;
 import static com.example.framming.HomeActivity.swtPosition;
+import static com.example.framming.HomeActivity.usadobtn;
 import static com.example.framming.PesquisaActivity.itemsbusca;
 import static com.example.framming.PosterActivity.posterArray;
 
@@ -50,7 +51,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.ResponseBody;
@@ -84,12 +89,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static String nomefilmeUsu, dataCriticaUsu, dataFilmeUsu, idCriticaUsu, idFilmeUsu, idUserUsu, textoCriticaUsu, posterFilmeUsu, fundoFilmeUsu, nickUsu, imgPerfilUsu;
     public static float notaCriticaUsu;
     public static boolean usoMainUsu = false;
+    public static ArrayList<ItemSession> sessionsdata = new ArrayList<>();
+    public static ArrayList<ItemSessionRV> sessionsfinal = new ArrayList<>();
+    public static ArrayList<ItemSessionRVF> sessionsfinalf = new ArrayList<>();
+
+    public static ArrayList<ItemSessionRVF> nomefinalcinema = new ArrayList<>();
+    public static String nomecinema;
+    public static boolean posicaoesconder = false;
 
     Toolbar toolbar;
     CardView cardSuaNota;
     RatingBar ratingSuaNota;
     TextView txtnumvisu, txtmedianota, txtMsgCritica;
-    RecyclerView recyclerViewMain;
+    RecyclerView recyclerViewMain, recyclerViewSessoes;
 
 
     @Override
@@ -106,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         imgPoster = findViewById(R.id.imgPoster);
         txtName = findViewById(R.id.txtName);
         txtAno = findViewById(R.id.txtAno);
+        recyclerViewSessoes = findViewById(R.id.recyclerViewSessoes);
         txtDuracao = findViewById(R.id.txtDuracao);
         txtSinopse = findViewById(R.id.txtSinopse);
         btnGenero = findViewById(R.id.btnGenero);
@@ -153,11 +166,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
         buscarFilmeAPI(IDFilme);
+        txtMsgCritica.setVisibility(View.GONE);
 
 
         buscaPosterSalvo();
         buscarCriticaF(IDFilme);
         buscaQueroV(IDFilme);
+
+        buscarSessoes(IDFilme);
 
         Switch swtmain = findViewById(R.id.swthome2);
         swtmain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -166,10 +182,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 if (isChecked) {
                     swtPosition = true;
                     buscarCriticas(IDFilme);
+                    sessionsdata.clear();
+                    sessionsfinal.clear();
+                    sessionsfinalf.clear();
                     txtMsgCritica.setVisibility(View.VISIBLE);
                 } else {
                     swtPosition = false;
                     criticasfilme.clear();
+                    buscarSessoes(IDFilme);
                     txtMsgCritica.setVisibility(View.GONE);
                     criticasfilmefinal.clear();
                 }
@@ -215,6 +235,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 MainActivity.linkFilmeSalvo = null;
                 linkFilmeSalvo = null;
                 usado = false;
+                sessionsdata.clear();
+                sessionsfinal.clear();
+                sessionsfinalf.clear();
                 usadoEscolha = false;
                 listadoQV = false;
                 QueroVerActivity.contagemquerover = 0;
@@ -253,6 +276,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 posterArray.clear();
                 itemsbusca.clear();
                 itemsfinal.clear();
+                sessionsdata.clear();
+                sessionsfinal.clear();
+                sessionsfinalf.clear();
                 QueroVerActivity.itemsquerover.clear();
                 QueroVerActivity.itemsqueroverfinal.clear();
                 MainActivity.linkFilmeSalvo = null;
@@ -750,6 +776,128 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
+                StyleableToast.makeText(MainActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
+
+    public void buscarSessoes(String filmeID){
+        Call<ArrayList<ItemSession>> result = ApiClient.getUserService().getSessionMovie(filmeID);
+        result.enqueue(new Callback<ArrayList<ItemSession>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ItemSession>> call, Response<ArrayList<ItemSession>> response) {
+                if(response.isSuccessful()){
+                    sessionsdata = response.body();
+
+                    int b=0;
+
+                    final Map<String, List<Integer>> correlations = new LinkedHashMap<>();
+                    for (int i = 0; i < sessionsdata.size(); i++) {
+                        final String key = sessionsdata.get(0).getDataSessao();
+                        if (correlations.containsKey(key)) {
+                            correlations.get(key).add(i);
+                            buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao());
+                            //sessionsfinal.add(new ItemSessionRV());
+                        } else {
+                            final List<Integer> indexList = new ArrayList<>();
+                            indexList.add(i);
+                            buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao());
+                            correlations.put(key, indexList);
+                        }
+                    }
+
+                    for(b=0; b<sessionsdata.size(); b++){
+                        MyAdapterDatas myAdapterDatas = new MyAdapterDatas(MainActivity.this, sessionsdata);
+                        LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this, recyclerViewMain.HORIZONTAL, false);
+                        recyclerViewMain.setLayoutManager(manager);
+                        recyclerViewMain.setAdapter(myAdapterDatas);
+                    }
+
+                    recyclerViewMain.addOnItemTouchListener(
+                            new RecyclerItemClickListener(getApplicationContext(), recyclerViewMain, new RecyclerItemClickListener.OnItemClickListener(){
+                                @Override
+                                public void onItemClick(View view, int position) {
+                                    sessionsfinal.clear();
+                                    sessionsfinalf.clear();
+                                    final Map<String, List<Integer>> correlations = new LinkedHashMap<>();
+                                    for (int i = 0; i < sessionsdata.size(); i++) {
+                                        final String key = sessionsdata.get(i).getDataSessao();
+                                        if (correlations.containsKey(key)) {
+                                            correlations.get(key).add(i);
+                                            buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao());
+                                            //sessionsfinal.add(new ItemSessionRV());
+                                        } else {
+                                            final List<Integer> indexList = new ArrayList<>();
+                                            indexList.add(i);
+                                            buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao());
+                                            correlations.put(key, indexList);
+                                        }
+                                    }
+
+                                    Log.v("Resultado:: ", correlations.toString());
+
+
+
+
+
+                                }
+                                @Override/*IDPopUp = items.get(position).getIdpop();
+                                startActivity(new Intent(HomeActivity.this, PopUpActivity.class));*/
+                                public void onLongItemClick(View view, int position) {
+
+                                    //Createpopupwindows();
+                                }
+                            })
+                    );
+
+                }
+                else{
+                    txtMsgCritica.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ItemSession>> call, Throwable t) {
+                StyleableToast.makeText(MainActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
+
+    public void buscarCinema(String idSessao, String idFilme, String tokenCin, String qtdIng, String salaSessao, String dataSessao, String horarioSessao){
+        Call<CinemaResponse> result = ApiClient.getUserService().getCinemaData(tokenCin);
+        result.enqueue(new Callback<CinemaResponse>() {
+            @Override
+            public void onResponse(Call<CinemaResponse> call, Response<CinemaResponse> response) {
+                if(response.isSuccessful()){
+                    int b=0;
+                    sessionsfinalf.add(new ItemSessionRVF(idSessao, idFilme, tokenCin, response.body().getNomeCinema(), qtdIng, salaSessao, dataSessao, horarioSessao));
+
+
+                    final Map<String, List<Integer>> correlations = new LinkedHashMap<>();
+                    for (int i = 0; i < sessionsfinalf.size(); i++) {
+                        final String key = sessionsfinalf.get(i).getNomeCinema();
+                        if (correlations.containsKey(key)) {
+                            correlations.get(key).add(i);
+                            posicaoesconder = true;
+                            //sessionsfinal.add(new ItemSessionRV());
+                        } else {
+                            final List<Integer> indexList = new ArrayList<>();
+                            indexList.add(i);
+                            posicaoesconder = false;
+                            correlations.put(key, indexList);
+                        }
+                    }
+
+                    
+
+                }
+                else{
+                    txtMsgCritica.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CinemaResponse> call, Throwable t) {
                 StyleableToast.makeText(MainActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
             }
         });

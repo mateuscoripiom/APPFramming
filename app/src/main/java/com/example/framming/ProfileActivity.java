@@ -44,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
     public static ArrayList<FilmesResponse> itemsfav = new ArrayList<>();
     public static ArrayList<ItemFavFinal> itemsfavfinal = new ArrayList<>();
     CardView cardPontos, cardDiario, cardQueroVer;
-    TextView txtNomeUsuario, txtUserName;
+    TextView txtNomeUsuario, txtUserName, txtmsgErro1, txtmsgErro2;
     ImageView imgIconUsuario;
     Button btntipouser;
 
@@ -54,6 +54,8 @@ public class ProfileActivity extends AppCompatActivity {
     //public static int ordemArray;
 
     public static int positionf;
+    public static boolean usoProfile = false;
+    public static String profileuserID, profilecriticaID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,8 @@ public class ProfileActivity extends AppCompatActivity {
         cardQueroVer = findViewById(R.id.cardQueroVer);
         imgFundoFav = findViewById(R.id.imgFundo7);
         recyclerViewFav = findViewById(R.id.recyclerViewFav);
+        txtmsgErro1 = findViewById(R.id.txtMsgCritica2);
+        txtmsgErro2 = findViewById(R.id.txtMsgCritica3);
 
 
         txtNomeUsuario.setText(HomeActivity.nomeusuario);
@@ -167,6 +171,8 @@ public class ProfileActivity extends AppCompatActivity {
                 itemsfav.clear();
                 itemsffinalrecente.clear();
                 itemsfavfinal.clear();
+                startActivity(new Intent(ProfileActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
@@ -185,7 +191,12 @@ public class ProfileActivity extends AppCompatActivity {
                     int b=0;
 
                     for(b=0; b<itemsfeedbackrecente.size(); b++){
-                        buscarFilmesC(itemsfeedbackrecente.get(b).getIdFilme(), itemsfeedbackrecente.get(b).getNotaCritica(), itemsfeedbackrecente.get(b).getIdCritica(), itemsfeedbackrecente.get(b).getDataCritica());
+                        txtmsgErro2.setVisibility(View.GONE);
+                        buscarFilmesC(HomeActivity.IDUser, itemsfeedbackrecente.get(b).getIdFilme(), itemsfeedbackrecente.get(b).getNotaCritica(), itemsfeedbackrecente.get(b).getIdCritica(), itemsfeedbackrecente.get(b).getDataCritica());
+                    }
+
+                    if(response.body().toString().equals("[]")){
+                        txtmsgErro2.setVisibility(View.VISIBLE);
                     }
 
                 }
@@ -202,7 +213,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void buscarFilmesC(String idFilmeC, Float notaFilmC, String idCriticaC, String dataCritica){
+    public void buscarFilmesC(String userID, String idFilmeC, Float notaFilmC, String idCriticaC, String dataCritica){
         Call<ArrayList<FilmesResponse>> result = ApiClient.getUserService().getAllDataFilme(idFilmeC);
         result.enqueue(new Callback<ArrayList<FilmesResponse>>() {
             @Override
@@ -219,6 +230,10 @@ public class ProfileActivity extends AppCompatActivity {
                             new RecyclerItemClickListener(getApplicationContext(), recyclerViewRecente, new RecyclerItemClickListener.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, int position) {
+                                    usoProfile = true;
+                                    profileuserID = userID;
+                                    profilecriticaID = itemsffinalrecente.get(position).getIdCritica();
+                                    startActivity(new Intent(ProfileActivity.this, CriticaActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
 
                                 }
 
@@ -254,7 +269,12 @@ public class ProfileActivity extends AppCompatActivity {
                     int b=0;
 
                     for(b=0; b<itemsfav.size(); b++){
+                        txtmsgErro1.setVisibility(View.GONE);
                         buscarPosterFav(itemsfav.get(b).getId(), itemsfav.get(b).getPoster_path(), itemsfav.get(b).getBackdrop_path(), b);
+                    }
+
+                    if(response.body().toString().equals("[]")){
+                        txtmsgErro1.setVisibility(View.VISIBLE);
                     }
 
                 }

@@ -72,6 +72,7 @@ public class CriticaActivity extends AppCompatActivity {
                 MainActivity.usado = false;
                 MainActivity.usadoEscolha = false;
                 QueroVerActivity.contagemquerover = 0;
+                ProfileActivity.usoProfile = false;
                 MainActivity.linkFilmeSalvo = null;
                 MainActivity.listadoQV = false;
                 PesquisaActivity.IDpesquisa = null;
@@ -115,6 +116,7 @@ public class CriticaActivity extends AppCompatActivity {
                 HomeActivity.itemsfinal.clear();
                 HomeActivity.items.clear();
                 MainActivity.linkFilmeSalvo = null;
+                ProfileActivity.usoProfile = false;
                 MainActivity.listadoQV = false;
                 PesquisaActivity.IDpesquisa = null;
                 HomeActivity.usadobtn = 0;
@@ -199,6 +201,9 @@ public class CriticaActivity extends AppCompatActivity {
                 }
             });
         }
+        else if(ProfileActivity.usoProfile == true){
+            buscarCritica(ProfileActivity.profileuserID, ProfileActivity.profilecriticaID);
+        }
         else{
             LocalDate localDate2 = LocalDate.parse(LogActivity.dataAssistido);
             DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("dd MMMM, yyyy", new Locale("pt", "BR"));
@@ -232,19 +237,20 @@ public class CriticaActivity extends AppCompatActivity {
         }
     }
 
-    /*public void buscarCritica(String userID, String criticaID){
-        Call<ArrayList<ItemCritica>> result = ApiClient.getUserService().getAllFeedbackMovie(filmeID);
-        result.enqueue(new Callback<ArrayList<ItemCritica>>() {
+    public void buscarCritica(String userID, String criticaID){
+        Call<FeedbackResponse> result = ApiClient.getUserService().getMovieFeedback(userID, criticaID);
+        result.enqueue(new Callback<FeedbackResponse>() {
             @Override
-            public void onResponse(Call<ArrayList<ItemCritica>> call, Response<ArrayList<ItemCritica>> response) {
+            public void onResponse(Call<FeedbackResponse> call, Response<FeedbackResponse> response) {
                 if(response.isSuccessful()){
-                    criticasfilme = response.body();
+                    LocalDate localDate2 = LocalDate.parse(response.body().getDataCritica());
+                    DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("dd MMMM, yyyy", new Locale("pt", "BR"));
 
-                    int b=0;
-
-                    for(b=0; b<itemsfilme.size(); b++){
-                        buscarUsuarios(criticasfilme.get(b).getIdCritica(), criticasfilme.get(b).getIdFilme(), criticasfilme.get(b).getIdUsuario(), criticasfilme.get(b).getTextoCritica(), criticasfilme.get(b).notaCritica, criticasfilme.get(b).getDataCritica(), criticasfilme.get(b).getQtdCurtidaCritica());
-                    }
+                    ratingBarCritica.setRating(response.body().getNotaCritica());
+                    txtCriticaUser.setText(response.body().getTextoCritica());
+                    btnDataCritica.setText("Assistido em " + localDate2.format(dateTimeFormatter2));
+                    buscarUsuarios(userID);
+                    buscarFilmesLog(response.body().getIdFilme());
                 }
                 else{
 
@@ -252,11 +258,72 @@ public class CriticaActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<ItemCritica>> call, Throwable t) {
-                StyleableToast.makeText(MainActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            public void onFailure(Call<FeedbackResponse> call, Throwable t) {
+                StyleableToast.makeText(CriticaActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
             }
         });
-    }*/
+    }
+    public void buscarUsuarios(String userID){
+        Call<UserResponse> result = ApiClient.getUserService().getAllDataUser(userID);
+        result.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if(response.isSuccessful()){
+                    txtPerfilCritica.setText(response.body().getNickUsuario());
+                    Picasso
+                            .get()
+                            .load(response.body().getIconUsuario())
+                            .into(imgPerfilCritica);
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                StyleableToast.makeText(CriticaActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
+
+    public void buscarFilmesLog(String idFilme){
+        Call<ArrayList<FilmesResponse>> result = ApiClient.getUserService().getAllDataFilme(idFilme);
+        result.enqueue(new Callback<ArrayList<FilmesResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<FilmesResponse>> call, Response<ArrayList<FilmesResponse>> response) {
+                if(response.isSuccessful()){
+                    Picasso
+                            .get()
+                            .load("https://www.themoviedb.org/t/p/original" + response.body().get(0).getPoster_path())
+                            .into(imgPosterCriticaUser);
+                    txtNomeFilmeCritica.setText(response.body().get(0).getTitle());
+                    txtAnoFilmeCritica.setText(response.body().get(0).getRelease_date());
+                    Picasso
+                            .get()
+                            .load("https://www.themoviedb.org/t/p/original" + response.body().get(0).getBackdrop_path())
+                            .into(imgFundoCriticaUser);
+                    imgPosterCriticaUser.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            ProfileActivity.usoProfile = false;
+                            HomeActivity.IDPositionPop = response.body().get(0).getId();
+                            startActivity(new Intent(CriticaActivity.this, MainActivity.class));
+                            finish();
+                        }
+                    });
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<FilmesResponse>> call, Throwable t) {
+                StyleableToast.makeText(CriticaActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
 
 
 

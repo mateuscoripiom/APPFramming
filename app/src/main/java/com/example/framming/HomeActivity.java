@@ -548,10 +548,12 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                     itemsfav = response.body();
 
                     imgFundoFav = findViewById(R.id.imageView14);
-                    Picasso
-                            .get()
-                            .load("https://www.themoviedb.org/t/p/original" + itemsfav.get(0).getBackdrop_path())
-                            .into(imgFundoFav);
+                    if(response.body().toString() != "[]") {
+                        Picasso
+                                .get()
+                                .load("https://www.themoviedb.org/t/p/original" + itemsfav.get(0).getBackdrop_path())
+                                .into(imgFundoFav);
+                    }
                 } else {
 
                 }

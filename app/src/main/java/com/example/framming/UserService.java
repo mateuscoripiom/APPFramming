@@ -38,6 +38,12 @@ public interface UserService {
     Call<ArrayList<ItemCritica>> getAllFeedbackMovie(@Path("filme_id") String filmeID);
     @GET("feedbackMovie/{user_id}/{filme_id}")
     Call<ArrayList<FeedbackResponse>> getFeedbackMovie(@Path("user_id") String userID, @Path("filme_id") String filmeID);
+    @GET("feedback/{user_id}/{feedback_id}")
+    Call<FeedbackResponse> getMovieFeedback(@Path("user_id") String userID, @Path("feedback_id") String feedbackID);
+    @GET("session/0/{filme_id}")
+    Call<ArrayList<ItemSession>> getSessionMovie(@Path("filme_id") String filmeID);
+    @GET("cinema/{token_cinema}")
+    Call<CinemaResponse> getCinemaData(@Path("token_cinema") String tokenCinema);
 
     @POST("upload?")
     Call<ResponseBody> salvarImgP(@Query("expiration") String expirationLink, @Query("key") String keyLink, @Query("image") String imageLink);
