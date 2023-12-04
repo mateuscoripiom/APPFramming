@@ -35,6 +35,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTipIng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewDetails" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewDetails"
         android:layout_width="match_parent"
@@ -72,7 +78,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter"
                     android:singleLine="false"
-                    android:text="@string/nomecin"
                     android:textAlignment="textStart"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
@@ -140,7 +145,6 @@
                 android:elevation="10dp"
                 android:fontFamily="@font/poppins_bold"
                 android:maxLines="3"
-                android:text="Barbie"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
@@ -161,8 +165,7 @@
                     android:layout_width="120dp"
                     android:layout_height="179dp"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/iufnms8u5cb6xfzi51dbkovj7vm" />
+                    android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -173,14 +176,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:outlineProvider="none"
         app:cardBackgroundColor="#3E3E3E"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewDetails">
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewTipIng">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -308,7 +311,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/button15"
+        android:id="@+id/btnComprar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"

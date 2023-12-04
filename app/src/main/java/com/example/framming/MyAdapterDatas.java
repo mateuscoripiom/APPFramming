@@ -2,28 +2,22 @@ package com.example.framming;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
+import java.util.Map;
 
 public class MyAdapterDatas extends RecyclerView.Adapter<MyViewHolderDatas> {
     private Context datascontext;
-    private ArrayList<ItemSession> datasiguais;
+    private Map<String, ArrayList<ItemSession>> correlations3;
 
-    public MyAdapterDatas(Context datascontext, ArrayList<ItemSession> datasiguais) {
+    public MyAdapterDatas(Context datascontext, Map<String, ArrayList<ItemSession>> correlations3) {
         this.datascontext = datascontext;
-        this.datasiguais = datasiguais;
+        this.correlations3 = correlations3;
     }
 
     @NonNull
@@ -34,7 +28,11 @@ public class MyAdapterDatas extends RecyclerView.Adapter<MyViewHolderDatas> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderDatas holder, int position) {
-        holder.btnDatas.setText(datasiguais.get(position).getDataSessao());
+        ArrayList<String> key = new ArrayList<String>(correlations3.keySet());
+        ArrayList<ArrayList<ItemSession>> value = new ArrayList<ArrayList<ItemSession>>(correlations3.values());
+
+
+        holder.btnDatas.setText(key.get(position));
 
 
 
@@ -42,6 +40,6 @@ public class MyAdapterDatas extends RecyclerView.Adapter<MyViewHolderDatas> {
 
     @Override
     public int getItemCount() {
-        return datasiguais.size();
+        return correlations3.size();
     }
 }

@@ -172,6 +172,7 @@ public class CriticaActivity extends AppCompatActivity {
             });
         }
         else if(MainActivity.usoMainUsu == true){
+            
             LocalDate localDate = LocalDate.parse(MainActivity.dataCriticaUsu);
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy", new Locale("pt", "BR"));
             ratingBarCritica.setRating(MainActivity.notaCriticaUsu);

@@ -8,38 +8,29 @@
     tools:context=".formadepagamentoActivity">
 
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="44dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+    <ImageButton
+        android:id="@+id/imgbtnvoltar13"
+        android:layout_width="59dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#00FFFFFF"
+        android:elevation="6dp"
+        android:outlineProvider="none"
+        android:scaleType="fitStart"
+        android:src="@drawable/icons8_voltar_100"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icons8_voltar_100" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="44dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menupag" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_bold"
+        android:layout_marginTop="20dp"
+        android:elevation="4dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="@string/formpag"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,5 +1,6 @@
 package com.example.framming;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemSessionRVF {
@@ -11,9 +12,8 @@ public class ItemSessionRVF {
     String salaSessao;
     String dataSessao;
     String horarioSessao;
-    List<TipoIng> ingressos;
 
-    public ItemSessionRVF(String idSessao, String idFilme, String tokenCinema, String nomeCinema, String qtdIngressosSessao, String salaSessao, String dataSessao, String horarioSessao, List<TipoIng> ingressos) {
+    public ItemSessionRVF(String idSessao, String idFilme, String tokenCinema, String nomeCinema, String qtdIngressosSessao, String salaSessao, String dataSessao, String horarioSessao) {
         this.idSessao = idSessao;
         this.idFilme = idFilme;
         this.tokenCinema = tokenCinema;
@@ -22,7 +22,6 @@ public class ItemSessionRVF {
         this.salaSessao = salaSessao;
         this.dataSessao = dataSessao;
         this.horarioSessao = horarioSessao;
-        this.ingressos = ingressos;
     }
 
     public String getIdSessao() {
@@ -89,11 +88,4 @@ public class ItemSessionRVF {
         this.horarioSessao = horarioSessao;
     }
 
-    public List<TipoIng> getIngressos() {
-        return ingressos;
-    }
-
-    public void setIngressos(List<TipoIng> ingressos) {
-        this.ingressos = ingressos;
-    }
 }

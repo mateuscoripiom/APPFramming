@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static boolean posicaoesconder = false;
     public static ArrayList<ItemSession> datasiguais = new ArrayList<>();
 
-    public static String idfilmetiping, idsessaotiping, tokencintiping, datsessaotiping, horsessaotiping;
-    public static List<TipoIng> tipingg;
+    public static String idfilmetiping, idsessaotiping, tokencintiping, datsessaotiping, horsessaotiping, salatiping;
+    public static ArrayList<TipoIng> tipingg;
 
     Toolbar toolbar;
     CardView cardSuaNota;
@@ -807,54 +807,35 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                     int b=0;
 
-                    final Map<String, List<Integer>> correlations3 = new LinkedHashMap<>();
+                    final Map<String, ArrayList<ItemSession>> correlations3 = new LinkedHashMap<>();
                     for (int i = 0; i < sessionsdata.size(); i++) {
                         final String key = sessionsdata.get(i).getDataSessao();
                         if (correlations3.containsKey(key)) {
-                            correlations3.get(key).add(i);
+                            correlations3.get(key).add(new ItemSession(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao()));
 
                         }
                         else {
-                            final List<Integer> indexList = new ArrayList<>();
-                            indexList.add(i);
+                            final ArrayList<ItemSession> indexList = new ArrayList<>();
+                            indexList.add(new ItemSession(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao()));
                             correlations3.put(key, indexList);
-                            datasiguais.add(new ItemSession(sessionsdata.get(i).idSessao, sessionsdata.get(i).idFilme, sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao(), sessionsdata.get(i).getIngressos()));
+                            //datasiguais.add(new ItemSession(sessionsdata.get(i).idSessao, sessionsdata.get(i).idFilme, sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao(), sessionsdata.get(i).getIngressos()));
 
                         }
                     }
 
-                    final Map<String, List<Integer>> correlations4 = new LinkedHashMap<>();
-                    for (int i = 0; i < datasiguais.size(); i++) {
-                        final String key = datasiguais.get(i).getDataSessao();
-                        if (correlations4.containsKey(key)) {
-                            correlations4.get(key).add(i);
-                            if(datasiguais.get(i).getDataSessao().equals(key)){
-                                buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao(), sessionsdata.get(i).getIngressos());
-                            }
-                            else if(datasiguais.get(0).getDataSessao().equals(datasiguais.get(0).getDataSessao())){
-                                buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao(), sessionsdata.get(i).getIngressos());
-                            }
-                        }
-                        else {
-                            final List<Integer> indexList = new ArrayList<>();
-                            indexList.add(i);
-                            correlations4.put(key, indexList);
-                            if(datasiguais.get(i).getDataSessao().equals(key)){
-                                buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao(), sessionsdata.get(i).getIngressos());
-                            }
-                            else if(datasiguais.get(0).getDataSessao().equals(datasiguais.get(0).getDataSessao())){
-                                buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao(), sessionsdata.get(i).getIngressos());
-                            }
-                        }
+
+                    MyAdapterDatas myAdapterDatas = new MyAdapterDatas(MainActivity.this, correlations3);
+                    LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this, recyclerViewMain.HORIZONTAL, false);
+                    recyclerViewMain.setLayoutManager(manager);
+                    recyclerViewMain.setAdapter(myAdapterDatas);
+
+                    ArrayList<String> key = new ArrayList<String>(correlations3.keySet());
+                    ArrayList<ArrayList<ItemSession>> value = new ArrayList<ArrayList<ItemSession>>(correlations3.values());
+
+                    for (int i = 0; i < value.get(0).size(); i++) {
+                        buscarCinema(value.get(0).get(i).getIdSessao(), value.get(0).get(i).getIdFilme(), value.get(0).get(i).getTokenCinema(), value.get(0).get(i).getQtdIngressosSessao(), value.get(0).get(i).getSalaSessao(), value.get(0).get(i).getDataSessao(),value.get(0).get(i).getHorarioSessao());
                     }
 
-
-                    for(b=0; b<datasiguais.size(); b++){
-                        MyAdapterDatas myAdapterDatas = new MyAdapterDatas(MainActivity.this, datasiguais);
-                        LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this, recyclerViewMain.HORIZONTAL, false);
-                        recyclerViewMain.setLayoutManager(manager);
-                        recyclerViewMain.setAdapter(myAdapterDatas);
-                    }
 
                     recyclerViewMain.addOnItemTouchListener(
                             new RecyclerItemClickListener(getApplicationContext(), recyclerViewMain, new RecyclerItemClickListener.OnItemClickListener(){
@@ -868,8 +849,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                                         final String key = sessionsdata.get(i).getDataSessao();
                                         if (correlations.containsKey(key)) {
                                             correlations.get(key).add(i);
-                                            buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao(), sessionsdata.get(i).getIngressos());
-                                            //sessionsfinal.add(new ItemSessionRV());
+                                            buscarCinema(sessionsdata.get(i).getIdSessao(), sessionsdata.get(i).getIdFilme(), sessionsdata.get(i).getTokenCinema(), sessionsdata.get(i).getQtdIngressosSessao(), sessionsdata.get(i).getSalaSessao(), sessionsdata.get(i).getDataSessao(), sessionsdata.get(i).getHorarioSessao());
                                         } else {
                                             final List<Integer> indexList = new ArrayList<>();
                                             indexList.add(i);
@@ -877,14 +857,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                                             correlations.put(key, indexList);
                                         }
                                     }
-
-
-
-                                    Log.v("Resultado:: ", correlations.toString());
-
-
-
-
+                                    Log.v("Resultado: ", correlations.toString());
 
                                 }
                                 @Override/*IDPopUp = items.get(position).getIdpop();
@@ -911,34 +884,31 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
     }
 
-    public void buscarCinema(String idSessao, String idFilme, String tokenCin, String qtdIng, String salaSessao, String dataSessao, String horarioSessao, List<TipoIng> tipoIngs){
+    public void buscarCinema(String idSessao, String idFilme, String tokenCin, String qtdIng, String salaSessao, String dataSessao, String horarioSessao){
         Call<CinemaResponse> result = ApiClient.getUserService().getCinemaData(tokenCin);
         result.enqueue(new Callback<CinemaResponse>() {
             @Override
             public void onResponse(Call<CinemaResponse> call, Response<CinemaResponse> response) {
                 if(response.isSuccessful()){
-                    sessionsfinalf.add(new ItemSessionRVF(idSessao, idFilme, tokenCin, response.body().getNomeCinema(), qtdIng, salaSessao, dataSessao, horarioSessao, tipoIngs));
+                    sessionsfinalf.add(new ItemSessionRVF(idSessao, idFilme, tokenCin, response.body().getNomeCinema(), qtdIng, salaSessao, dataSessao, horarioSessao));
 
                     int b=0;
                     final Map<String, List<Integer>> correlations3 = new LinkedHashMap<>();
                     for (int i = 0; i < sessionsfinalf.size(); i++) {
-                        final String key = sessionsfinalf.get(i).getDataSessao();
+                        salvarSessao();
+                        /*final String key = sessionsfinalf.get(i).getDataSessao();
                         if (correlations3.containsKey(key)) {
                             correlations3.get(key).add(i);
 
-                            salvarSessao();
+
                         }
                         else {
                             final List<Integer> indexList = new ArrayList<>();
                             indexList.add(i);
                             correlations3.put(key, indexList);
 
-                        }
+                        }*/
                     }
-                    Log.v("Datas: ", correlations3.toString());
-
-
-
                 }
                 else{
                     txtMsgCritica.setVisibility(View.VISIBLE);
@@ -957,12 +927,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         for (int i = 0; i < sessionsfinalf.size(); i++) {
             final String key = sessionsfinalf.get(i).getNomeCinema();
             if (correlations2.containsKey(key)) {
-                correlations2.get(key).add(new ItemSessaoF(sessionsfinalf.get(i).getIdSessao(), sessionsfinalf.get(i).getTokenCinema(), sessionsfinalf.get(i).getDataSessao(), sessionsfinalf.get(i).getHorarioSessao(), sessionsfinalf.get(i).getIdFilme(), sessionsfinalf.get(i).getIngressos()));
+                correlations2.get(key).add(new ItemSessaoF(sessionsfinalf.get(i).getIdSessao(), sessionsfinalf.get(i).getTokenCinema(), sessionsfinalf.get(i).getDataSessao(), sessionsfinalf.get(i).getHorarioSessao(), sessionsfinalf.get(i).getIdFilme(), sessionsfinalf.get(i).getSalaSessao()));
                 horariosfinais.add(new ChildModelClass2(key, sessionsfinalf.get(i).getHorarioSessao()));
 
             } else {
                 final List<ItemSessaoF> indexList = new ArrayList<>();
-                indexList.add(new ItemSessaoF(sessionsfinalf.get(i).getIdSessao(), sessionsfinalf.get(i).getTokenCinema(), sessionsfinalf.get(i).getDataSessao(), sessionsfinalf.get(i).getHorarioSessao(), sessionsfinalf.get(i).getIdFilme(), sessionsfinalf.get(i).getIngressos()));
+                indexList.add(new ItemSessaoF(sessionsfinalf.get(i).getIdSessao(), sessionsfinalf.get(i).getTokenCinema(), sessionsfinalf.get(i).getDataSessao(), sessionsfinalf.get(i).getHorarioSessao(), sessionsfinalf.get(i).getIdFilme(), sessionsfinalf.get(i).getSalaSessao()));
                 correlations2.put(key, indexList);
 
             }
@@ -980,12 +950,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         ArrayList<String> key = new ArrayList<String>(correlations2.keySet());
                         ArrayList<List<ItemSessaoF>> value = new ArrayList<List<ItemSessaoF>>(correlations2.values());
 
-                        idfilmetiping = value.get(position).get(position).getIdFilme();
-                        idsessaotiping = value.get(position).get(position).getIdSessao();
-                        tokencintiping = value.get(position).get(position).getTokenCinema();
-                        datsessaotiping = value.get(position).get(position).getDataSessao();
-                        horsessaotiping = value.get(position).get(position).getHorarioSessao();
-                        tipingg = value.get(position).get(position).getIngressos();
+                        idfilmetiping = value.get(position).get(0).getIdFilme();
+                        idsessaotiping = value.get(position).get(0).getIdSessao();
+                        tokencintiping = value.get(position).get(0).getTokenCinema();
+                        datsessaotiping = value.get(position).get(0).getDataSessao();
+                        horsessaotiping = value.get(position).get(0).getHorarioSessao();
+                        salatiping = value.get(position).get(0).getSalaSessao();
 
                         startActivity(new Intent(MainActivity.this, tipoingressoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
 
