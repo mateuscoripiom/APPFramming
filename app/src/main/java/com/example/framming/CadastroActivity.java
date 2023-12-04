@@ -2,6 +2,7 @@ package com.example.framming;
 
 import static android.opengl.ETC1.encodeImage;
 
+import static com.example.framming.LoginActivity.KEY_EMAIL;
 import static com.example.framming.LoginActivity.KEY_ID;
 import static com.example.framming.LoginActivity.SHARED_PREFS;
 

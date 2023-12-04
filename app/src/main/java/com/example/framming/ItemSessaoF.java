@@ -2,26 +2,20 @@ package com.example.framming;
 
 import java.util.List;
 
-public class ItemSessionRVF {
+public class ItemSessaoF {
     String idSessao;
-    String idFilme;
     String tokenCinema;
-    String nomeCinema;
-    String qtdIngressosSessao;
-    String salaSessao;
     String dataSessao;
     String horarioSessao;
+    String idFilme;
     List<TipoIng> ingressos;
 
-    public ItemSessionRVF(String idSessao, String idFilme, String tokenCinema, String nomeCinema, String qtdIngressosSessao, String salaSessao, String dataSessao, String horarioSessao, List<TipoIng> ingressos) {
+    public ItemSessaoF(String idSessao, String tokenCinema, String dataSessao, String horarioSessao, String idFilme, List<TipoIng> ingressos) {
         this.idSessao = idSessao;
-        this.idFilme = idFilme;
         this.tokenCinema = tokenCinema;
-        this.nomeCinema = nomeCinema;
-        this.qtdIngressosSessao = qtdIngressosSessao;
-        this.salaSessao = salaSessao;
         this.dataSessao = dataSessao;
         this.horarioSessao = horarioSessao;
+        this.idFilme = idFilme;
         this.ingressos = ingressos;
     }
 
@@ -33,44 +27,12 @@ public class ItemSessionRVF {
         this.idSessao = idSessao;
     }
 
-    public String getIdFilme() {
-        return idFilme;
-    }
-
-    public void setIdFilme(String idFilme) {
-        this.idFilme = idFilme;
-    }
-
     public String getTokenCinema() {
         return tokenCinema;
     }
 
     public void setTokenCinema(String tokenCinema) {
         this.tokenCinema = tokenCinema;
-    }
-
-    public String getNomeCinema() {
-        return nomeCinema;
-    }
-
-    public void setNomeCinema(String nomeCinema) {
-        this.nomeCinema = nomeCinema;
-    }
-
-    public String getQtdIngressosSessao() {
-        return qtdIngressosSessao;
-    }
-
-    public void setQtdIngressosSessao(String qtdIngressosSessao) {
-        this.qtdIngressosSessao = qtdIngressosSessao;
-    }
-
-    public String getSalaSessao() {
-        return salaSessao;
-    }
-
-    public void setSalaSessao(String salaSessao) {
-        this.salaSessao = salaSessao;
     }
 
     public String getDataSessao() {
@@ -87,6 +49,14 @@ public class ItemSessionRVF {
 
     public void setHorarioSessao(String horarioSessao) {
         this.horarioSessao = horarioSessao;
+    }
+
+    public String getIdFilme() {
+        return idFilme;
+    }
+
+    public void setIdFilme(String idFilme) {
+        this.idFilme = idFilme;
     }
 
     public List<TipoIng> getIngressos() {
