@@ -139,6 +139,11 @@ public class DiaryActivity extends AppCompatActivity {
                                     idFilmeMain = itemsffinal.get(position).getIdFilme();
                                     CriticaActivity.idDiarioC = itemsffinal.get(position).getIdCritica();
                                     startActivity(new Intent(DiaryActivity.this, CriticaActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                                    finish();
+                                    itemsfeedback.clear();
+                                    itemsffinal.clear();
+                                    contagemtotal = null;
+                                    contagemdiario = 0;
                                 }
 
                                 @Override/*IDPopUp = items.get(position).getIdpop();

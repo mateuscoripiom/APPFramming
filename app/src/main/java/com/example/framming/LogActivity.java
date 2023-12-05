@@ -200,12 +200,12 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
     }
 
     private String makeDateString(int finalday, int month, int year) {
-        int datat;
+        String datat;
         if(finalday<10){
-            datat = 0 + finalday;
+            datat = "0" + finalday;
         }
         else{
-            datat = finalday;
+            datat = String.valueOf(finalday);
         }
         dataAssistido = year + "-" + month + "-" + datat;
         dataparasalvar = year + "-" + month + "-" + datat;

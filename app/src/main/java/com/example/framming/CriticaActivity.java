@@ -247,12 +247,12 @@ public class CriticaActivity extends AppCompatActivity {
             }
         }
         else{
-            LocalDate localDate2 = LocalDate.parse(LogActivity.dataAssistido);
-            DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("dd MMMM, yyyy", new Locale("pt", "BR"));
+            LocalDate localDate = LocalDate.parse(LogActivity.dataparasalvar);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM, yyyy", new Locale("pt", "BR"));
 
             ratingBarCritica.setRating(LogActivity.ratingBar.getRating());
             txtCriticaUser.setText(LogActivity.critica);
-            btnDataCritica.setText("Assistido em " + localDate2.format(dateTimeFormatter2));
+            btnDataCritica.setText("Assistido em " + localDate.format(dateTimeFormatter));
             Picasso
                     .get()
                     .load(LogActivity.imgPosterAssistido)
