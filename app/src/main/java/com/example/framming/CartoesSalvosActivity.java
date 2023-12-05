@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ public class CartoesSalvosActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewCartoesS;
     Button btnCadCartao;
+    ImageButton imgbtnvoltar16;
 
     public static String numCartao;
 
@@ -24,6 +26,8 @@ public class CartoesSalvosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cartoes_salvos);
         recyclerViewCartoesS = findViewById(R.id.recyclerViewCartoesS);
         btnCadCartao = findViewById(R.id.btnCadCartao);
+        imgbtnvoltar16 = findViewById(R.id.imgbtnvoltar16);
+
 
         btnCadCartao.setOnClickListener(new View.OnClickListener(){
             @Override

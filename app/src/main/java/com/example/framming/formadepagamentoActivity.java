@@ -24,6 +24,7 @@ public class formadepagamentoActivity extends AppCompatActivity {
     EditText etxtcpftitular;
 
     public static String CPFTitular;
+    public static boolean pagamentoSalvo = false;
 
     public static ArrayList<PaymentResponse> itemspagamento = new ArrayList<PaymentResponse>();
 
@@ -64,6 +65,7 @@ public class formadepagamentoActivity extends AppCompatActivity {
                         startActivity(new Intent(formadepagamentoActivity.this, creditoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     }
                     else{
+                        pagamentoSalvo = true;
                         CPFTitular = etxtcpftitular.getText().toString();
                         startActivity(new Intent(formadepagamentoActivity.this, CartoesSalvosActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     }

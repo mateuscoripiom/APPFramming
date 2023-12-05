@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class CadIngressosActivity extends AppCompatActivity {
     public static ArrayList<TicketsFinaisC> ticketsexibido = new ArrayList<>();
 
     TextView txtErroCadIng;
+    ImageButton imgbtnvoltar22;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,24 @@ public class CadIngressosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cad_ingressos);
         recyclerViewCadIng = findViewById(R.id.recyclerViewCadIng);
         txtErroCadIng = findViewById(R.id.txtErroCadIng);
+        imgbtnvoltar22 = findViewById(R.id.imgbtnvoltar22);
 
         buscarIngressos();
+
+        imgbtnvoltar22.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                tickets.clear();
+                ticketsexibido.clear();
+                ticketsfinais.clear();
+                ticketsFinaisCS.clear();
+                ticketsFinaisSES.clear();
+                itemssession.clear();
+                itemsfilme.clear();
+                startActivity(new Intent(CadIngressosActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
+            }
+        });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override

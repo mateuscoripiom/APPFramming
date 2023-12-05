@@ -3,6 +3,8 @@ package com.example.framming;
 import static com.example.framming.LoginActivity.KEY_EMAIL;
 import static com.example.framming.LoginActivity.KEY_ID;
 import static com.example.framming.LoginActivity.SHARED_PREFS;
+import static com.example.framming.PesquisaActivity.itemsbusca;
+import static com.example.framming.PosterActivity.posterArray;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +31,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -145,6 +148,16 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
             }
         });
+
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(HomeActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
