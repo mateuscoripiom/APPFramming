@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,18 +61,16 @@ public class formadepagamentoActivity extends AppCompatActivity {
 
                     int b = 0;
 
-                    if(itemspagamento.toString().equals("Payment methods not found")){
-                        CPFTitular = etxtcpftitular.getText().toString();
-                        startActivity(new Intent(formadepagamentoActivity.this, creditoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    }
-                    else{
+
+
                         pagamentoSalvo = true;
                         CPFTitular = etxtcpftitular.getText().toString();
                         startActivity(new Intent(formadepagamentoActivity.this, CartoesSalvosActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    }
 
-                } else {
 
+                } if(response.code() == 404){
+                    CPFTitular = etxtcpftitular.getText().toString();
+                    startActivity(new Intent(formadepagamentoActivity.this, creditoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 }
             }
 
