@@ -152,10 +152,11 @@ public class FilmesListaActivity extends AppCompatActivity {
                          new RecyclerItemClickListener(getApplicationContext(), recyclerViewListas, new RecyclerItemClickListener.OnItemClickListener() {
                              @Override
                              public void onItemClick(View view, int position) {
-                                 itemsfilmefinal.clear();
-                                 rootfiles.clear();
+
                                  HomeActivity.IDPositionPop = itemsfilmefinal.get(position).getId();
                                  startActivity(new Intent(FilmesListaActivity.this, MainActivity.class));
+                                 itemsfilmefinal.clear();
+                                 rootfiles.clear();
                              }
 
                              @Override/*IDPopUp = items.get(position).getIdpop();
