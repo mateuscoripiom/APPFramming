@@ -65,7 +65,6 @@ public class CadastroActivity extends AppCompatActivity {
         editTextconfirmasenha = findViewById(R.id.editTextconfirme);
         btncadastrar = findViewById(R.id.btn_cad);
         btnfacalogin = findViewById(R.id.facalogin);
-        imgEscolherImagem = findViewById(R.id.imgEscolherImagem);
 
         btncadastrar.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -92,13 +91,7 @@ public class CadastroActivity extends AppCompatActivity {
             }
         });
 
-        imgEscolherImagem.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 3);
-            }
-        });
+
 
     }
 
@@ -120,6 +113,7 @@ public class CadastroActivity extends AppCompatActivity {
         usuarioRequest.setUsername(editTextuser.getText().toString());
         usuarioRequest.setEmail(editTextemail.getText().toString());
         usuarioRequest.setPassword(editTextsenha.getText().toString());
+        usuarioRequest.setIcon("https://i.imgur.com/b3vtOtU.png");
         usuarioRequest.setUserType("nor");
 
         return usuarioRequest;
@@ -156,15 +150,6 @@ public class CadastroActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && data != null){
-            Uri selectedImage = data.getData();
-            imgEscolherImagem.setImageURI(selectedImage);
-            imgprofiled = selectedImage;
-        }
-    }
 
 
 }

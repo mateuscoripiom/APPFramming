@@ -94,37 +94,58 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
             }
         });
 
-        if(HomeActivity.ID != null) {
-            idfilmeassistido = HomeActivity.ID;
-        }
-        if(HomeActivity.IDPositionPop != null){
-            idfilmeassistido = HomeActivity.IDPositionPop;
-        }
-        if(PesquisaActivity.IDpesquisa != null){
-            idfilmeassistido = PesquisaActivity.IDpesquisa;
-        }
+        if(CriticaActivity.usoEdicao == true){
+            idfilmeassistido = DiaryActivity.idFilmeMain;
+            buscarFilmeAPI(idfilmeassistido);
+            textInputEditText.setText(DiaryActivity.textoCritica);
+            btndata.setText(DiaryActivity.dataCritica);
+            ratingBar.setRating(DiaryActivity.notaCritica);
 
-        buscarFilmeAPI(idfilmeassistido);
-        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
-            @Override
-            public void handleOnBackPressed() {
-                startActivity(new Intent(LogActivity.this, MainActivity.class));
+            btnsalvar.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    logusado = true;
+                    salvarCriticaEditada(editedRequest());
+                    CriticaActivity.usoEdicao = false;
+                    startActivity(new Intent(LogActivity.this, DiaryActivity.class));
+                    finish();
+                }
+            });
+        }
+        else{
+            if(HomeActivity.ID != null) {
+                idfilmeassistido = HomeActivity.ID;
             }
-        };
-        getOnBackPressedDispatcher().addCallback(this, callback);
-
-        //buscaInfoFilme();
-
-        btnsalvar.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                critica = textInputEditText.getText().toString();
-                logusado = true;
-                salvarCritica(feedbackRequest());
-                startActivity(new Intent(LogActivity.this, CriticaActivity.class));
-                finish();
+            if(HomeActivity.IDPositionPop != null){
+                idfilmeassistido = HomeActivity.IDPositionPop;
             }
-        });
+            if(PesquisaActivity.IDpesquisa != null){
+                idfilmeassistido = PesquisaActivity.IDpesquisa;
+            }
+
+            buscarFilmeAPI(idfilmeassistido);
+            OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+                @Override
+                public void handleOnBackPressed() {
+                    startActivity(new Intent(LogActivity.this, MainActivity.class));
+                }
+            };
+            getOnBackPressedDispatcher().addCallback(this, callback);
+
+            //buscaInfoFilme();
+
+            btnsalvar.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    critica = textInputEditText.getText().toString();
+                    logusado = true;
+                    salvarCritica(feedbackRequest());
+                    startActivity(new Intent(LogActivity.this, CriticaActivity.class));
+                    finish();
+                }
+            });
+        }
+
     }
 
     private String getTodaysDate() {
@@ -446,6 +467,37 @@ public class LogActivity extends AppCompatActivity implements LoaderManager.Load
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()){
                     StyleableToast.makeText(LogActivity.this, "Sua crítica de " + nomeFilmeAssitido + " foi salva", Toast.LENGTH_LONG, R.style.exampleToast).show();
+
+                }
+                else{
+                    StyleableToast.makeText(LogActivity.this, "Não foi possível salvar sua crítica", Toast.LENGTH_LONG, R.style.erroToast).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(LogActivity.this, "Salvamento falhou" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public FeedbackERequest editedRequest(){
+        FeedbackERequest feedbackERequest = new FeedbackERequest();
+        feedbackERequest.setIdMovie(idfilmeassistido);
+        feedbackERequest.setFeedbackText(textInputEditText.getText().toString());
+        feedbackERequest.setFeedbackDate(dataparasalvar);
+        feedbackERequest.setFeedbackRate(ratingBar.getRating());
+        return feedbackERequest;
+    }
+
+    public void salvarCriticaEditada(FeedbackERequest feedbackERequest){
+        Call<ResponseBody> result = ApiClient.getUserService().saveFeedbackEdit(HomeActivity.IDUser, DiaryActivity.idCriticaD, feedbackERequest);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    StyleableToast.makeText(LogActivity.this, "Sua crítica de " + nomeFilmeAssitido + " foi editada", Toast.LENGTH_LONG, R.style.exampleToast).show();
 
                 }
                 else{

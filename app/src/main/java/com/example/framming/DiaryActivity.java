@@ -137,6 +137,7 @@ public class DiaryActivity extends AppCompatActivity {
                                     dataCritica = itemsffinal.get(position).getDataCritica();
                                     textoCritica = itemsffinal.get(position).getTextoCritica();
                                     idFilmeMain = itemsffinal.get(position).getIdFilme();
+                                    CriticaActivity.idDiarioC = itemsffinal.get(position).getIdCritica();
                                     startActivity(new Intent(DiaryActivity.this, CriticaActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                                 }
 

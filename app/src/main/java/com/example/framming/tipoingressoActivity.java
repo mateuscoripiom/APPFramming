@@ -1,5 +1,12 @@
 package com.example.framming;
 
+import static com.example.framming.HomeActivity.items;
+import static com.example.framming.HomeActivity.itemsfinal;
+import static com.example.framming.HomeActivity.swtPosition;
+import static com.example.framming.PesquisaActivity.itemsbusca;
+import static com.example.framming.PosterActivity.posterArray;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.Sampler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,8 +40,10 @@ public class tipoingressoActivity extends AppCompatActivity {
     TextView txtnumIng, txtNomeFilmeTipIng, txtNumSala, txtDetSessao, txtNomeCinema;
     RecyclerView recyclerViewTipIng;
     Button btnComprar;
+    TextView txtMsgCritica4;
 
     public static ArrayList<ItemFilme> itemsfilme = new ArrayList<>();
+    public static ArrayList<ItemSessionTipIng> itemssession = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,29 +60,37 @@ public class tipoingressoActivity extends AppCompatActivity {
         recyclerViewTipIng = findViewById(R.id.recyclerViewTipIng);
         txtNomeCinema = findViewById(R.id.txtNomeCinema);
         btnComprar = findViewById(R.id.btnComprar);
+        txtMsgCritica4 = findViewById(R.id.txtMsgCritica4);
 
         buscarFilmeAPI();
         buscarCinema();
+        buscarSessaoID();
 
         txtNumSala.setText("Sala: " + MainActivity.salatiping);
         txtDetSessao.setText(MainActivity.datsessaotiping + " - " + MainActivity.horsessaotiping);
 
 
-       /* MyAdapterTipIng myAdapterTipIng = new MyAdapterTipIng(tipoingressoActivity.this, MainActivity.tipingg);
-        LinearLayoutManager manager = new LinearLayoutManager(tipoingressoActivity.this, recyclerViewTipIng.VERTICAL, false);
-        recyclerViewTipIng.setLayoutManager(manager);
-        recyclerViewTipIng.setAdapter(myAdapterTipIng);*/
+
 
 
         txtnumIng = findViewById(R.id.textView30);
 
         btnmenos.setAlpha(40);
 
+        btnComprar.setText("PROSSEGUIR");
+
         btnComprar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(tipoingressoActivity.this, formadepagamentoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-
+                //startActivity(new Intent(tipoingressoActivity.this, formadepagamentoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                Log.v("Preço ", String.valueOf(MyAdapterTipIng.valorFIng));
+                Log.v("TIp: ", String.valueOf(MyAdapterTipIng.numIngr));
+                if(MyAdapterTipIng.valorFIng == 0){
+                    StyleableToast.makeText(tipoingressoActivity.this, "Por favor, selecione pelo menos 1 ingresso!", Toast.LENGTH_LONG, R.style.alertToast).show();
+                }
+                else{
+                    startActivity(new Intent(tipoingressoActivity.this, formadepagamentoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                }
             }
         });
 
@@ -106,6 +124,17 @@ public class tipoingressoActivity extends AppCompatActivity {
                 }
             }
         });
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                MainActivity.sessionsfinalf.clear();
+                MainActivity.sessionsdata.clear();
+                MainActivity.sessionsfinal.clear();
+                startActivity(new Intent(tipoingressoActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     public void buscarFilmeAPI(){
@@ -153,6 +182,48 @@ public class tipoingressoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CinemaResponse> call, Throwable t) {
+                StyleableToast.makeText(tipoingressoActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
+
+    public void buscarSessaoID(){
+        Call<ArrayList<ItemSessionTipIng>> result = ApiClient.getUserService().getSessionID(MainActivity.idsessaotiping);
+        result.enqueue(new Callback<ArrayList<ItemSessionTipIng>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ItemSessionTipIng>> call, Response<ArrayList<ItemSessionTipIng>> response) {
+                if(response.isSuccessful()){
+                    itemssession = response.body();
+
+                    int b=0;
+                    if(itemssession.get(0).getIngressos().toString().equals("[]")){
+                        txtMsgCritica4.setVisibility(View.VISIBLE);
+                        txtMsgCritica4.setText("Parece que esta sessão não\n possui ingressos a venda");
+                        btnComprar.setVisibility(View.GONE);
+                    }
+                    else if(itemssession.get(0).getIngressos().get(0).toString().equals("Ingressos foram esgotados!")){
+                        txtMsgCritica4.setVisibility(View.VISIBLE);
+                        txtMsgCritica4.setText("Ingressos foram esgotados!");
+                        btnComprar.setVisibility(View.GONE);
+                    }
+                    else {
+
+
+                        for (b = 0; b < itemsfilme.size(); b++) {
+                            MyAdapterTipIng myAdapterTipIng = new MyAdapterTipIng(tipoingressoActivity.this, itemssession.get(b).getIngressos());
+                            LinearLayoutManager manager = new LinearLayoutManager(tipoingressoActivity.this, recyclerViewTipIng.VERTICAL, false);
+                            recyclerViewTipIng.setLayoutManager(manager);
+                            recyclerViewTipIng.setAdapter(myAdapterTipIng);
+                        }
+                    }
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ItemSessionTipIng>> call, Throwable t) {
                 StyleableToast.makeText(tipoingressoActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
             }
         });

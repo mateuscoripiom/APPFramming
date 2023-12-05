@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
     public static ArrayList<ItemFeedbackFRecente> itemsffinalrecente = new ArrayList<>();
     public static ArrayList<FilmesResponse> itemsfav = new ArrayList<>();
     public static ArrayList<ItemFavFinal> itemsfavfinal = new ArrayList<>();
-    CardView cardPontos, cardDiario, cardQueroVer;
+    CardView cardDiario, cardQueroVer, cardListas, cardCadIng;
     TextView txtNomeUsuario, txtUserName, txtmsgErro1, txtmsgErro2;
     ImageView imgIconUsuario;
     Button btntipouser;
@@ -62,7 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        cardPontos = findViewById(R.id.cardPontos);
         txtNomeUsuario = findViewById(R.id.txtNomeUsuario);
         txtUserName = findViewById(R.id.txtUserName);
         imgIconUsuario = findViewById(R.id.imgIconUsuario);
@@ -75,6 +74,8 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerViewFav = findViewById(R.id.recyclerViewFav);
         txtmsgErro1 = findViewById(R.id.txtMsgCritica2);
         txtmsgErro2 = findViewById(R.id.txtMsgCritica3);
+        cardListas = findViewById(R.id.cardListas);
+        cardCadIng = findViewById(R.id.cardCadIng);
 
 
         txtNomeUsuario.setText(HomeActivity.nomeusuario);
@@ -86,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.nav_editarusu) {
-                    startActivity(new Intent(ProfileActivity.this, PosterActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    startActivity(new Intent(ProfileActivity.this, EditarUsuActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
 
                     finish();
                 } else if (item.getItemId() == R.id.nav_editarfav) {
@@ -104,16 +105,10 @@ public class ProfileActivity extends AppCompatActivity {
         buscarFavoritos();
 
 
-        if(HomeActivity.iconusuario.equals("https://imageupload.io/ib/yzauelSzIISZpoC_1697494770.png")){
-            Picasso
+        Picasso
                     .get()
                     .load(HomeActivity.iconusuario)
                     .into(imgIconUsuario);
-        }
-        else{
-            imgIconUsuario.setImageURI(Uri.parse(HomeActivity.iconusuario));
-        }
-
 
 
         if(HomeActivity.tipoperfil.equals("nor")){
@@ -122,10 +117,18 @@ public class ProfileActivity extends AppCompatActivity {
             btntipouser.setTextColor(Color.WHITE);
         }
 
-        cardPontos.setOnClickListener(new View.OnClickListener(){
+
+        cardListas.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(ProfileActivity.this, RecompensasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                startActivity(new Intent(ProfileActivity.this, ListasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+            }
+        });
+
+        cardCadIng.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(ProfileActivity.this, CadIngressosActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
             }
         });
 

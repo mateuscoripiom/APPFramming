@@ -5,164 +5,143 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fundologin"
+    android:fitsSystemWindows="true"
     tools:context=".creditoActivity">
 
 
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="44dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+    <ImageButton
+        android:id="@+id/imgbtnvoltar15"
+        android:layout_width="59dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#00FFFFFF"
+        android:elevation="6dp"
+        android:outlineProvider="none"
+        android:scaleType="fitStart"
+        android:src="@drawable/icons8_voltar_100"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icons8_voltar_100" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="44dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menupag" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/cartao2"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
+        android:layout_marginTop="20dp"
+        android:elevation="4dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/cartoes"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="350dp"
+        android:id="@+id/etxtcpftit"
+        android:layout_width="match_parent"
         android:layout_height="63dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/buttonpag"
         android:ems="10"
         android:fontFamily="@font/poppins_light"
+        android:hint="@string/cpfti"
         android:inputType="textPersonName"
         android:padding="15dp"
-        android:text="@string/cpfti"
         android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
         android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.425" />
+        app:layout_constraintTop_toBottomOf="@+id/etxtnometit" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/etxtvalcard"
         android:layout_width="130dp"
         android:layout_height="63dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/buttonpag"
         android:ems="10"
         android:fontFamily="@font/poppins_light"
+        android:hint="@string/vali"
         android:inputType="textPersonName"
         android:padding="15dp"
-        android:text="@string/vali"
         android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
         android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.106"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.552" />
+        app:layout_constraintTop_toBottomOf="@+id/etxtcpftit" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/etxtcvv"
         android:layout_width="130dp"
         android:layout_height="63dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/buttonpag"
         android:ems="10"
         android:fontFamily="@font/poppins_light"
+        android:hint="@string/cvv"
         android:inputType="textPersonName"
         android:padding="15dp"
-        android:text="@string/cvv"
         android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
         android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.889"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.552" />
+        app:layout_constraintTop_toBottomOf="@+id/etxtcpftit" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
-        android:layout_width="350dp"
+        android:id="@+id/etxtnometit"
+        android:layout_width="match_parent"
         android:layout_height="63dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/buttonpag"
         android:ems="10"
         android:fontFamily="@font/poppins_light"
+        android:hint="@string/Nomeimpre"
         android:inputType="textPersonName"
         android:padding="15dp"
-        android:text="@string/Nomeimpre"
         android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
         android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.318" />
+        app:layout_constraintTop_toBottomOf="@+id/etxtnumcard" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="350dp"
+        android:id="@+id/etxtnumcard"
+        android:layout_width="match_parent"
         android:layout_height="63dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/buttonpag"
         android:drawableEnd="@drawable/cartaocredito"
         android:ems="10"
         android:fontFamily="@font/poppins_light"
+        android:hint="@string/numcarta"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:paddingEnd="15dp"
-        android:text="@string/numcarta"
         android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
         android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.209" />
+        app:layout_constraintTop_toBottomOf="@+id/textView40" />
 
-
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="361dp"
-        android:layout_height="32dp"
-        android:fontFamily="@font/poppins_light"
-        android:text="@string/salvarcart"
-        android:textColor="@color/white"
-        android:textSize="13dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.653" />
 
     <Button
-        android:id="@+id/button5"
-        android:layout_width="242dp"
+        android:id="@+id/btnFinalizar"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="80dp"
         android:backgroundTint="#FF6666"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/fim"
@@ -170,7 +149,6 @@
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

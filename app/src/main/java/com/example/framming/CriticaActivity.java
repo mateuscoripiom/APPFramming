@@ -2,6 +2,9 @@ package com.example.framming;
 
 import static com.example.framming.HomeActivity.items;
 import static com.example.framming.HomeActivity.swtPosition;
+import static com.example.framming.LoginActivity.KEY_EMAIL;
+import static com.example.framming.LoginActivity.KEY_ID;
+import static com.example.framming.LoginActivity.SHARED_PREFS;
 import static com.example.framming.PesquisaActivity.itemsbusca;
 import static com.example.framming.PosterActivity.posterArray;
 
@@ -10,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import io.github.muddz.styleabletoast.StyleableToast;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +46,10 @@ public class CriticaActivity extends AppCompatActivity {
     private Button btnDataCritica;
     private ImageButton imgbtnvoltar4;
     private ImageView imgPosterCriticaUser, imgFundoCriticaUser, imgPerfilCritica;
+    public static String idDiarioC;
+
+    Toolbar toolbarcritica;
+    public static boolean usoEdicao = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +67,27 @@ public class CriticaActivity extends AppCompatActivity {
         txtPerfilCritica = findViewById(R.id.txtPerfilCritica);
         imgPerfilCritica = findViewById(R.id.imgPerfilCritica);
 
+        toolbarcritica = findViewById(R.id.toolbar5);
+
+        toolbarcritica.inflateMenu(R.menu.critica_menu);
+        toolbarcritica.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.nav_editarcritca) {
+                    usoEdicao = true;
+                    startActivity(new Intent(CriticaActivity.this, LogActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+
+                    finish();
+                } else if (item.getItemId() == R.id.nav_deletarcritica) {
+                    DiaryActivity.itemsffinal.clear();
+                    DiaryActivity.itemsfeedback.clear();
+                    DiaryActivity.contagemdiario = 0;
+                    deletarCritica(idDiarioC);
+                }
+
+                return false;
+            }
+        });
 
 
         imgbtnvoltar4.setOnClickListener(new View.OnClickListener(){
@@ -170,6 +202,7 @@ public class CriticaActivity extends AppCompatActivity {
                     finish();
                 }
             });
+            toolbarcritica.setVisibility(View.VISIBLE);
         }
         else if(MainActivity.usoMainUsu == true){
             
@@ -201,9 +234,17 @@ public class CriticaActivity extends AppCompatActivity {
                     finish();
                 }
             });
+
         }
         else if(ProfileActivity.usoProfile == true){
+
             buscarCritica(ProfileActivity.profileuserID, ProfileActivity.profilecriticaID);
+            if(ProfileActivity.profileuserID.equals(HomeActivity.IDUser)){
+                toolbarcritica.setVisibility(View.VISIBLE);
+            }
+            else{
+                toolbarcritica.setVisibility(View.GONE);
+            }
         }
         else{
             LocalDate localDate2 = LocalDate.parse(LogActivity.dataAssistido);
@@ -322,6 +363,31 @@ public class CriticaActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ArrayList<FilmesResponse>> call, Throwable t) {
                 StyleableToast.makeText(CriticaActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
+
+    public void deletarCritica(String criticaID){
+        Call<ResponseBody> result = ApiClient.getUserService().deleteFeedback(HomeActivity.IDUser, criticaID);
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    StyleableToast.makeText(CriticaActivity.this, "Crítica deletada com sucesso!", Toast.LENGTH_LONG, R.style.exampleToast).show();
+                    startActivity(new Intent(CriticaActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+
+                }
+                else{
+                    //Toast.makeText(CadastroActivity.this, "Verifique todos os campos e tente novamente", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CriticaActivity.this, "Operação falhou", Toast.LENGTH_LONG, R.style.erroToast).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                StyleableToast.makeText(CriticaActivity.this, "Operação falhou", Toast.LENGTH_LONG, R.style.erroToast).show();
+
             }
         });
     }

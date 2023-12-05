@@ -1,6 +1,7 @@
 package com.example.framming;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,19 @@ public class ChildAdapter  extends RecyclerView.Adapter<ChildAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull ChildAdapter.ViewHolder holder, int position) {
         holder.btnHorariosSessoes.setText(childModelClassList.get(position).getHorarioSessao().toString());
+        holder.btnHorariosSessoes.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                MainActivity.idfilmetiping = childModelClassList.get(position).getIdFilme();
+                MainActivity.idsessaotiping = childModelClassList.get(position).getIdSessao();
+                MainActivity.tokencintiping = childModelClassList.get(position).getTokenCinema();
+                MainActivity.datsessaotiping = childModelClassList.get(position).getDataSessao();
+                MainActivity.horsessaotiping = childModelClassList.get(position).getHorarioSessao().toString();
+                MainActivity.salatiping = childModelClassList.get(position).getSalaSessao();
+
+                context.startActivity(new Intent(context, tipoingressoActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+            }
+        });
     }
 
     @Override

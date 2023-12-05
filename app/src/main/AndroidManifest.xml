@@ -16,6 +16,36 @@
         android:theme="@style/Theme.Framming"
         tools:targetApi="31">
         <activity
+            android:name=".ExibeIngressoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CadIngressosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".EditarUsuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ErroAPIActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FilmesListaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CriarListaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConfirmaNumCard"
+            android:exported="false" />
+        <activity
+            android:name=".CartoesSalvosActivity"
+            android:exported="false" />
+        <activity
             android:name=".Favorito2Activity"
             android:exported="false" />
         <activity

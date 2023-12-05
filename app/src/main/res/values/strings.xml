@@ -31,7 +31,7 @@
     <string name="criticauser">Crítica do usuário</string>
     <string name="nomeuser">name_user</string>
     <string name="sloganhome">Comece sua aventura pelo mundo cinematográfico!</string>
-    <string name="pesquisahome">Pesquise seu filme, usuário, listas ou atores</string>
+    <string name="pesquisahome">Pesquise seu filme</string>
 
     <string name="formpag">Forma de Pagamento</string>
     <string name="escolha">Escolha sua forma de pagamento:</string>
@@ -104,7 +104,7 @@
     <string name="tiping">Tipo do Ingresso</string>
     <string name="inteira">Inteira</string>
     <string name="precoing">R$ 50,16</string>
-    <string name="precotot">PROSSEGUIR | R$ 50,16</string>
+    <string name="precotot">PROSSEGUIR</string>
     <string name="filmesnac">Filmes nacionais em destaque</string>
     <string name="seudiario">Seu diário</string>
     <string name="darnota">Dar nota</string>
@@ -115,5 +115,23 @@
     <string name="msgfilmecritica">Parece que este filme ainda\n não possui críticas</string>
     <string name="msgfilmeperfil">Parece que você ainda\n não marcou seus favoritos</string>
     <string name="msgfilmeperfil2">Parece que você ainda\n não criou críticas</string>
+    <string name="cartoes">Cartões</string>
+    <string name="confcpf">Por favor, confirme seu CPF</string>
+    <string name="txtcpf">Confirmação CPF</string>
+    <string name="cartoessalvos">Cartões salvos</string>
+    <string name="selcartao">Selecione um cartão para\n proseguir a compra:</string>
+    <string name="cadastrecard">Cadastre um novo cartão</string>
+    <string name="numcardconf">Por favor, confirme o número do cartão</string>
+    <string name="txtnumcard">Confirmação número cartão</string>
+    <string name="slistas">Suas listas</string>
+    <string name="criarlist">Criar nova lista</string>
+    <string name="nomeLista">Digite um nome para sua lista</string>
+    <string name="erroconexao">Parece que tivemos um problema.\n Não entre em PÂNICO,\n tente novamente mais tarde!</string>
+    <string name="editarusua">Editar usuário</string>
+    <string name="confalt">Confirmar alterações</string>
+    <string name="excuser">Excluir usuário</string>
+    <string name="errolista">Parece que esta lista ainda não tem filmes,\n tente adicionar algum e volte depois!</string>
+    <string name="seusingressos">Seus ingressos</string>
+
 </resources>
 

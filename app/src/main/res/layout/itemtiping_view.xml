@@ -82,7 +82,7 @@
                             app:cardBackgroundColor="#00FFFFFF" />
 
                         <ImageView
-                            android:id="@+id/imageView17"
+                            android:id="@+id/imgMenos"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center_vertical"
@@ -98,7 +98,7 @@
                             app:cardBackgroundColor="#00FFFFFF" />
 
                         <TextView
-                            android:id="@+id/textView30"
+                            android:id="@+id/txtQtdTotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
@@ -114,7 +114,7 @@
                             app:cardBackgroundColor="#00FFFFFF" />
 
                         <ImageView
-                            android:id="@+id/imageView19"
+                            android:id="@+id/imgMais"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center_vertical"

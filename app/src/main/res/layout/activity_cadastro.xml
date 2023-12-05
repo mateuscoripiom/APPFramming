@@ -12,18 +12,23 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="130dp"
-            app:cardBackgroundColor="#00FFFFFF"
+            app:cardBackgroundColor="#D8D8D8"
             app:cardCornerRadius="60dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgEscolherImagem"
+                    android:id="@+id/imageView27"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fitsSystemWindows="true"
+                    android:foregroundGravity="center"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/fotodeperfil" />
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    app:srcCompat="@drawable/icons8_editar_100" />
         </androidx.cardview.widget.CardView>
 
         <Button

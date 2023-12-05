@@ -147,16 +147,21 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                     case "Perfil":
                         startActivity(new Intent(HomeActivity.this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
-                    case "Recompensas":
-                        startActivity(new Intent(HomeActivity.this, RecompensasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    case "Listas":
+                        startActivity(new Intent(HomeActivity.this, ListasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
                     case "Diário":
                         startActivity(new Intent(HomeActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        break;
+                    case "Caderno Ingressos":
+                        startActivity(new Intent(HomeActivity.this, CadIngressosActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
                     case "Quero Ver":
                         startActivity(new Intent(HomeActivity.this, QueroVerActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
                     case "Deslogar":
+                        items.clear();
+                        itemsfinal.clear();
                         deslogarBox();
                         break;
                 }
@@ -300,7 +305,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-
+                startActivity(new Intent(HomeActivity.this, ErroAPIActivity.class));
             }
         });
     }
@@ -452,7 +457,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
             @Override
             public void onFailure(Call<PosterResponse> call, Throwable t) {
-                StyleableToast.makeText(HomeActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+                startActivity(new Intent(HomeActivity.this, ErroAPIActivity.class));
             }
         });
     }
@@ -534,7 +539,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
             @Override
             public void onFailure(Call<ArrayList<ItemNac>> call, Throwable t) {
-                StyleableToast.makeText(HomeActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+                startActivity(new Intent(HomeActivity.this, ErroAPIActivity.class));
             }
         });
     }
@@ -561,9 +566,16 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
             @Override
             public void onFailure(Call<ArrayList<FilmesResponse>> call, Throwable t) {
-                StyleableToast.makeText(HomeActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+                startActivity(new Intent(HomeActivity.this, ErroAPIActivity.class));
             }
         });
 
+    }
+
+    @Override
+    protected void onStop() {
+        items.clear();
+        itemsfinal.clear();
+        super.onStop();
     }
 }
