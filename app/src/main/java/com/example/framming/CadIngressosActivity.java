@@ -1,5 +1,6 @@
 package com.example.framming;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +43,22 @@ public class CadIngressosActivity extends AppCompatActivity {
         txtErroCadIng = findViewById(R.id.txtErroCadIng);
 
         buscarIngressos();
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                tickets.clear();
+                ticketsexibido.clear();
+                ticketsfinais.clear();
+                ticketsFinaisCS.clear();
+                ticketsFinaisSES.clear();
+                itemssession.clear();
+                itemsfilme.clear();
+                startActivity(new Intent(CadIngressosActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     public void buscarIngressos(){
@@ -61,10 +78,6 @@ public class CadIngressosActivity extends AppCompatActivity {
                         int b = 0;
                         for (b = 0; b < tickets.size(); b++) {
                             buscarSessaoID(tickets.get(b).getIdSessao(), tickets.get(b).getQtdTickets());
-                        /*MyAdapterListas myAdapterListas = new MyAdapterListas(ListasActivity.this, itemslista);
-                        LinearLayoutManager manager = new LinearLayoutManager(ListasActivity.this, recyclerViewListas.VERTICAL, false);
-                        recyclerViewListas.setLayoutManager(manager);
-                        recyclerViewListas.setAdapter(myAdapterListas);*/
                         }
                     }
 

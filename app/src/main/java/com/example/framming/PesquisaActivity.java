@@ -121,6 +121,14 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
                         startActivity(new Intent(PesquisaActivity.this, ListasActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
                     case "Caderno Ingressos":
+                        CadIngressosActivity.ticketsexibido.clear();
+                        CadIngressosActivity.tickets.clear();
+                        CadIngressosActivity.ticketsfinais.clear();
+                        CadIngressosActivity.ticketsFinaisCS.clear();
+                        CadIngressosActivity.ticketsFinaisSES.clear();
+                        CadIngressosActivity.itemssession.clear();
+                        CadIngressosActivity.itemsfilme.clear();
+
                         startActivity(new Intent(PesquisaActivity.this, CadIngressosActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
                     case "Diário":

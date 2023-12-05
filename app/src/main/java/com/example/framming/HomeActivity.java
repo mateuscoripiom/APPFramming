@@ -7,6 +7,7 @@ import static com.example.framming.LoginActivity.SHARED_PREFS;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -49,7 +50,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
@@ -66,8 +69,15 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     public static List<Item> items = new ArrayList<>();
     public static List<ItemFinal> itemsfinal = new ArrayList<>();
     public static ArrayList<ItemNac> itemsnac = new ArrayList<ItemNac>();
+    public static ArrayList<FeedbackResponse> itemscritica = new ArrayList<FeedbackResponse>();
+    public static ArrayList<ItemFilme> itemsfilme = new ArrayList<>();
+    public static ArrayList<ItemCritica> criticasfilme = new ArrayList<>();
+    public static ArrayList<ItemCriticaFinal> criticasfilmefinal = new ArrayList<>();
 
     public static ArrayList<FilmesResponse> itemsfav = new ArrayList<>();
+    public static ArrayList<ItemSession> sessionsdata = new ArrayList<>();
+    public static ArrayList<ItemSessionRV> sessionsfinal = new ArrayList<>();
+    public static ArrayList<ItemSessionRVF> sessionsfinalf = new ArrayList<>();
 
     public static String ID = null;
     public static String IDPopUp;
@@ -95,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
     MenuInflater inflater;
     ImageView imgFundoFav;
+    RecyclerView recyclerViewCriticaH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +120,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         imgbtnpesquisa = findViewById(R.id.imgbtnpesquisa);
         txtnomeuser = findViewById(R.id.textView6);
         imgbtndrawer = findViewById(R.id.imgbtndrawer);
+        recyclerViewCriticaH = findViewById(R.id.recyclerViewCriticaH);
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
@@ -123,6 +135,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         layout = findViewById(R.id.constraint);
         buscaInfoUser();
         buscarNacionais();
+
 
         imgbtndrawer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +167,13 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                         startActivity(new Intent(HomeActivity.this, DiaryActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
                     case "Caderno Ingressos":
+                        CadIngressosActivity.ticketsexibido.clear();
+                        CadIngressosActivity.tickets.clear();
+                        CadIngressosActivity.ticketsfinais.clear();
+                        CadIngressosActivity.ticketsFinaisCS.clear();
+                        CadIngressosActivity.ticketsFinaisSES.clear();
+                        CadIngressosActivity.itemssession.clear();
+                        CadIngressosActivity.itemsfilme.clear();
                         startActivity(new Intent(HomeActivity.this, CadIngressosActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         break;
                     case "Quero Ver":
@@ -357,6 +377,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                     Log.v("Tag", "The title" + nomefilme.toString());
                     items.add(new Item(idfilme, posterfilme));
                     buscarPosterFav(idfilme, posterfilme, z);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -432,6 +453,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                     itemsfinal.add(new ItemFinal(filmeID, response.body().getLinkPoster(), ordemArray));
                     //Log.v("Tag", "The title" + itemsfavfinal.get(1).getPosterFilme().toString());
                 }
+                buscarCriticas(itemsfinal.get(0).getIdpop());
                 sortListByArrayPop(itemsfinal);
                 LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
                 recyclerViewPop.setLayoutManager(horizontalLayoutManager);
@@ -570,6 +592,63 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
+    }
+
+    public void buscarCriticas(String filmeID){
+        Call<ArrayList<ItemCritica>> result = ApiClient.getUserService().getAllFeedbackMovie(filmeID);
+        result.enqueue(new Callback<ArrayList<ItemCritica>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ItemCritica>> call, Response<ArrayList<ItemCritica>> response) {
+                if(response.isSuccessful()){
+                    criticasfilme = response.body();
+
+                    if(criticasfilme.toString().equals("[]")){
+
+                    }
+
+                    int b=0;
+
+                    for(b=0; b<criticasfilme.size(); b++){
+                        buscarUsuarios(criticasfilme.get(b).getIdCritica(), criticasfilme.get(b).getIdFilme(), criticasfilme.get(b).getIdUsuario(), criticasfilme.get(b).getTextoCritica(), criticasfilme.get(b).notaCritica, criticasfilme.get(b).getDataCritica(), criticasfilme.get(b).getQtdCurtidaCritica());
+                    }
+
+
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ItemCritica>> call, Throwable t) {
+                StyleableToast.makeText(HomeActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
+    }
+
+    public void buscarUsuarios(String idCriticaP, String idFilmeP, String idUsuarioP, String textoCriticaP, float notaCriticaP, String dataCriticaP, String qtdCurtidaCritica){
+        Call<UserResponse> result = ApiClient.getUserService().getAllDataUser(idUsuarioP);
+        result.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if(response.isSuccessful()){
+                    criticasfilmefinal.add(new ItemCriticaFinal(idCriticaP, idFilmeP, idUsuarioP, textoCriticaP, notaCriticaP, dataCriticaP, qtdCurtidaCritica, response.body().getNickUsuario(), response.body().getIconUsuario()));
+
+                    MyAdapterCriticas myAdapterCriticas = new MyAdapterCriticas(HomeActivity.this, criticasfilmefinal);
+                    LinearLayoutManager manager = new LinearLayoutManager(HomeActivity.this, recyclerViewCriticaH.VERTICAL, false);
+                    recyclerViewCriticaH.setLayoutManager(manager);
+                    recyclerViewCriticaH.setAdapter(myAdapterCriticas);
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                StyleableToast.makeText(HomeActivity.this, "Ops! Parece que estamos tendo dificuldades com o nosso servidor", Toast.LENGTH_LONG, R.style.erroToast).show();
+            }
+        });
     }
 
     @Override
