@@ -265,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 itemsfinal.clear();
                 swtPosition = false;
                 usoMainUsu = false;
+                addLista = false;
                 criticasfilme.clear();
                 QueroVerActivity.itemsquerover.clear();
                 QueroVerActivity.itemsqueroverfinal.clear();
@@ -286,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 usadoEscolha = false;
                 QueroVerActivity.contagemquerover = 0;
                 linkFilmeSalvo = null;
+                addLista = false;
                 listadoQV = false;
                 PesquisaActivity.IDpesquisa = null;
                 HomeActivity.usadobtn = 0;

@@ -194,10 +194,12 @@ public class PesquisaActivity extends AppCompatActivity implements LoaderManager
                     itemsfav = response.body();
 
                     imgFundoFavorito = findViewById(R.id.imageView14);
-                    Picasso
-                            .get()
-                            .load("https://www.themoviedb.org/t/p/original" + itemsfav.get(0).getBackdrop_path())
-                            .into(imgFundoFavorito);
+                    if(response.body().toString() != "[]") {
+                        Picasso
+                                .get()
+                                .load("https://www.themoviedb.org/t/p/original" + itemsfav.get(0).getBackdrop_path())
+                                .into(imgFundoFavorito);
+                    }
                 } else {
 
                 }
